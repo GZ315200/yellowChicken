@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.igeek.dao.QualityQuestionMapper" >
+  <resultMap id="BaseResultMap" type="org.igeek.pojo.QualityQuestion" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="question_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="question_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="coefficient" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="quality" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="modified" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, question_id, question_name, coefficient, quality, status, remark, created, modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mj_quality_question
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mj_quality_question
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.igeek.pojo.QualityQuestion" >
+    insert into mj_quality_question (id, question_id, question_name, 
+      coefficient, quality, status, 
+      remark, created, modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, #{questionName,jdbcType=VARCHAR}, 
+      #{coefficient,jdbcType=REAL}, #{quality,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.igeek.pojo.QualityQuestion" >
+    insert into mj_quality_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="questionName != null" >
+        question_name,
+      </if>
+      <if test="coefficient != null" >
+        coefficient,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="modified != null" >
+        modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="questionName != null" >
+        #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="coefficient != null" >
+        #{coefficient,jdbcType=REAL},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        now(),
+      </if>
+      <if test="modified != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.QualityQuestion" >
+    update mj_quality_question
+    <set >
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="questionName != null" >
+        question_name = #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="coefficient != null" >
+        coefficient = #{coefficient,jdbcType=REAL},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null" >
+        now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.QualityQuestion" >
+    update mj_quality_question
+    set question_id = #{questionId,jdbcType=INTEGER},
+      question_name = #{questionName,jdbcType=VARCHAR},
+      coefficient = #{coefficient,jdbcType=REAL},
+      quality = #{quality,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      now()
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
