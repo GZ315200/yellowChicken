@@ -106,13 +106,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <select id="selectBykilnName" parameterType="java.lang.String" resultType="java.lang.Integer">
+  <select id="selectByKilnName" parameterType="java.lang.String" resultType="java.lang.Integer">
     SELECT count(1) from mj_yaolu_category where title = #{kilnName}
   </select>
 
   <select id="selectAllList" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from mj_yaolu_category
+    from mj_yaolu_category where status == '1'
   </select>
   <update id="updateStatusById" parameterType="java.util.Map">
     update mj_yaolu_category

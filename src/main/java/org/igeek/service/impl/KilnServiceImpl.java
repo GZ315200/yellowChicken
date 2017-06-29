@@ -33,23 +33,24 @@ public class KilnServiceImpl implements IKilnService {
      * @return
      */
     public ServerResponse<String> updateOrSaveKilnValue(Kiln kiln) {
+        int rowCount = 0;
         if (Objects.equal(kiln, null)) {
             return ServerResponse.createByErrorMsg("请输入完整窑炉信息");
         }
         if (kiln.getId() != null) {
-            int rowCount = kilnMapper.updateByPrimaryKeySelective(kiln);
+            rowCount = kilnMapper.updateByPrimaryKeySelective(kiln);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("窑炉信息更新成功");
             }
             return ServerResponse.createByErrorMsg("窑炉信息更新失败");
         } else {
 //            插入时先判断该窑炉信息是否存在
-            int resultCount = kilnMapper.selectBykilnName(kiln.getTitle());
+            int resultCount = kilnMapper.selectByKilnName(kiln.getTitle());
             if (resultCount > 0) {
                 return ServerResponse.createByErrorMsg("该窑炉名称已经存在");
             }
-            int returnCount = kilnMapper.insert(kiln);
-            if (returnCount > 0) {
+            rowCount = kilnMapper.insert(kiln);
+            if (rowCount > 0) {
                 return ServerResponse.createBySuccess("窑炉信息插入成功");
             }
             return ServerResponse.createByErrorMsg("窑炉信息插入失败");
@@ -105,9 +106,9 @@ public class KilnServiceImpl implements IKilnService {
         }
         int rowCount = kilnMapper.updateStatusById(status,kilnId);
         if (rowCount > 0){
-            return ServerResponse.createBySuccess("更新状态值成功");
+            return ServerResponse.createBySuccess("删除窑炉信息成功");
         }
-        return ServerResponse.createByErrorMsg("更新状态值失败");
+        return ServerResponse.createByErrorMsg("删除窑炉信息失败");
     }
 
 

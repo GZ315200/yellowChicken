@@ -18,7 +18,7 @@ public interface KilnMapper {
 
     int updateByPrimaryKey(Kiln record);
 
-    int selectBykilnName(@Param("kilnName") String kilnName);
+    int selectByKilnName(@Param("kilnName") String kilnName);
 
     List<Kiln> selectAllList();
 

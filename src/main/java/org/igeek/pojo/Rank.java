@@ -7,7 +7,7 @@ public class Rank {
 
     private String title;
 
-    private String desc;
+    private String remark;
 
     private String status;
 
@@ -15,10 +15,10 @@ public class Rank {
 
     private Date modified;
 
-    public Rank(Integer id, String title, String desc, String status, Date created, Date modified) {
+    public Rank(Integer id, String title, String remark, String status, Date created, Date modified) {
         this.id = id;
         this.title = title;
-        this.desc = desc;
+        this.remark = remark;
         this.status = status;
         this.created = created;
         this.modified = modified;
@@ -44,12 +44,12 @@ public class Rank {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getremark() {
+        return remark;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setremark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public String getStatus() {

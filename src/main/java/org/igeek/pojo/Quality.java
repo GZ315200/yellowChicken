@@ -10,26 +10,26 @@ public class Quality {
 
     private String title;
 
-    private String desc;
+    private String remark;
 
-    private String status;
+    private Integer status;
 
     private BigDecimal money;
 
-    private Integer type;
+    private Integer questionType;
 
     private Date created;
 
     private Date modified;
 
-    public Quality(Integer id, Integer userId, String title, String desc, String status, BigDecimal money, Integer type, Date created, Date modified) {
+    public Quality(Integer id, Integer userId, String title, String remark, Integer status, BigDecimal money, Integer questionType, Date created, Date modified) {
         this.id = id;
         this.userId = userId;
         this.title = title;
-        this.desc = desc;
+        this.remark = remark;
         this.status = status;
         this.money = money;
-        this.type = type;
+        this.questionType = questionType;
         this.created = created;
         this.modified = modified;
     }
@@ -62,20 +62,20 @@ public class Quality {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public BigDecimal getMoney() {
@@ -86,12 +86,12 @@ public class Quality {
         this.money = money;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getQuestionType() {
+        return questionType;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setQuestionType(Integer questionType) {
+        this.questionType = questionType;
     }
 
     public Date getCreated() {
