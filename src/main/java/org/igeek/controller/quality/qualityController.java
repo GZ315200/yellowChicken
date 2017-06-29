@@ -3,6 +3,7 @@ package org.igeek.controller.quality;
 import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Quality;
+import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,4 +57,17 @@ public class qualityController {
     public ServerResponse<String> updateQualityStatus(Integer qualityId,Integer status){
         return iQualityService.updateQualityStatus(qualityId, status);
     }
+
+    /**
+     * 获取工种类别列表
+     * @return
+     */
+    @RequestMapping(value = "get_user_list")
+    @ResponseBody
+    public ServerResponse<UserCategory> getUserList(){
+        return iQualityService.getUserList();
+    }
+
+
+
 }

@@ -92,4 +92,10 @@
       now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getUserList" resultMap="BaseResultMap">
+    select title
+    from mj_usercategory group by title where status = '1'
+  </select>
+
 </mapper>

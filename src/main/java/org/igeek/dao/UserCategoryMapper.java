@@ -14,4 +14,6 @@ public interface UserCategoryMapper {
     int updateByPrimaryKeySelective(UserCategory record);
 
     int updateByPrimaryKey(UserCategory record);
+
+    UserCategory getUserList();
 }

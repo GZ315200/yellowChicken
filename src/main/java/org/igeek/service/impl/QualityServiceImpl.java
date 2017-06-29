@@ -7,8 +7,9 @@ import com.google.common.collect.Lists;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityMapper;
-import org.igeek.dao.UserMapper;
+import org.igeek.dao.UserCategoryMapper;
 import org.igeek.pojo.Quality;
+import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.igeek.vo.QualityVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class QualityServiceImpl implements IQualityService {
     @Autowired
     private QualityMapper qualityMapper;
     @Autowired
-    private UserMapper userMapper;
+    private UserCategoryMapper userCategoryMapper;
 
 
     @Override
@@ -79,7 +80,6 @@ public class QualityServiceImpl implements IQualityService {
 
     /**
      * 组装信息
-     *
      * @param quality
      * @return
      */
@@ -108,6 +108,14 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
+
+    public ServerResponse<UserCategory> getUserList(){
+        UserCategory userCategories = userCategoryMapper.getUserList();
+        if (!Objects.equal(null,userCategories)){
+            return ServerResponse.createBySuccess("获取工种类别列表成功",userCategories);
+        }
+        return ServerResponse.createByErrorMsg("获取工种类别列表失败");
+    }
 
 
 }

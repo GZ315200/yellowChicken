@@ -112,7 +112,7 @@
 
   <select id="selectAllList" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from mj_yaolu_category where status == '1'
+    from mj_yaolu_category where status = '1'
   </select>
   <update id="updateStatusById" parameterType="java.util.Map">
     update mj_yaolu_category
