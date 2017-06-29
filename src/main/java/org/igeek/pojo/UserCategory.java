@@ -1,16 +1,23 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class UserCategory {
     private Integer id;
 
     private String title;
 
+    @JsonIgnore
     private Integer status;
 
+    @JsonIgnore
     private Date created;
 
+    @JsonIgnore
     private Date modified;
 
     public UserCategory(Integer id, String title, Integer status, Date created, Date modified) {

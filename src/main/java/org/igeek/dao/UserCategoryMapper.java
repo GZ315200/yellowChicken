@@ -2,6 +2,8 @@ package org.igeek.dao;
 
 import org.igeek.pojo.UserCategory;
 
+import java.util.List;
+
 public interface UserCategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -15,5 +17,5 @@ public interface UserCategoryMapper {
 
     int updateByPrimaryKey(UserCategory record);
 
-    UserCategory getUserList();
+    List<UserCategory> getUserList(Integer status);
 }

@@ -5,6 +5,8 @@ import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Quality;
 import org.igeek.pojo.UserCategory;
 
+import java.util.List;
+
 /**
  * Created by Gyges on 2017/6/28.
  */
@@ -16,6 +18,6 @@ public interface IQualityService {
 
     public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status);
 
-    public ServerResponse<UserCategory> getUserList();
+    public ServerResponse<List<UserCategory>> getUserList();
 
 }

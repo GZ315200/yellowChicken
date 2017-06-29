@@ -109,8 +109,9 @@ public class QualityServiceImpl implements IQualityService {
 
 
 
-    public ServerResponse<UserCategory> getUserList(){
-        UserCategory userCategories = userCategoryMapper.getUserList();
+    public ServerResponse<List<UserCategory>> getUserList(){
+        Integer status = 1;
+        List<UserCategory> userCategories = userCategoryMapper.getUserList(status);
         if (!Objects.equal(null,userCategories)){
             return ServerResponse.createBySuccess("获取工种类别列表成功",userCategories);
         }

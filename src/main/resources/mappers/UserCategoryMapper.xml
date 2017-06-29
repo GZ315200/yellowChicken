@@ -93,9 +93,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getUserList" resultMap="BaseResultMap">
-    select title
-    from mj_usercategory group by title where status = '1'
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List"/>
+    from mj_usercategory where status = #{status} group by title
   </select>
+
 
 </mapper>

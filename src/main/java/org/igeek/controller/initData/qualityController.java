@@ -1,4 +1,4 @@
-package org.igeek.controller.quality;
+package org.igeek.controller.initData;
 
 import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -64,7 +66,7 @@ public class qualityController {
      */
     @RequestMapping(value = "get_user_list")
     @ResponseBody
-    public ServerResponse<UserCategory> getUserList(){
+    public ServerResponse<List<UserCategory>> getUserList(){
         return iQualityService.getUserList();
     }
 
