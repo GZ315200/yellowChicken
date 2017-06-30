@@ -24,5 +24,5 @@ public interface KilnMapper {
 
     int updateStatusById(@Param(value = "status") String status,@Param(value = "kilnId") Integer id);
 
-    List<String> getKilnList(Integer status);
+    List<Kiln> getKilnList(Integer status);
 }

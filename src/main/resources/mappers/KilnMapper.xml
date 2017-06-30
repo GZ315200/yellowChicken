@@ -91,7 +91,7 @@
         created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="modified != null" >
-        modified = now()
+        modified = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -119,7 +119,8 @@
     set status = #{status}
     where id = #{kilnId}
   </update>
-  <select id="getKilnList" resultType="java.lang.String" parameterType="java.lang.Integer">
-    select title from mj_yaolu_category where status =  #{status} group by title
+  <select id="getKilnList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List"/>
+    from mj_yaolu_category where status =  #{status} group by title
   </select>
 </mapper>

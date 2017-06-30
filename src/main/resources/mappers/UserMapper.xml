@@ -177,8 +177,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getUserList" resultType="java.lang.String" parameterType="java.lang.String">
-    select name from mj_user where name like #{name} group by name
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List"/>
+    from mj_user where name like #{name} group by name
   </select>
 
 

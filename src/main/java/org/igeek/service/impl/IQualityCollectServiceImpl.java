@@ -5,6 +5,7 @@ import org.igeek.dao.ProductMapper;
 import org.igeek.dao.QualityCollectionMapper;
 import org.igeek.dao.UserMapper;
 import org.igeek.pojo.QualityQuestion;
+import org.igeek.pojo.User;
 import org.igeek.service.IQualityCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<List<String>> searchUserList(String name) {
+    public ServerResponse<List<User>> searchUserList(String name) {
         if (name != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("%").append(name).append("%");
             name = sb.toString();
         }
-        List<String> userList = userMapper.getUserList(name);
+        List<User> userList = userMapper.getUserList(name);
         if (userList.size() > 0){
             return ServerResponse.createBySuccess(userList);
         }
@@ -53,6 +54,10 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
         return null;
     }
+
+
+
+
 
 
 

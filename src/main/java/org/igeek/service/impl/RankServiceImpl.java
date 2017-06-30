@@ -43,7 +43,7 @@ public class RankServiceImpl implements IRankService {
             }
             return ServerResponse.createByErrorMsg("插入等级信息失败");
         } else {
-            rowCount = rankMapper.updateByPrimaryKeySelective(rank);
+            rowCount = rankMapper.updateByPrimaryKey(rank);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("更新等级信息成功");
             }
@@ -88,6 +88,13 @@ public class RankServiceImpl implements IRankService {
             return ServerResponse.createBySuccess("删除等级信息成功");
         }
         return ServerResponse.createByErrorMsg("删除等级信息失败");
+    }
+
+
+    @Override
+    public ServerResponse<List<Rank>> searchRankList(Integer status) {
+
+        return null;
     }
 
 

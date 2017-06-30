@@ -1,7 +1,9 @@
 package org.igeek.controller.collect;
 
 import org.igeek.common.ServerResponse;
+import org.igeek.pojo.Kiln;
 import org.igeek.pojo.QualityQuestion;
+import org.igeek.pojo.User;
 import org.igeek.service.IKilnService;
 import org.igeek.service.IQualityCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +37,13 @@ public class QualityCollectController {
 
 
     /**
-     * 获得用户姓名列表
+     * 获得用户id、姓名列表
      * @param username
      * @return
      */
     @RequestMapping("get_user_list")
     @ResponseBody
-    public ServerResponse<List<String>> getUserList(String username){
+    public ServerResponse<List<User>> getUserList(String username){
         return iQualityCollectService.searchUserList(username);
     }
 
@@ -53,7 +55,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_kilnName_list")
     @ResponseBody
-    public ServerResponse<List<String>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
+    public ServerResponse<List<Kiln>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iKilnService.searchKilnNameList(status);
     }
 

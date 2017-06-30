@@ -19,6 +19,6 @@ public interface UserMapper {
 
     int selectIdByUserName(String username);
 
-    List<String> getUserList(String username);
+    List<User> getUserList(String username);
 
 }

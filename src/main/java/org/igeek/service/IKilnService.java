@@ -17,6 +17,6 @@ public interface IKilnService {
 
     public ServerResponse<String> updateStatus(Integer kilnId, String status);
 
-    public ServerResponse<List<String>> searchKilnNameList(Integer status);
+    public ServerResponse<List<Kiln>> searchKilnNameList(Integer status);
 
 }

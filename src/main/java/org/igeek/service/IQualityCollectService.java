@@ -2,6 +2,7 @@ package org.igeek.service;
 
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.QualityQuestion;
+import org.igeek.pojo.User;
 
 import java.util.List;
 
@@ -11,5 +12,6 @@ import java.util.List;
 public interface IQualityCollectService {
 
     public ServerResponse<String> addOrUpdateInfo(QualityQuestion qualityQuestion);
-    public ServerResponse<List<String>> searchUserList(String name);
+
+    public ServerResponse<List<User>> searchUserList(String name);
 }

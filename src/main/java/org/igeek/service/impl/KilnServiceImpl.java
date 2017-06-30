@@ -38,7 +38,7 @@ public class KilnServiceImpl implements IKilnService {
             return ServerResponse.createByErrorMsg("请输入完整窑炉信息");
         }
         if (kiln.getId() != null) {
-            rowCount = kilnMapper.updateByPrimaryKeySelective(kiln);
+            rowCount = kilnMapper.updateByPrimaryKey(kiln);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("窑炉信息更新成功");
             }
@@ -117,9 +117,9 @@ public class KilnServiceImpl implements IKilnService {
      * @param status
      * @return
      */
-    public ServerResponse<List<String>> searchKilnNameList(Integer status){
+    public ServerResponse<List<Kiln>> searchKilnNameList(Integer status){
         if (status != null){
-            List<String> kilnList = kilnMapper.getKilnList(status);
+            List<Kiln> kilnList = kilnMapper.getKilnList(status);
             if (kilnList.size() > 0){
                 return ServerResponse.createBySuccess("查询窑炉名称列表成功",kilnList);
             }
