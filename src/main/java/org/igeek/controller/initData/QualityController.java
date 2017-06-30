@@ -60,6 +60,7 @@ public class QualityController {
         return iQualityService.updateQualityStatus(qualityId, status);
     }
 
+
     /**
      * 获取工种类别列表
      * @return
@@ -69,8 +70,6 @@ public class QualityController {
     public ServerResponse<List<String>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iQualityService.getUserList(status);
     }
-
-
 
 
 

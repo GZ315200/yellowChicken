@@ -1,14 +1,18 @@
 package org.igeek.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
 
+
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class User {
     private Integer id;
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String name;
@@ -19,8 +23,10 @@ public class User {
 
     private String codestr;
 
+    @JsonIgnore
     private String otherinfo;
 
+    @JsonIgnore
     private String beizhu;
 
     private Integer status;

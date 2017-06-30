@@ -99,7 +99,7 @@
   </select>
 
   <select id="selectUserIdByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select id from mj_usercategory where title=#{title}
+    select id from mj_usercategory where title=#{title} and status = '1'
   </select>
 
 
