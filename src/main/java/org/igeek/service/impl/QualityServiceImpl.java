@@ -9,7 +9,6 @@ import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.UserCategoryMapper;
 import org.igeek.pojo.Quality;
-import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.igeek.vo.QualityVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ public class QualityServiceImpl implements IQualityService {
     @Override
     public ServerResponse<String> updateOrAddQuality(Quality quality) {
         int rowCount = 0;
+        Integer userId = userCategoryMapper.selectUserIdByUsername(quality.getTitle());
         if (Objects.equal(null, quality)) {
             return ServerResponse.createByErrorMsg("请输入完整的质量问题信息");
         }
@@ -42,8 +42,17 @@ public class QualityServiceImpl implements IQualityService {
             }
 //            遇到扣系数问题时，不输入钱数
             if (quality.getQuestionType() == 2) {
+                quality.setUserId(userId);
                 quality.setQuestionType(2);
                 quality.setMoney(null);
+                rowCount = qualityMapper.insert(quality);
+                if (rowCount > 0) {
+                    return ServerResponse.createBySuccess("质量问题信息插入成功");
+                }
+                return ServerResponse.createByErrorMsg("质量问题信息插入失败");
+            }else{
+                quality.setUserId(userId);
+                quality.setQuestionType(1);
                 rowCount = qualityMapper.insert(quality);
                 if (rowCount > 0) {
                     return ServerResponse.createBySuccess("质量问题信息插入成功");
@@ -54,7 +63,16 @@ public class QualityServiceImpl implements IQualityService {
 //            扣系数问题时不更新钱数
             if (quality.getQuestionType() == 2) {
                 quality.setQuestionType(2);
+                quality.setUserId(userId);
                 quality.setMoney(null);
+                rowCount = qualityMapper.updateByPrimaryKeySelective(quality);
+                if (rowCount > 0) {
+                    return ServerResponse.createBySuccess("质量问题信息更新成功");
+                }
+                return ServerResponse.createByErrorMsg("质量问题信息更新失败");
+            }else {
+                quality.setQuestionType(1);
+                quality.setUserId(userId);
                 rowCount = qualityMapper.updateByPrimaryKeySelective(quality);
                 if (rowCount > 0) {
                     return ServerResponse.createBySuccess("质量问题信息更新成功");
@@ -62,8 +80,9 @@ public class QualityServiceImpl implements IQualityService {
                 return ServerResponse.createByErrorMsg("质量问题信息更新失败");
             }
         }
-        return ServerResponse.createByErrorMsg("质量问题信息增加或更新失败");
     }
+
+
 
 
     public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize) {
@@ -109,11 +128,10 @@ public class QualityServiceImpl implements IQualityService {
 
 
 
-    public ServerResponse<List<UserCategory>> getUserList(){
-        Integer status = 1;
-        List<UserCategory> userCategories = userCategoryMapper.getUserList(status);
-        if (!Objects.equal(null,userCategories)){
-            return ServerResponse.createBySuccess("获取工种类别列表成功",userCategories);
+    public ServerResponse<List<String>> getUserList(Integer status){
+        List<String> userList = userCategoryMapper.getUserList(status);
+        if (!Objects.equal(null,userList)){
+            return ServerResponse.createBySuccess("获取工种类别列表成功",userList);
         }
         return ServerResponse.createByErrorMsg("获取工种类别列表失败");
     }

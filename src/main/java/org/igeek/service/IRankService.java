@@ -12,7 +12,7 @@ public interface IRankService {
 
     public ServerResponse<String> updateOrSaveKilnValue(Rank rank);
 
-    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize);
+    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status);
 
     public ServerResponse<String> updateRankStatus(Integer rankId, String status);
 

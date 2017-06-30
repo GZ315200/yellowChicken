@@ -20,7 +20,7 @@ public interface RankMapper {
 
     int selectByRankTitle(@Param("rankName") String rankName);
 
-    List<Rank> selectAllRankList();
+    List<Rank> selectAllRankList(String status);
 
     int updateStatusById(@Param("rankId") Integer rankId,@Param("status") String status);
 }

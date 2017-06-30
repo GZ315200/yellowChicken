@@ -3,7 +3,6 @@ package org.igeek.service;
 import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Quality;
-import org.igeek.pojo.UserCategory;
 
 import java.util.List;
 
@@ -18,6 +17,8 @@ public interface IQualityService {
 
     public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status);
 
-    public ServerResponse<List<UserCategory>> getUserList();
+    public ServerResponse<List<String>> getUserList(Integer status);
+
+
 
 }

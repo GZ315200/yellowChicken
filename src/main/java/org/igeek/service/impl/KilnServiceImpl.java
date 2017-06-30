@@ -65,9 +65,9 @@ public class KilnServiceImpl implements IKilnService {
      * @param pageSize
      * @return
      */
-    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize) {
+    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize,String status) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Kiln> kilnList = kilnMapper.selectAllList();
+        List<Kiln> kilnList = kilnMapper.selectAllList(status);
         List<KilnVo> kilnVoList = Lists.newArrayList();
         for (Kiln kilnItem : kilnList) {
             KilnVo kilnVo = assembleKilnList(kilnItem);
@@ -109,6 +109,23 @@ public class KilnServiceImpl implements IKilnService {
             return ServerResponse.createBySuccess("删除窑炉信息成功");
         }
         return ServerResponse.createByErrorMsg("删除窑炉信息失败");
+    }
+
+
+    /**
+     * 获得窑炉名称列表
+     * @param status
+     * @return
+     */
+    public ServerResponse<List<String>> searchKilnNameList(Integer status){
+        if (status != null){
+            List<String> kilnList = kilnMapper.getKilnList(status);
+            if (kilnList.size() > 0){
+                return ServerResponse.createBySuccess("查询窑炉名称列表成功",kilnList);
+            }
+            return ServerResponse.createByErrorMsg("查询窑炉名称列表失败");
+        }
+        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
     }
 
 

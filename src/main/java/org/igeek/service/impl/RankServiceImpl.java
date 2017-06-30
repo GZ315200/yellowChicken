@@ -52,9 +52,9 @@ public class RankServiceImpl implements IRankService {
     }
 
     @Override
-    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize) {
+    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Rank> rankList = rankMapper.selectAllRankList();
+        List<Rank> rankList = rankMapper.selectAllRankList(status);
         List<RankVo> rankVoList = Lists.newArrayList();
         for (Rank rankItem : rankList) {
             rankVoList.add(assembleRankVo(rankItem));

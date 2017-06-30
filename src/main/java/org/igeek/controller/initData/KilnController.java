@@ -45,8 +45,9 @@ public class KilnController {
     @RequestMapping(value = "get_list", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse<PageInfo> listAllKiln(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return ikilnService.listAllKiln(pageNum, pageSize);
+                                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                @RequestParam(value = "status",defaultValue = "1") String status) {
+        return ikilnService.listAllKiln(pageNum, pageSize,status);
     }
 
 

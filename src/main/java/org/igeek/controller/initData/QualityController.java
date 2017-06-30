@@ -3,7 +3,6 @@ package org.igeek.controller.initData;
 import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Quality;
-import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/quality/")
-public class qualityController {
+public class QualityController {
 
 
     @Autowired
@@ -66,10 +65,10 @@ public class qualityController {
      */
     @RequestMapping(value = "get_user_list")
     @ResponseBody
-    public ServerResponse<List<UserCategory>> getUserList(){
-        return iQualityService.getUserList();
+    public ServerResponse<List<String>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
+        return iQualityService.getUserList(status);
     }
 
-
+    
 
 }

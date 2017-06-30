@@ -42,8 +42,9 @@ public class RankController {
     @RequestMapping(value = "get_rank_list")
     @ResponseBody
     public ServerResponse<PageInfo> getRankList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return iRankService.getRankList(pageNum, pageSize);
+                                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                @RequestParam(value = "status",defaultValue = "1",required = false) String status) {
+        return iRankService.getRankList(pageNum, pageSize,status);
     }
 
     /**

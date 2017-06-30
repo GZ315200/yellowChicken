@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.String" />
       <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="modified" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
@@ -29,7 +29,7 @@
       status, created, modified
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
-      #{status,jdbcType=VARCHAR}, now(), now()
+      #{status,jdbcType=INTEGER}, now(), now()
       )
   </insert>
   <insert id="insertSelective" parameterType="org.igeek.pojo.Kiln" >
@@ -65,7 +65,7 @@
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         now(),
@@ -85,7 +85,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
@@ -112,11 +112,14 @@
 
   <select id="selectAllList" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from mj_yaolu_category where status = '1'
+    from mj_yaolu_category where status = #{status}
   </select>
   <update id="updateStatusById" parameterType="java.util.Map">
     update mj_yaolu_category
     set status = #{status}
     where id = #{kilnId}
   </update>
+  <select id="getKilnList" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select title from mj_yaolu_category where status =  #{status} group by title
+  </select>
 </mapper>
