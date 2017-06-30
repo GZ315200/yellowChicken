@@ -1,10 +1,13 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 /**
  * 产品类别
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProCategory {
     private Integer id;
 

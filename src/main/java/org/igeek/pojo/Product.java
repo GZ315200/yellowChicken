@@ -1,11 +1,15 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
 
 /**
  * 产品信息
  */
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
     private Integer id;
 

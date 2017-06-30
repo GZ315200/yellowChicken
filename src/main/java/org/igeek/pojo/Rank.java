@@ -1,7 +1,10 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Rank {
     private Integer id;
 
@@ -10,6 +13,7 @@ public class Rank {
     private String remark;
 
     private String status;
+
 
     private Date created;
 

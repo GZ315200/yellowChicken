@@ -1,13 +1,13 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
 /**
  * 窑炉信息
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Kiln {
 
     private Integer id;
@@ -17,7 +17,8 @@ public class Kiln {
     private String remark;
 
     private String status;
-    
+
+
     private Date created;
 
     private Date modified;

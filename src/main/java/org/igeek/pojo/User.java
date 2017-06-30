@@ -1,12 +1,12 @@
 package org.igeek.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private Integer id;
 
@@ -23,18 +23,14 @@ public class User {
 
     private String codestr;
 
-    @JsonIgnore
     private String otherinfo;
 
-    @JsonIgnore
     private String beizhu;
 
     private Integer status;
 
-    @JsonIgnore
     private Date created;
 
-    @JsonIgnore
     private Date modified;
 
     public User(Integer id, String username, String password, String name, Integer category, String numstr, String codestr, String otherinfo, String beizhu, Integer status, Date created, Date modified) {

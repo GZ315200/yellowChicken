@@ -1,8 +1,12 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Quality {
     private Integer id;
 
