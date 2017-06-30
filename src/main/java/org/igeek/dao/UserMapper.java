@@ -17,8 +17,8 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int selectIdByUserName(String username);
-
     List<User> getUserList(String username);
+
+    List<User> getUserCategoryList(Integer category);
 
 }

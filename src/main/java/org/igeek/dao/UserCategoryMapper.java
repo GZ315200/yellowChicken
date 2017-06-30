@@ -17,7 +17,7 @@ public interface UserCategoryMapper {
 
     int updateByPrimaryKey(UserCategory record);
 
-    List<String> getUserList(Integer status);
+    List<UserCategory> getUserList(Integer status);
 
     Integer selectUserIdByUsername(String username);
 }

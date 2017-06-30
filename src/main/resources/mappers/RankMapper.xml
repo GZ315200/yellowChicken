@@ -121,8 +121,10 @@
         where id = #{rankId}
     </update>
 
-    <select id="getRankTitle" resultType="string" parameterType="int">
-        select title from mj_rank_category where status = #{status} group by title
+    <select id="getRankTitle" resultMap="BaseResultMap" parameterType="int">
+        select <include refid="Base_Column_List"/>
+        from mj_rank_category
+        where status = #{status}
     </select>
 
 </mapper>

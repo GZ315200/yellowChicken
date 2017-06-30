@@ -93,9 +93,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getUserList" resultType="java.lang.String" parameterType="java.lang.Integer">
-    select title
-    from mj_usercategory where status = #{status} group by title
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="int">
+    select <include refid="Base_Column_List"/>
+    from mj_usercategory where status = #{status}
   </select>
 
   <select id="selectUserIdByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">

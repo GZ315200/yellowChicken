@@ -4,17 +4,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.UserCategoryMapper;
 import org.igeek.pojo.Quality;
+import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.igeek.vo.QualityVo;
+import org.igeek.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -122,10 +126,18 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
-    public ServerResponse<List<String>> getUserList(Integer status) {
-        List<String> userList = userCategoryMapper.getUserList(status);
+
+    public ServerResponse<Set<UserVo>> getUserList(Integer status) {
+        UserVo userVo = null;
+        Set<UserVo> userVoSet = Sets.newHashSet();
+        List<UserCategory> userList = userCategoryMapper.getUserList(status);
         if (!Objects.equal(null, userList)) {
-            return ServerResponse.createBySuccess("获取工种类别列表成功", userList);
+            for(UserCategory userCategory : userList){
+                userVo = new UserVo();
+                userVo.setUserNameCode(userCategory.getId()+"-"+userCategory.getTitle());
+                userVoSet.add(userVo);
+            }
+            return ServerResponse.createBySuccess("获取工种类别列表成功", userVoSet);
         }
         return ServerResponse.createByErrorMsg("获取工种类别列表失败");
     }

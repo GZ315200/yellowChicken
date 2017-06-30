@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/27.
@@ -117,16 +119,17 @@ public class KilnServiceImpl implements IKilnService {
      * @param status
      * @return
      */
-    public ServerResponse<List<Kiln>> searchKilnNameList(Integer status){
-        if (status != null){
+    public ServerResponse<Set<KilnVo>> searchKilnNameList(Integer status){
+            Set<KilnVo> kilnVoSet = Sets.newHashSet();
             List<Kiln> kilnList = kilnMapper.getKilnList(status);
             if (kilnList.size() > 0){
-                return ServerResponse.createBySuccess("查询窑炉名称列表成功",kilnList);
+                for(Kiln kiln : kilnList){
+                    KilnVo kilnVo = new KilnVo();
+                    kilnVo.setKilnIdNme(kiln.getId()+"-"+kiln.getTitle());
+                    kilnVoSet.add(kilnVo);
+                }
+                return ServerResponse.createBySuccess("查询窑炉名称列表成功",kilnVoSet);
             }
             return ServerResponse.createByErrorMsg("查询窑炉名称列表失败");
         }
-        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
-    }
-
-
 }

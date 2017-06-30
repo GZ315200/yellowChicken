@@ -3,8 +3,9 @@ package org.igeek.service;
 import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Rank;
+import org.igeek.vo.RankVo;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -18,7 +19,7 @@ public interface IRankService {
 
     public ServerResponse<String> updateRankStatus(Integer rankId, String status);
 
-    public ServerResponse<List<String>> searchRankTitle(Integer status);
+    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status);
 
 
 

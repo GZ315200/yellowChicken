@@ -1,10 +1,13 @@
 package org.igeek.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 
 /**
  * Created by Gyges on 2017/6/29.
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class QualityVo {
 
     private Integer qualityId;
@@ -13,6 +16,7 @@ public class QualityVo {
     private BigDecimal amount;
     private Integer workerType;
     private String description;
+    private String qualityIdName;
 
 
     public QualityVo() {
@@ -66,5 +70,13 @@ public class QualityVo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getQualityIdName() {
+        return qualityIdName;
+    }
+
+    public void setQualityIdName(String qualityIdName) {
+        this.qualityIdName = qualityIdName;
     }
 }

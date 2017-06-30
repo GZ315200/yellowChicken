@@ -4,12 +4,15 @@ import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Kiln;
 import org.igeek.service.IKilnService;
+import org.igeek.vo.KilnVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/27.
@@ -63,6 +66,20 @@ public class KilnController {
     public ServerResponse<String> updateStatus(Integer kilnId, String status) {
         return ikilnService.updateStatus(kilnId, status);
     }
+
+
+
+    /**
+     * 获得窑炉信息列表
+     * @param status
+     * @return
+     */
+    @RequestMapping("get_kilnName_list")
+    @ResponseBody
+    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
+        return ikilnService.searchKilnNameList(status);
+    }
+
 
 
 

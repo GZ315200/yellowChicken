@@ -4,13 +4,14 @@ import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Quality;
 import org.igeek.service.IQualityService;
+import org.igeek.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -67,7 +68,7 @@ public class QualityController {
      */
     @RequestMapping(value = "get_userType_list")
     @ResponseBody
-    public ServerResponse<List<String>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
+    public ServerResponse<Set<UserVo>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iQualityService.getUserList(status);
     }
 

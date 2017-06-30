@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -92,10 +94,16 @@ public class RankServiceImpl implements IRankService {
 
 
     @Override
-    public ServerResponse<List<String>> searchRankTitle(Integer status) {
-        List<String> rankTitle = rankMapper.getRankTitle(status);
+    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status) {
+        Set<RankVo> rankVoSet = Sets.newHashSet();
+        List<Rank> rankTitle = rankMapper.getRankTitle(status);
         if(rankTitle.size() > 0){
-            return ServerResponse.createBySuccess("查询等级信息成功",rankTitle);
+            for(Rank rank : rankTitle) {
+                RankVo rankVo = new RankVo();
+                rankVo.setRankIdName(rank.getId()+"-"+rank.getTitle());
+                rankVoSet.add(rankVo);
+            }
+            return ServerResponse.createBySuccess("查询等级信息成功",rankVoSet);
         }
         return ServerResponse.createByErrorMsg("查询等级信息成功");
     }

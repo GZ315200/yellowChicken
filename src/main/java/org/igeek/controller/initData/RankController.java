@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Rank;
 import org.igeek.service.IRankService;
+import org.igeek.vo.RankVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
@@ -69,7 +70,7 @@ public class RankController {
      */
     @RequestMapping(value = "get_rank_title")
     @ResponseBody
-    public ServerResponse<List<String>> getRankTitle(@RequestParam(value = "status",defaultValue = "1") Integer status){
+    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status",defaultValue = "1") Integer status){
         return iRankService.searchRankTitle(status);
     }
 

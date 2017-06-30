@@ -1,13 +1,18 @@
 package org.igeek.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by Gyges on 2017/6/28.
  */
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class KilnVo {
 
     private Integer id;
     private String kilnName;
     private String description;
+    private String kilnIdNme;
 
 
     public KilnVo() {
@@ -41,5 +46,13 @@ public class KilnVo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getKilnIdNme() {
+        return kilnIdNme;
+    }
+
+    public void setKilnIdNme(String kilnIdNme) {
+        this.kilnIdNme = kilnIdNme;
     }
 }

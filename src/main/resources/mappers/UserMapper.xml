@@ -182,5 +182,13 @@
     from mj_user where name like #{name} and status = '1'
   </select>
 
+  <select id="getUserCategoryList" resultMap="BaseResultMap" parameterType="int">
+    select <include refid="Base_Column_List"/>
+    from mj_user
+    where
+      category = #{category}
+    and status = '1'
+  </select>
+
 
 </mapper>
