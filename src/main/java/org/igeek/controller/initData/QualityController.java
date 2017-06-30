@@ -65,7 +65,7 @@ public class QualityController {
      * 获取工种类别列表
      * @return
      */
-    @RequestMapping(value = "get_user_list")
+    @RequestMapping(value = "get_userType_list")
     @ResponseBody
     public ServerResponse<List<String>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iQualityService.getUserList(status);

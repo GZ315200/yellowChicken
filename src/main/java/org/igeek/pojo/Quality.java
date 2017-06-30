@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Quality {
     private Integer id;
 

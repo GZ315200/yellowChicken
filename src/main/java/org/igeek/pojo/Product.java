@@ -9,7 +9,7 @@ import java.util.Date;
  * 产品信息
  */
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Product {
     private Integer id;
 

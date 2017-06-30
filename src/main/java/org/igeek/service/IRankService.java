@@ -18,7 +18,8 @@ public interface IRankService {
 
     public ServerResponse<String> updateRankStatus(Integer rankId, String status);
 
-    public ServerResponse<List<Rank>> searchRankList(Integer status);
+    public ServerResponse<List<String>> searchRankTitle(Integer status);
+
 
 
 }

@@ -23,4 +23,6 @@ public interface RankMapper {
     List<Rank> selectAllRankList(String status);
 
     int updateStatusById(@Param("rankId") Integer rankId,@Param("status") String status);
+
+    List<String> getRankTitle(Integer status);
 }

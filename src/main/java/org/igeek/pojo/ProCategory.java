@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品类别
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProCategory {
     private Integer id;
 

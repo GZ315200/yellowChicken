@@ -38,13 +38,13 @@ public class QualityCollectController {
 
     /**
      * 获得用户id、姓名列表
-     * @param username
+     * @param name
      * @return
      */
     @RequestMapping("get_user_list")
     @ResponseBody
-    public ServerResponse<List<User>> getUserList(String username){
-        return iQualityCollectService.searchUserList(username);
+    public ServerResponse<List<User>> getUserList(String name){
+        return iQualityCollectService.searchUserList(name);
     }
 
 
@@ -58,6 +58,9 @@ public class QualityCollectController {
     public ServerResponse<List<Kiln>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iKilnService.searchKilnNameList(status);
     }
+
+
+
 
 
 

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by Gyges on 2017/6/28.
  */
@@ -57,6 +59,18 @@ public class RankController {
     @ResponseBody
     public ServerResponse<String> updateRankStatus(Integer rankId,String status){
         return iRankService.updateRankStatus(rankId, status);
+    }
+
+
+    /**
+     * 获得等级标题
+     * @param status
+     * @return
+     */
+    @RequestMapping(value = "get_rank_title")
+    @ResponseBody
+    public ServerResponse<List<String>> getRankTitle(@RequestParam(value = "status",defaultValue = "1") Integer status){
+        return iRankService.searchRankTitle(status);
     }
 
 }

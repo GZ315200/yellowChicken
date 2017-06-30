@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 窑炉信息
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Kiln {
 
     private Integer id;

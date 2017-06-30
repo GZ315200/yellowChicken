@@ -28,6 +28,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityQuestion qualityQuestion) {
 
+
+
         return null;
     }
 

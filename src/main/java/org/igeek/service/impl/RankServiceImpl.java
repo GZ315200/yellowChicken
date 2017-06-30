@@ -92,9 +92,12 @@ public class RankServiceImpl implements IRankService {
 
 
     @Override
-    public ServerResponse<List<Rank>> searchRankList(Integer status) {
-
-        return null;
+    public ServerResponse<List<String>> searchRankTitle(Integer status) {
+        List<String> rankTitle = rankMapper.getRankTitle(status);
+        if(rankTitle.size() > 0){
+            return ServerResponse.createBySuccess("查询等级信息成功",rankTitle);
+        }
+        return ServerResponse.createByErrorMsg("查询等级信息成功");
     }
 
 
