@@ -28,7 +28,7 @@ public class QualityController {
      * @param quality
      * @return
      */
-    @RequestMapping(value = "updateOrAdd")
+    @RequestMapping(value = "addOrUpdate")
     @ResponseBody
     public ServerResponse<String> updateOrAddQuality(Quality quality) {
         return iQualityService.updateOrAddQuality(quality);
@@ -43,8 +43,9 @@ public class QualityController {
     @RequestMapping(value = "get_info_list")
     @ResponseBody
     public ServerResponse<PageInfo> getQualityInfoList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return iQualityService.getQualityInfoList(pageNum, pageSize);
+                                                       @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                       @RequestParam(value = "status",defaultValue = "1") Integer status) {
+        return iQualityService.getQualityInfoList(pageNum, pageSize,status);
     }
 
 
@@ -69,6 +70,8 @@ public class QualityController {
         return iQualityService.getUserList(status);
     }
 
-    
+
+
+
 
 }

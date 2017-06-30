@@ -8,6 +8,8 @@ public class Quality {
 
     private Integer userId;
 
+    private String username;
+
     private String title;
 
     private String remark;
@@ -32,6 +34,15 @@ public class Quality {
         this.questionType = questionType;
         this.created = created;
         this.modified = modified;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Quality() {

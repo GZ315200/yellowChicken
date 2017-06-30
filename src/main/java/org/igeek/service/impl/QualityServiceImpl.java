@@ -31,15 +31,12 @@ public class QualityServiceImpl implements IQualityService {
     @Override
     public ServerResponse<String> updateOrAddQuality(Quality quality) {
         int rowCount = 0;
-        Integer userId = userCategoryMapper.selectUserIdByUsername(quality.getTitle());
+        Integer userId = userCategoryMapper.selectUserIdByUsername(quality.getUsername());
         if (Objects.equal(null, quality)) {
             return ServerResponse.createByErrorMsg("请输入完整的质量问题信息");
         }
-        if (quality.getId() != null) {
-            int resultCount = qualityMapper.selectByTitle(quality.getTitle());
-            if (resultCount > 0) {
-                return ServerResponse.createByErrorMsg("该质量问题信息已经存在");
-            }
+        if (quality.getId() == null) {
+
 //            遇到扣系数问题时，不输入钱数
             if (quality.getQuestionType() == 2) {
                 quality.setUserId(userId);
@@ -50,7 +47,7 @@ public class QualityServiceImpl implements IQualityService {
                     return ServerResponse.createBySuccess("质量问题信息插入成功");
                 }
                 return ServerResponse.createByErrorMsg("质量问题信息插入失败");
-            }else{
+            } else {
                 quality.setUserId(userId);
                 quality.setQuestionType(1);
                 rowCount = qualityMapper.insert(quality);
@@ -65,15 +62,15 @@ public class QualityServiceImpl implements IQualityService {
                 quality.setQuestionType(2);
                 quality.setUserId(userId);
                 quality.setMoney(null);
-                rowCount = qualityMapper.updateByPrimaryKeySelective(quality);
+                rowCount = qualityMapper.updateByPrimaryKey(quality);
                 if (rowCount > 0) {
                     return ServerResponse.createBySuccess("质量问题信息更新成功");
                 }
                 return ServerResponse.createByErrorMsg("质量问题信息更新失败");
-            }else {
+            } else {
                 quality.setQuestionType(1);
                 quality.setUserId(userId);
-                rowCount = qualityMapper.updateByPrimaryKeySelective(quality);
+                rowCount = qualityMapper.updateByPrimaryKey(quality);
                 if (rowCount > 0) {
                     return ServerResponse.createBySuccess("质量问题信息更新成功");
                 }
@@ -83,11 +80,9 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
-
-
-    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize) {
+    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Quality> qualityList = qualityMapper.listAllQualityInfo();
+        List<Quality> qualityList = qualityMapper.listAllQualityInfo(status);
         List<QualityVo> qualityVoList = Lists.newArrayList();
         for (Quality quality : qualityList) {
             qualityVoList.add(assembleQualityList(quality));
@@ -99,6 +94,7 @@ public class QualityServiceImpl implements IQualityService {
 
     /**
      * 组装信息
+     *
      * @param quality
      * @return
      */
@@ -114,24 +110,22 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
-
-    public ServerResponse<String> updateQualityStatus(Integer qualityId,Integer status){
+    public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status) {
         if (qualityId == null && status == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
         int rowCount = qualityMapper.updateStatusById(qualityId, status);
-        if (rowCount > 0){
+        if (rowCount > 0) {
             return ServerResponse.createBySuccess("删除质量问题信息成功");
         }
         return ServerResponse.createByErrorMsg("删除质量问题信息失败");
     }
 
 
-
-    public ServerResponse<List<String>> getUserList(Integer status){
+    public ServerResponse<List<String>> getUserList(Integer status) {
         List<String> userList = userCategoryMapper.getUserList(status);
-        if (!Objects.equal(null,userList)){
-            return ServerResponse.createBySuccess("获取工种类别列表成功",userList);
+        if (!Objects.equal(null, userList)) {
+            return ServerResponse.createBySuccess("获取工种类别列表成功", userList);
         }
         return ServerResponse.createByErrorMsg("获取工种类别列表失败");
     }
