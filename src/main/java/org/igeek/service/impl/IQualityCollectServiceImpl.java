@@ -4,11 +4,9 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.*;
-import org.igeek.pojo.Quality;
-import org.igeek.pojo.QualityCollection;
-import org.igeek.pojo.QualityQuestion;
-import org.igeek.pojo.User;
+import org.igeek.pojo.*;
 import org.igeek.service.IQualityCollectService;
+import org.igeek.vo.ProductVo;
 import org.igeek.vo.QualityVo;
 import org.igeek.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,10 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     private QualityQuestionMapper qualityQuestionMapper;
     @Autowired
     private QualityMapper qualityMapper;
+    @Autowired
+    private SpCollectMapper spCollectMapper;
+
+
 
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
@@ -109,12 +111,22 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<List<String>> searchProIdList(Integer status) {
-
+    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status) {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
-
-        return null;
+        List<SpCollect> productList = spCollectMapper.getSpCollectList(status);
+        Set<ProductVo> productVoSet = Sets.newHashSet();
+        if (productList.size() > 0){
+            for (SpCollect spCollect : productList){
+                ProductVo productVo = new ProductVo();
+                productVo.setProductDetail(spCollect.getProId()+"-"+spCollect.getProCode());
+                productVoSet.add(productVo);
+            }
+            return ServerResponse.createBySuccess(productVoSet);
+        }
+        return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
     }
+
+
 
 
     public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status,Integer questionType) {
