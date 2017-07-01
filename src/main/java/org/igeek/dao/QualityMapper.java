@@ -20,7 +20,7 @@ public interface QualityMapper {
 
     int selectByTitle(@Param("qualityName") String qualityName);
 
-    List<Quality> listAllQualityInfo(Integer status);
+    List<Quality> listAllQualityInfo(@Param("status") Integer status, @Param("userId") Integer userId);
 
     int updateStatusById(@Param("qualityId") Integer qualityId,@Param("status") Integer status);
 

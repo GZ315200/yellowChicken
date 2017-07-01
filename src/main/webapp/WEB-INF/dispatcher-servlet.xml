@@ -38,11 +38,11 @@
         <!--<property name="maxInMemorySize" value="4096" />-->
         <!--<property name="defaultEncoding" value="UTF-8"></property>-->
     <!--</bean>-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <bean class="org.igeek.interceptor.MobileInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**" />-->
+            <!--<bean class="org.igeek.interceptor.DataSourceInterceptor" />-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 </beans>

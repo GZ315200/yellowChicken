@@ -147,6 +147,10 @@
         select
         <include refid="Base_Column_List"/>
         from mj_quality_category where status = #{status}
+        <if test="userId != null">
+            and
+            user_id = #{userId}
+        </if>
     </select>
 
     <update id="updateStatusById" parameterType="java.util.Map">

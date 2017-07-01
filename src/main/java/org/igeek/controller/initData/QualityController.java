@@ -45,9 +45,11 @@ public class QualityController {
     @ResponseBody
     public ServerResponse<PageInfo> getQualityInfoList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                                                       @RequestParam(value = "status",defaultValue = "1") Integer status) {
-        return iQualityService.getQualityInfoList(pageNum, pageSize,status);
+                                                       @RequestParam(value = "status",defaultValue = "1") Integer status,
+                                                       @RequestParam(value = "userType",required = false) Integer userType) {
+        return iQualityService.getQualityInfoList(pageNum, pageSize,status,userType);
     }
+
 
 
     /**
@@ -61,7 +63,15 @@ public class QualityController {
         return iQualityService.updateQualityStatus(qualityId, status);
     }
 
-
+    /**
+     * 获取工种类别列表
+     * @return
+     */
+    @RequestMapping(value = "get_userType_list")
+    @ResponseBody
+    public ServerResponse<Set<UserVo>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
+        return iQualityService.getUserList(status);
+    }
 
 
 }

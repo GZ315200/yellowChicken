@@ -84,9 +84,9 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
-    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status) {
+    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status,Integer userType) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Quality> qualityList = qualityMapper.listAllQualityInfo(status);
+        List<Quality> qualityList = qualityMapper.listAllQualityInfo(status,userType);
         List<QualityVo> qualityVoList = Lists.newArrayList();
         for (Quality quality : qualityList) {
             qualityVoList.add(assembleQualityList(quality));

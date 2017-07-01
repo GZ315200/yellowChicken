@@ -74,7 +74,7 @@ public class UserCategoryTest {
         qualityQuestion1.setCoefficient(3.30);
         qualityQuestion1.setQuality(2);
         qualityQuestionList.add(qualityQuestion1);
-        qualityQuestionMapper.insertQuestionBatch(qualityQuestionList);
+//        qualityQuestionMapper.insertQuestionBatch(qualityQuestionList);
 
 
     }

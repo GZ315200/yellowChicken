@@ -14,7 +14,7 @@ public interface IQualityService {
 
     public ServerResponse<String> updateOrAddQuality(Quality quality);
 
-    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status);
+    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status,Integer userType);
 
     public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status);
 

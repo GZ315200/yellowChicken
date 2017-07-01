@@ -6,10 +6,7 @@ import org.igeek.service.IKilnService;
 import org.igeek.service.IQualityCollectService;
 import org.igeek.service.IQualityService;
 import org.igeek.service.IRankService;
-import org.igeek.vo.KilnVo;
-import org.igeek.vo.QualityVo;
-import org.igeek.vo.RankVo;
-import org.igeek.vo.UserVo;
+import org.igeek.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,15 +103,6 @@ public class QualityCollectController {
 
 
 
-    /**
-     * 获取工种类别列表
-     * @return
-     */
-    @RequestMapping(value = "get_userType_list")
-    @ResponseBody
-    public ServerResponse<Set<UserVo>> getUserList(@RequestParam(defaultValue = "1",required = false) Integer status){
-        return iQualityService.getUserList(status);
-    }
 
 
 
@@ -128,6 +116,18 @@ public class QualityCollectController {
     @ResponseBody
     public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status,Integer question_type){
         return iQualityCollectService.getQualityCategoryList(status, question_type);
+    }
+
+
+    /**
+     * 获取成型工的产品信息
+     * @param status
+     * @return
+     */
+    @RequestMapping("get_product_code")
+    @ResponseBody
+    public ServerResponse<Set<ProductVo>> getProductCode(@RequestParam(defaultValue = "1",required = false) Integer status){
+        return null;
     }
 
 

@@ -28,7 +28,7 @@ public class QualityQuestion {
 
     private Date modified;
 
-    public QualityQuestion(Integer id, Integer collectId, Integer collectType,Integer questionId, String questionName, Double coefficient, Integer quality, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer quality, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.collectId = collectId;
         this.collectType = collectType;
@@ -70,20 +70,20 @@ public class QualityQuestion {
         this.collectType = collectType;
     }
 
-    public String getQuestionName() {
-        return questionName;
-    }
-
-    public void setQuestionName(String questionName) {
-        this.questionName = questionName == null ? null : questionName.trim();
-    }
-
     public Integer getQuestionId() {
         return questionId;
     }
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
+    }
+
+    public String getQuestionName() {
+        return questionName;
+    }
+
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName == null ? null : questionName.trim();
     }
 
     public Double getCoefficient() {
