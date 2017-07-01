@@ -1,0 +1,44 @@
+<div id="contentbox">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>窑炉名称</th>
+                <th>描述信息</th>
+                <th width="200px"><a class="btn mbtn1" role="button"  onclick="loadKilnInfoAdditionPage()">添加 <span>+</span></a></th>
+            </tr>
+            </thead>
+            <tbody id="qilinTableRow">
+            <!--<tr>-->
+                <!--<th scope="row">1</th>-->
+                <!--<td>千年老窑</td>-->
+                <!--<td>床前明月光</td>-->
+                <!--<td>-->
+                    <!--<a class="btn btn-default ldelBtn" href="javascript:void(0)" id="kilnDelBtn" role="button">删除</a>-->
+                    <!--<a class="btn btn-default btn-default2" onclick="loadKilnInfoAdditionModifyPage()">查看修改</a>-->
+                <!--</td>-->
+            <!--</tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>
+<nav id="pager">
+    <ul class="pagination pagination-sm">
+        <li class="disabled"><a><span class="glyphicon glyphicon-step-backward"></span></a></li>
+        <li class="disabled"><a><span class="glyphicon glyphicon-triangle-left"></span></a></li>
+        <li class="active"><a>1</a></li>
+        <li class="disabled"><a><span class="glyphicon glyphicon-triangle-right"></span></a></li>
+        <li class="disabled"><a><span class="glyphicon glyphicon-step-forward"></span></a></li>
+    </ul>
+</nav>
+<script>
+    //删除
+    $(".ldelBtn").click( function() {
+        console.log("caonima")
+        jConfirm('你确认要删除数据吗?', '系统提示', function(r) {
+            if(r){
+            }
+        });
+    });
+</script>

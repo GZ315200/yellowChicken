@@ -1,0 +1,63 @@
+<div id="form_box">
+    <h4>初始化数据-新建质量信息</h4>
+    <form id="ajaxForm" class="form-horizontal" >
+        <div class="form-group">
+            <label  class="col-sm-2 control-label">问题名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control required" id="questionName" name="title" placeholder="问题名称" data-msg-required="不能为空" value="">
+            </div>
+            <div class="col-sm-1"><font class="EM">*</font></div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">工种类型</label>
+            <div class="col-sm-8">
+                <select class="form-control valid" id="category" name="category">
+                    <option value="0">管理人员</option>
+                    <option value="1">成型工</option>
+                    <option value="3">修坯工 </option>
+                    <option value="6">烧窑工</option>
+                    <option value="7">质检员</option>
+                    <option value="8">包装工</option>
+                    <option value="9">其他人员</option>
+                </select>
+            </div>
+            <div class="col-sm-1"><font class="EM">*</font></div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">问题类型</label>
+            <div class="col-sm-8">
+                <select class="form-control valid" id="questionType" name="category">
+                    <option value="0">扣款问题</option>
+                    <option value="1">扣系数问题</option>
+                </select>
+            </div>
+            <div class="col-sm-1"><font class="EM">*</font></div>
+        </div>
+        <div class="form-group">
+            <label  class="col-sm-2 control-label">扣款金额</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control required" id="chargeAmount" name="title" placeholder="扣款金额" data-msg-required="不能为空" value="">
+            </div>
+            <div class="col-sm-1"><font class="EM">*</font></div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">描述信息</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="desc" name="desc" placeholder="描述信息" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                <input type="hidden" name="id" id="id" value="">
+                <input class="btn btn-default btn-default2"   id="saveBtn" value="保存信息">
+                <a class="btn btn-default returnBtn">取消保存</a>
+                <span class="bzMes">备注：后面带*项为必填项</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                <a class="btn btn-default btn-default3 form-control" id="saveAddNew" href="javascript:void(0)" role="button">保存并新建质量问题</a>
+            </div>
+        </div>
+    </form>
+</div>

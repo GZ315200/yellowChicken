@@ -1,0 +1,31 @@
+<div id="form_box">
+    <h4>初始化数据-新建窑炉信息</h4>
+    <form id="ajaxForm" class="form-horizontal" >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">窑炉名称</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control required" id="kilnName" name="title" placeholder="窑炉名称" data-msg-required="不能为空" value="">
+            </div>
+            <div class="col-sm-1"><font class="EM">*</font></div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">描述信息</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="kiLnDesc" name="desc" placeholder="描述信息" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                <input type="hidden" name="id" id="id" value="">
+                <input class="btn btn-default btn-default2"   id="saveBtn" value="保存信息">
+                <a class="btn btn-default returnBtn">取消保存</a>
+                <span class="bzMes">备注：后面带*项为必填项</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                <a class="btn btn-default btn-default3 form-control" id="saveAddNew" href="javascript:void(0)" role="button">保存并新建窑炉信息</a>
+            </div>
+        </div>
+    </form>
+</div>

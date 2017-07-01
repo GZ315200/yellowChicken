@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>上海毕要科技有限公司管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="plugins/alert/jquery.alerts.css">
+    <link rel="stylesheet" href="plugins/loadmask/jquery.loadmask.css">
+</head>
+<body>
+<header id="eHeader">
+    <span class="logo"></span>
+    <div class="menu" id="mainmune">
+        <a class="cur" href="initData.html">初始化数据</a>
+        <a href="dataCollection.html">数据采集</a>
+        <a>系统报告</a>
+    </div>
+    <div class="uinfo">
+        <em></em>
+        <b>01admin</b>
+        <a href="">退出</a>
+    </div>
+</header>
+
+<div id="submenu">
+    <a href="#">产品类型</a>
+    <a href="#">模具类型</a>
+    <a href="#">员工信息</a>
+    <a href="#">产品信息</a>
+    <a href="#">工位信息</a>
+    <a href="#">模具信息</a>
+    <a class="cur">窑炉信息</a>
+    <a>等级信息</a>
+    <a>质量问题</a>
+</div>
+<div id="container"></div>
+<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/alert/jquery.alerts.js"></script>
+<script src="plugins/loadmask/jquery.loadmask.min.js"></script>
+<script src="dist/js/initData/index.js"></script>
+<script src="dist/js/initData/kilnInfo.js"></script>
+<script src="dist/js/initData/levelInfo.js"></script>
+<script src="dist/js/initData/qualityIssues.js"></script>
+</body>
+</html>
