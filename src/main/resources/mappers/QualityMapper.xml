@@ -155,4 +155,12 @@
     where id = #{qualityId}
   </update>
 
+
+    <select id="selectAllQualityQuestion" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List">
+    </include>
+        from mj_quality_category where status = #{status} and question_type = #{question_type}
+    </select>
+
+
 </mapper>

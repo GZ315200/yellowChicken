@@ -179,7 +179,7 @@
 
   <select id="getUserList" resultMap="BaseResultMap" parameterType="java.lang.String">
     select <include refid="Base_Column_List"/>
-    from mj_user where name like #{name} and status = '1'
+    from mj_user where name like #{name} and status = 1
   </select>
 
   <select id="getUserCategoryList" resultMap="BaseResultMap" parameterType="int">
@@ -187,7 +187,7 @@
     from mj_user
     where
       category = #{category}
-    and status = '1'
+    and status = 1
   </select>
 
 

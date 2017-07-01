@@ -4,15 +4,12 @@ import com.github.pagehelper.PageInfo;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Kiln;
 import org.igeek.service.IKilnService;
-import org.igeek.vo.KilnVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/27.
@@ -23,7 +20,7 @@ import java.util.Set;
 public class KilnController {
 
     @Autowired
-    private IKilnService ikilnService;
+    private IKilnService iKilnService;
 
 
     /**
@@ -35,7 +32,7 @@ public class KilnController {
     @RequestMapping(value = "addOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> updateOrSaveKilnValue(Kiln kiln) {
-        return ikilnService.updateOrSaveKilnValue(kiln);
+        return iKilnService.updateOrSaveKilnValue(kiln);
     }
 
     /**
@@ -50,7 +47,7 @@ public class KilnController {
     public ServerResponse<PageInfo> listAllKiln(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                 @RequestParam(value = "status",defaultValue = "1") String status) {
-        return ikilnService.listAllKiln(pageNum, pageSize,status);
+        return iKilnService.listAllKiln(pageNum, pageSize,status);
     }
 
 
@@ -64,21 +61,11 @@ public class KilnController {
     @RequestMapping(value = "update_status")
     @ResponseBody
     public ServerResponse<String> updateStatus(Integer kilnId, String status) {
-        return ikilnService.updateStatus(kilnId, status);
+        return iKilnService.updateStatus(kilnId, status);
     }
 
 
 
-    /**
-     * 获得窑炉信息列表
-     * @param status
-     * @return
-     */
-    @RequestMapping("get_kilnName_list")
-    @ResponseBody
-    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
-        return ikilnService.searchKilnNameList(status);
-    }
 
 
 

@@ -8,13 +8,17 @@ import java.util.Date;
 public class QualityQuestion {
     private Integer id;
 
+    private Integer collectId;
+
+    private Integer collectType;
+
     private Integer questionId;
 
     private String questionName;
 
-    private Float coefficient;
+    private Double coefficient;
 
-    private String quality;
+    private Integer quality;
 
     private Integer status;
 
@@ -24,8 +28,10 @@ public class QualityQuestion {
 
     private Date modified;
 
-    public QualityQuestion(Integer id, Integer questionId, String questionName, Float coefficient, String quality, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer collectId, Integer collectType,Integer questionId, String questionName, Double coefficient, Integer quality, Integer status, String remark, Date created, Date modified) {
         this.id = id;
+        this.collectId = collectId;
+        this.collectType = collectType;
         this.questionId = questionId;
         this.questionName = questionName;
         this.coefficient = coefficient;
@@ -48,12 +54,20 @@ public class QualityQuestion {
         this.id = id;
     }
 
-    public Integer getQuestionId() {
-        return questionId;
+    public Integer getCollectId() {
+        return collectId;
     }
 
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
+    public void setCollectId(Integer collectId) {
+        this.collectId = collectId;
+    }
+
+    public Integer getCollectType() {
+        return collectType;
+    }
+
+    public void setCollectType(Integer collectType) {
+        this.collectType = collectType;
     }
 
     public String getQuestionName() {
@@ -64,20 +78,28 @@ public class QualityQuestion {
         this.questionName = questionName == null ? null : questionName.trim();
     }
 
-    public Float getCoefficient() {
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
+    }
+
+    public Double getCoefficient() {
         return coefficient;
     }
 
-    public void setCoefficient(Float coefficient) {
+    public void setCoefficient(Double coefficient) {
         this.coefficient = coefficient;
     }
 
-    public String getQuality() {
+    public Integer getQuality() {
         return quality;
     }
 
-    public void setQuality(String quality) {
-        this.quality = quality == null ? null : quality.trim();
+    public void setQuality(Integer quality) {
+        this.quality = quality;
     }
 
     public Integer getStatus() {

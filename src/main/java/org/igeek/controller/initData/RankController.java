@@ -63,15 +63,5 @@ public class RankController {
     }
 
 
-    /**
-     * 获得等级标题
-     * @param status
-     * @return
-     */
-    @RequestMapping(value = "get_rank_title")
-    @ResponseBody
-    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status",defaultValue = "1") Integer status){
-        return iRankService.searchRankTitle(status);
-    }
 
 }
