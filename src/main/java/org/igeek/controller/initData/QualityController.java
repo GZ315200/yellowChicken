@@ -63,6 +63,8 @@ public class QualityController {
         return iQualityService.updateQualityStatus(qualityId, status);
     }
 
+
+
     /**
      * 获取工种类别列表
      * @return
