@@ -53,6 +53,7 @@ public class QualityCollectController {
     }
 
 
+
     /**
      * 获得用户id、姓名列表
      * @param name
@@ -65,6 +66,7 @@ public class QualityCollectController {
     }
 
 
+
     /**
      * 获得窑炉信息列表
      * @param status
@@ -75,6 +77,7 @@ public class QualityCollectController {
     public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
         return iKilnService.searchKilnNameList(status);
     }
+
 
 
     /**
@@ -103,9 +106,6 @@ public class QualityCollectController {
 
 
 
-
-
-
     /**
      * 获取质量类别列表
      * @param status 状态
@@ -114,9 +114,11 @@ public class QualityCollectController {
      */
     @RequestMapping("get_quality_category")
     @ResponseBody
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status,Integer question_type){
+    public ServerResponse<Set<QualityVo>> getQualityCategoryList(@RequestParam(defaultValue = "1",required = false) Integer status,
+                                                                 Integer question_type){
         return iQualityCollectService.getQualityCategoryList(status, question_type);
     }
+
 
 
     /**
@@ -127,7 +129,7 @@ public class QualityCollectController {
     @RequestMapping("get_product_code")
     @ResponseBody
     public ServerResponse<Set<ProductVo>> getProductCode(@RequestParam(defaultValue = "1",required = false) Integer status){
-        return null;
+        return iQualityCollectService.searchProIdList(status);
     }
 
 

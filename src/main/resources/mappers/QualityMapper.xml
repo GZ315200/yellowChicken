@@ -160,10 +160,10 @@
   </update>
 
 
-    <select id="selectAllQualityQuestion" resultMap="BaseResultMap">
+    <select id="selectAllQualityQuestion" resultMap="BaseResultMap" parameterType="map">
         select <include refid="Base_Column_List">
     </include>
-        from mj_quality_category where status = #{status} and question_type = #{question_type}
+        from mj_quality_category where status = #{status} and question_type = #{questionType}
     </select>
 
 

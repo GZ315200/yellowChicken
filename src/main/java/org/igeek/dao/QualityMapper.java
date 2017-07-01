@@ -24,7 +24,7 @@ public interface QualityMapper {
 
     int updateStatusById(@Param("qualityId") Integer qualityId,@Param("status") Integer status);
 
-    List<Quality> selectAllQualityQuestion(Integer status,Integer questionType);
+    List<Quality> selectAllQualityQuestion(@Param("status") Integer status,@Param("questionType") Integer questionType);
 
 
 }
