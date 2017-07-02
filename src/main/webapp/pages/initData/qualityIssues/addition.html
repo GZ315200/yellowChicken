@@ -36,7 +36,7 @@
         <div class="form-group" id="chargeAmountGroup">
             <label  class="col-sm-2 control-label">扣款金额</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control required" id="chargeAmount" name="title" placeholder="扣款金额" data-msg-required="不能为空" value="">
+                <input type="text" class="form-control required" id="chargeAmount" name="title" onkeyup="this.value=this.value.replace(/[^0-9]\D*$/,'')" placeholder="扣款金额" data-msg-required="不能为空" value="">
             </div>
             <div class="col-sm-1"><font class="EM">*</font></div>
         </div>
