@@ -81,15 +81,18 @@ function getRankList() {
         success: function (data) {
             tableData = data;
             var tableRow = tableData.data.list;
+
             $.each(tableRow , function (index, optiondata) {
+                var remark = (optiondata.remark===undefined) ? "" : optiondata.remark;
+
                 var tableHtml =
                     '<tr>'
                     + '<td>'+optiondata.rankId+'</td>'
                     + '<td>'+optiondata.rankName+'</td>'
-                    + '<td>'+optiondata.remark+'</td>'
+                    + '<td>'+remark+'</td>'
                     + '<td>'
                     + "<a class='btn btn-default ldelBtn' onclick='deletedRankList(&quot;"+optiondata.rankId+"&quot,&quot;"+optiondata.rankName +"&quot;)' role='button'>删除</a>"
-                    + "<a class='btn btn-default btn-default2' onclick='loadLevelInfoAdditionModifyPage(&quot;"+optiondata.rankId+"&quot,&quot;"+optiondata.rankName +"&quot;,&quot;"+optiondata.remark +"&quot;)' >查看修改</a>"
+                    + "<a class='btn btn-default btn-default2' onclick='loadLevelInfoAdditionModifyPage(&quot;"+optiondata.rankId+"&quot,&quot;"+optiondata.rankName +"&quot;,&quot;"+remark +"&quot;)' >查看修改</a>"
                     + '</td></tr>';
                 $("#rankTableRow").append(tableHtml);
             });

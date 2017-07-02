@@ -80,19 +80,18 @@ function getKilnList() {
         async: false,
         success: function (data) {
             tableData = data;
-            console.log("xxxx");
-            console.log(tableData);
             var tableRow = tableData.data.list;
             // console.log(tableRow);
             $.each(tableRow , function (index, optiondata) {
+                var description = (optiondata.description===undefined) ? "" :  optiondata.description;
                 var tableHtml =
                     '<tr>'
                     + '<td>'+optiondata.id+'</td>'
                     + '<td>'+optiondata.kilnName+'</td>'
-                    + '<td>'+optiondata.description+'</td>'
+                    + '<td>'+description+'</td>'
                     + '<td>'
                     + "<a class='btn btn-default ldelBtn' onclick='deleteKilnList(&quot;"+optiondata.id+"&quot,&quot;"+optiondata.kilnName +"&quot;)' role='button'>删除</a>"
-                    + "<a class='btn btn-default btn-default2' onclick='loadKilnInfoAdditionModifyPage(&quot;"+optiondata.id+"&quot,&quot;"+optiondata.kilnName +"&quot;,&quot;"+optiondata.description +"&quot;)' >查看修改</a>"
+                    + "<a class='btn btn-default btn-default2' onclick='loadKilnInfoAdditionModifyPage(&quot;"+optiondata.id+"&quot,&quot;"+optiondata.kilnName +"&quot;,&quot;"+description +"&quot;)' >查看修改</a>"
                     + '</td></tr>';
                 $("#qilinTableRow").append(tableHtml);
             });

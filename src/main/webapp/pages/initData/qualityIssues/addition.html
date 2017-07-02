@@ -11,14 +11,14 @@
         <div class="form-group">
             <label for="desc" class="col-sm-2 control-label">工种类型</label>
             <div class="col-sm-8">
-                <select class="form-control valid" id="category" name="category">
-                    <option value="0">管理人员</option>
+                <select class="form-control valid" id="userTypeAdd" name="category">
                     <option value="1">成型工</option>
-                    <option value="3">修坯工 </option>
+                    <option value="3">修坯工</option>
+                    <option value="4">施釉工</option>
+                    <option value="5">登窑工</option>
                     <option value="6">烧窑工</option>
-                    <option value="7">质检员</option>
                     <option value="8">包装工</option>
-                    <option value="9">其他人员</option>
+                    <option value="10">管理人员</option>
                 </select>
             </div>
             <div class="col-sm-1"><font class="EM">*</font></div>
@@ -26,14 +26,14 @@
         <div class="form-group">
             <label for="desc" class="col-sm-2 control-label">问题类型</label>
             <div class="col-sm-8">
-                <select class="form-control valid" id="questionType" name="category">
-                    <option value="0">扣款问题</option>
-                    <option value="1">扣系数问题</option>
+                <select class="form-control valid" id="questionType" name="category" onchange="questionTypeSelControl()">
+                    <option value="1">扣款问题</option>
+                    <option value="2">扣系数问题</option>
                 </select>
             </div>
             <div class="col-sm-1"><font class="EM">*</font></div>
         </div>
-        <div class="form-group">
+        <div class="form-group" id="chargeAmountGroup">
             <label  class="col-sm-2 control-label">扣款金额</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control required" id="chargeAmount" name="title" placeholder="扣款金额" data-msg-required="不能为空" value="">
@@ -43,7 +43,7 @@
         <div class="form-group">
             <label for="desc" class="col-sm-2 control-label">描述信息</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="desc" name="desc" placeholder="描述信息" value="">
+                <input type="text" class="form-control" id="qualityDesc" name="desc" placeholder="描述信息" value="">
             </div>
         </div>
         <div class="form-group">

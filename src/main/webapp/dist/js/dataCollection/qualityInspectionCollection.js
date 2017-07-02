@@ -20,3 +20,9 @@ function qualityInspectionCollectionAddMenu(){
         loadKilnInfoAdditionPage();
     });
 };
+
+
+function getQualityCollectlist() {
+
+
+}

@@ -327,6 +327,7 @@ a{
     color: #1ACCBE
 }
 .btn-default2{
+    margin-left: 5px;
     color: #FFF !important;
     border:2px #1ACCBE solid !important;
     background-color: #1ACCBE !important;

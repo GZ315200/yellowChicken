@@ -40,6 +40,7 @@
         this.setAttribute("class","cur");
         $("#container").load("pages/initData/qualityIssues/index.html", null, function() {
             console.log("质量问题页面添加");
+            getQualityList();
         })
     }
     //绑定添加页面
