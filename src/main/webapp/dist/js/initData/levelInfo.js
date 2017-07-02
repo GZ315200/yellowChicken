@@ -145,7 +145,7 @@ function deletedRankList(id,title) {
                 data:{id:id,status:status,title:title},
                 success: function () {
                     // console.log("delete");
-                    $("#container").load("pages/initData/kilnInfo/index.html", null, function() {getRankList()});
+                    $("#container").load("pages/initData/levelInfo/index.html", null, function() {getRankList()});
                     $("#form_box").mask("数据保存完成.");
                 }
             })
