@@ -27,6 +27,8 @@ public class QualityController {
     /**
      * 更新增加质量信息
      * @param quality
+     * @apiNote 需要传入username
+     *
      * @return
      */
     @RequestMapping(value = "addOrUpdate")

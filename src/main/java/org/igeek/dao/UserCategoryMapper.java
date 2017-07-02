@@ -19,5 +19,5 @@ public interface UserCategoryMapper {
 
     List<UserCategory> getUserList(Integer status);
 
-    Integer selectUserIdByUsername(String username);
+    String selectUsernameByUserId(Integer userId);
 }

@@ -35,7 +35,7 @@ public class QualityServiceImpl implements IQualityService {
     @Override
     public ServerResponse<String> updateOrAddQuality(Quality quality) {
         int rowCount = 0;
-        Integer userId = userCategoryMapper.selectUserIdByUsername(quality.getUsername());
+        String username = userCategoryMapper.selectUsernameByUserId(quality.getUserId());
         if (Objects.equal(null, quality)) {
             return ServerResponse.createByErrorMsg("请输入完整的质量问题信息");
         }
@@ -43,7 +43,7 @@ public class QualityServiceImpl implements IQualityService {
 
 //            遇到扣系数问题时，不输入钱数
             if (quality.getQuestionType() == 2) {
-                quality.setUserId(userId);
+                quality.setUsername(username);
                 quality.setQuestionType(2);
                 quality.setMoney(null);
                 rowCount = qualityMapper.insert(quality);
@@ -52,7 +52,7 @@ public class QualityServiceImpl implements IQualityService {
                 }
                 return ServerResponse.createByErrorMsg("质量问题信息插入失败");
             } else {
-                quality.setUserId(userId);
+                quality.setUsername(username);
                 quality.setQuestionType(1);
                 rowCount = qualityMapper.insert(quality);
                 if (rowCount > 0) {
@@ -64,7 +64,7 @@ public class QualityServiceImpl implements IQualityService {
 //            扣系数问题时不更新钱数
             if (quality.getQuestionType() == 2) {
                 quality.setQuestionType(2);
-                quality.setUserId(userId);
+                quality.setUsername(username);
                 quality.setMoney(null);
                 rowCount = qualityMapper.updateByPrimaryKey(quality);
                 if (rowCount > 0) {
@@ -73,7 +73,7 @@ public class QualityServiceImpl implements IQualityService {
                 return ServerResponse.createByErrorMsg("质量问题信息更新失败");
             } else {
                 quality.setQuestionType(1);
-                quality.setUserId(userId);
+                quality.setUsername(username);
                 rowCount = qualityMapper.updateByPrimaryKey(quality);
                 if (rowCount > 0) {
                     return ServerResponse.createBySuccess("质量问题信息更新成功");
