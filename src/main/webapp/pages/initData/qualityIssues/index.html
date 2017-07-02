@@ -7,9 +7,11 @@
                 <th>问题名称</th>
                 <th>问题类型</th>
                 <th>扣款金额</th>
-                <th><span style="float: left;">所属工位</span>
-                    <select id="qualityListUserTypeSel" class="form-control" style="width: 200px" onchange="getQualityListByWorkerType()">
-                        <option value="0">全部</option>
+                <th >
+                    <div style="margin:0 auto;width: 305px ">
+                    <span style="width: 100px;float: left;">所属工位</span>
+                    <select id="qualityListUserTypeSel" class="form-control" style="width: 200px;float: left;margin-left: 5px" onchange="getQualityListByWorkerType()">
+                        <option value="">全部</option>
                         <option value="1">成型工</option>
                         <option value="3">修坯工</option>
                         <option value="4">施釉工</option>
@@ -17,7 +19,9 @@
                         <option value="6">烧窑工</option>
                         <option value="8">包装工</option>
                         <option value="10">管理人员</option>
-                    </select></th>
+                    </select>
+                    </div>
+                </th>
                 <th>描述</th>
                 <th width="200px"><a class="btn mbtn1" onclick="loadQualityIssuesInfoAdditionPage()" role="button">添加 <span>+</span></a></th>
             </tr>

@@ -171,8 +171,8 @@ function getQualityListByWorkerType() {
     var pageSize = 10000;
     var status = 1;
     var tableData = [];
-    var userType  = 0;
-    userType = $('#qualityListUserTypeSel').children('option:selected').val(),
+    var userType = $('#qualityListUserTypeSel').children('option:selected').val();
+    console.log("userType："+userType);
         $.ajax({
         type:"GET",
         url: "/quality/get_info_list",
