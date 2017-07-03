@@ -1,0 +1,64 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>毕要科技生产管理系统 - 01</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="plugins/alert/jquery.alerts.css">
+    <link rel="stylesheet" href="plugins/loadmask/jquery.loadmask.css">
+
+    <meta name="" content="">
+</head>
+<body>
+<header id="pHeader" >
+    <span id="logo" style="margin-right: 40px;"></span>
+    <h1><!-- 上海毕要科技有限公司 --> 毕要科技生产管理系统 - 01	<div class="uinfo" style="display: inline-block; font-size:15px; float: right; margin-left: 100px;">
+        <em></em>
+        <b></b>
+        <a href="/Index/login">退出</a>
+    </div></h1>
+</header>
+<section id="enterbox1">
+    <div class="row">
+        <div class="item1" href="initData.html">
+            <span class="ico ico1"></span>
+            <h4>初始化数据</h4>
+        </div>
+        <div class="item1" href="dataCollection.html">
+            <span class="ico ico2"></span>
+            <h4>数据采集</h4>
+        </div>
+        <div class="item1" href="dataCollection.html">
+            <span class="ico ico3"></span>
+            <h4>系统报告</h4>
+        </div>
+    </div>
+</section>
+<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/alert/jquery.alerts.js"></script>
+<script src="plugins/loadmask/jquery.loadmask.min.js"></script>
+<script>
+    $(function(){
+        setSize();
+        $(window).resize(setSize);
+
+        $('.item1').click(function(){
+            location.href = $(this).attr('href');
+        });
+    });
+
+    function setSize(){
+        if($(window).width()>$(window).height()){
+            var SC = $(window).height()-$('#pHeader').height();
+            $('#enterbox1 .item1').height(SC/3).css('margin-top',SC/3+'px').width(SC/3);
+            $('#enterbox1 .item1 span').css('line-height',(SC/3-50)+'px');
+        }else{
+            var SC = $(window).height()-$('#pHeader').height();
+            $('#enterbox1 .item1').width($(window).width()/2);
+            $('#enterbox1 .item1').height(SC/5).css('margin-top',SC/11+'px');
+            $('#enterbox1 .item1 span').css('line-height',(SC/5-50)+'px');
+        }
+    }
+</script>

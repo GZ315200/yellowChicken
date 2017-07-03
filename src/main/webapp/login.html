@@ -1,0 +1,117 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>上海毕要科技生产管理系统</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="plugins/alert/jquery.alerts.css">
+    <link rel="stylesheet" href="plugins/loadmask/jquery.loadmask.css">
+    <meta name="" content="">
+</head>
+<body>
+<header id="pHeader" >
+    <span id="logo"></span>
+    <h1>上海毕要科技生产管理系统</h1>
+</header>
+<style type="text/css">
+    .form-control,.form-control:focus{ box-shadow:none; }
+</style>
+<section id="loginbox">
+    <div class="row">
+        <div class="" style="width: 400px; margin:0px auto;">
+            <div class="loginform form-horizontal"  >
+                <h2>登陆账号</h2>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label"><span class="glyphicon glyphicon-folder-close"></span></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="codeStr" class="form-control" placeholder="公司编号" /></div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label"><span class="glyphicon glyphicon-user"></span></label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="UserName" class="form-control" placeholder="用户名" /></div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label"><span class="glyphicon glyphicon-lock"></span></label>
+                    <div class="col-sm-10">
+                        <input type="password" autocomplete="off" id="PassWord" class="form-control" placeholder="密码" /></div>
+                </div>
+                <div class="form-group no-padding">
+                    <input type="submit" id="subBtn" value="登录" class="form-control" />
+                </div>
+                <center style="color: #dddddd"> 001 admin  admin123 </center>
+                <center style="color: #1ACCBE;">记住公司编号和用户名 <input id="savechk" type="checkbox" /></center>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/alert/jquery.alerts.js"></script>
+<script src="plugins/loadmask/jquery.loadmask.min.js"></script>
+<script>
+    var storage=window.localStorage;
+    $(function(){
+
+        if(storage.getItem("checked")=='true'){
+            $('#codeStr').val(storage.getItem("comId"));
+            $('#UserName').val(storage.getItem("userName"));
+            $('#savechk').prop('checked',true);
+        }else{
+            $('#savechk').prop('checked',false)
+        }
+
+        document.onkeydown = function(event) {
+            var target, code, tag;
+            if (!event) {
+                event = window.event; //针对ie浏览器
+                target = event.srcElement;
+                code = event.keyCode;
+                if (code == 13) {
+                    if (target.id == "codeStr") { $('#UserName').focus(); }
+                    else if  (target.id == "UserName") { $('#PassWord').focus(); }
+                    else if  (target.id == "PassWord") { $('#subBtn').click() }
+                }
+            }
+            else {
+                target = event.target; //针对遵循w3c标准的浏览器，如Firefox
+                code = event.keyCode;
+                if (code == 13) {
+                    if (target.id == "codeStr") { $('#UserName').focus(); }
+                    else if  (target.id == "UserName") { $('#PassWord').focus(); }
+                    else if  (target.id == "PassWord") { $('#subBtn').click() }
+                }
+            }
+        };
+
+        $('#subBtn').click(function(){
+            var dat = {
+                CodeStr:$('#codeStr').val(),
+                UserName:$('#UserName').val(),
+                PassWord:$('#PassWord').val(),
+            }
+            if(dat.CodeStr.length<1){ alert('请输入公司编号'); return false; }
+            if(dat.UserName.length<1){ alert('请输入用户名'); return false; }
+            if(dat.PassWord.length<1){ alert('请输入密码'); return false; }
+
+            location.href='enter1.html';
+
+
+//            $.post('/Index/dologin',dat,function(obj){
+//                if($('#savechk').prop('checked')){
+//                    storage.setItem("checked",true);
+//                    storage.setItem("comId",dat.CodeStr);
+//                    storage.setItem("userName",dat.UserName);
+//                }else{
+//                    storage.setItem("checked",false);
+//                    storage.removeItem("comId");
+//                    storage.removeItem("userName");
+//                }
+//                if(obj.s) {
+//                    location.href = '/Index/enter1';
+//                } else{ alert(obj.m); }
+//            },'json');
+        });
+    });
+</script>
