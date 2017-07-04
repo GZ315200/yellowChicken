@@ -9,7 +9,7 @@
       <arg column="question_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="question_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="coefficient" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="quality" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -17,31 +17,31 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, collect_id, collect_type, question_id, question_name, coefficient, quality, status,
+    id, collect_id, collect_type, question_id, question_name, coefficient, quantity, status,
     remark, created, modified
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from mj_quality_question
+    from mj_quantity_question
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from mj_quality_question
+    delete from mj_quantity_question
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.igeek.pojo.QualityQuestion">
-    insert into mj_quality_question (id, collect_id, collect_type,
+    insert into mj_quantity_question (id, collect_id, collect_type,
       question_id, question_name, coefficient,
-      quality, status, remark,
+      quantity, status, remark,
       created, modified)
     values (#{id,jdbcType=INTEGER}, #{collectId,jdbcType=INTEGER}, #{collectType,jdbcType=INTEGER},
       #{questionId,jdbcType=INTEGER}, #{questionName,jdbcType=VARCHAR}, #{coefficient,jdbcType=DOUBLE},
-      #{quality,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+      #{quantity,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
       #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.igeek.pojo.QualityQuestion">
-    insert into mj_quality_question
+    insert into mj_quantity_question
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -61,8 +61,8 @@
       <if test="coefficient != null">
         coefficient,
       </if>
-      <if test="quality != null">
-        quality,
+      <if test="quantity != null">
+        quantity,
       </if>
       <if test="status != null">
         status,
@@ -96,8 +96,8 @@
       <if test="coefficient != null">
         #{coefficient,jdbcType=DOUBLE},
       </if>
-      <if test="quality != null">
-        #{quality,jdbcType=INTEGER},
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -114,7 +114,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.QualityQuestion">
-    update mj_quality_question
+    update mj_quantity_question
     <set>
       <if test="collectId != null">
         collect_id = #{collectId,jdbcType=INTEGER},
@@ -131,8 +131,8 @@
       <if test="coefficient != null">
         coefficient = #{coefficient,jdbcType=DOUBLE},
       </if>
-      <if test="quality != null">
-        quality = #{quality,jdbcType=INTEGER},
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -150,13 +150,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.QualityQuestion">
-    update mj_quality_question
+    update mj_quantity_question
     set collect_id = #{collectId,jdbcType=INTEGER},
       collect_type = #{collectType,jdbcType=INTEGER},
       question_id = #{questionId,jdbcType=INTEGER},
       question_name = #{questionName,jdbcType=VARCHAR},
       coefficient = #{coefficient,jdbcType=DOUBLE},
-      quality = #{quality,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
@@ -169,26 +169,26 @@
     <!--&lt;!&ndash;SELECT&ndash;&gt;-->
     <!--&lt;!&ndash;LAST_INSERT_ID()&ndash;&gt;-->
     <!--&lt;!&ndash;</selectKey>&ndash;&gt;-->
-    <!--insert into mj_quality_question(id,collect_id,collect_type,-->
-    <!--question_name, coefficient, quality,-->
+    <!--insert into mj_quantity_question(id,collect_id,collect_type,-->
+    <!--question_name, coefficient, quantity,-->
     <!--status, remark, created,-->
     <!--modified) values-->
     <!--<foreach collection="list" item="item" index="index" separator=",">-->
     <!--(#{item.id},#{item.collect_id},#{item.collect_type},#{item.question_name}-->
-    <!--,#{item.coefficient},#{item.quality},#{item.status},#{item.remark},-->
+    <!--,#{item.coefficient},#{item.quantity},#{item.status},#{item.remark},-->
     <!--#{item.now()},#{item.now()})-->
     <!--</foreach>-->
     <!--</insert>-->
 
     <!--<update id="updateQuestionBatch" parameterType="list">-->
     <!--<foreach collection="list" separator="," index="index" item="item">-->
-    <!--update mj_quality_question-->
+    <!--update mj_quantity_question-->
     <!--<set>-->
     <!--collect_id = ${collect_id}+1,-->
     <!--question_id = ${question_id}+1,-->
     <!--question_name = ${question_name}+1,-->
     <!--coefficient = ${coefficient}+1,-->
-    <!--quality = ${quality}+1,-->
+    <!--quantity = ${quantity}+1,-->
     <!--status = ${status}+1,-->
     <!--remark = ${remark}+1,-->
     <!--created = ${created}+1,-->

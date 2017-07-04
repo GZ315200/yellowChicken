@@ -1,6 +1,5 @@
 package org.igeek.service.impl;
 
-import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.*;
@@ -43,6 +42,12 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         return null;
     }
 
+    @Override
+    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
+
+        return null;
+    }
+
 
     /**
      * 1 扣系数 还是扣钱(1:扣款问题 2.扣系数问题)
@@ -52,22 +57,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      * @param
      * @return
      */
-
-    @Override
-    public ServerResponse<String> addOrUpdateQuestion(Integer qualitys, Double coefficients,Integer q_id,Integer q_type) {
-        Quality quality = qualityMapper.selectByPrimaryKey(q_id);
-        QualityQuestion qualityQuestion = null;
-//        该问题存在的话
-        if(!Objects.equal(null,quality)){
-            qualityQuestion = new QualityQuestion();
-            qualityQuestion.setQuestionName(quality.getTitle());
-            qualityQuestion.setQuestionId(q_id);
-            qualityQuestion.setCollectType(q_type);
-
-        }
-        return null;
-    }
-
 
 
 

@@ -2,12 +2,10 @@ package service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.QualityQuestionMapper;
 import org.igeek.dao.UserCategoryMapper;
 import org.igeek.dao.UserMapper;
-import org.igeek.pojo.QualityQuestion;
 import org.igeek.service.IKilnService;
 import org.igeek.service.IQualityCollectService;
 import org.igeek.service.IQualityService;
@@ -17,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by Gyges on 2017/6/29.
@@ -65,16 +62,16 @@ public class UserCategoryTest {
 
     @Test
     public void getResultList() {
-        List<QualityQuestion> qualityQuestionList = Lists.newArrayList();
-        QualityQuestion qualityQuestion = new QualityQuestion();
-        qualityQuestion.setCoefficient(12.99);
-        qualityQuestion.setQuality(2);
-        qualityQuestionList.add(qualityQuestion);
-        QualityQuestion qualityQuestion1 = new QualityQuestion();
-        qualityQuestion1.setCoefficient(3.30);
-        qualityQuestion1.setQuality(2);
-        qualityQuestionList.add(qualityQuestion1);
-//        qualityQuestionMapper.insertQuestionBatch(qualityQuestionList);
+//        List<QualityQuestion> qualityQuestionList = Lists.newArrayList();
+//        QualityQuestion qualityQuestion = new QualityQuestion();
+//        qualityQuestion.setCoefficient(12.99);
+//        qualityQuestion.setQuality(2);
+//        qualityQuestionList.add(qualityQuestion);
+//        QualityQuestion qualityQuestion1 = new QualityQuestion();
+//        qualityQuestion1.setCoefficient(3.30);
+//        qualityQuestion1.setQuality(2);
+//        qualityQuestionList.add(qualityQuestion1);
+////        qualityQuestionMapper.insertQuestionBatch(qualityQuestionList);
 
 
     }

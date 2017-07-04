@@ -2,6 +2,7 @@ package org.igeek.controller.collect;
 
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.QualityCollection;
+import org.igeek.pojo.QualityQuestion;
 import org.igeek.service.IKilnService;
 import org.igeek.service.IQualityCollectService;
 import org.igeek.service.IQualityService;
@@ -44,13 +45,22 @@ public class QualityCollectController {
     }
 
 
+    /**
+     * 增加或先修改问题信息
+     * @param qualityId 质量问题id
+     * @param quantity 数量
+     * @param questionType 问题类型
+     * @param coefficient 系数
+     * @return
+     */
     @RequestMapping("addOrUpdate_question")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateQuestion(@RequestParam(value = "quality") Integer qualitys,
-                                                      @RequestParam(value = "xishu",required = false) Double coefficients,
-                                                      Integer q_id, Integer q_type) {
+    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
+
         return null;
     }
+
+
 
 
 
