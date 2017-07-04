@@ -8,34 +8,34 @@ import java.util.Date;
 public class QualityQuestion {
     private Integer id;
 
-    private Integer collectId;
+    private Integer collectId;//采集次数id
 
-    private Integer collectType;
+    private Integer collectType;//采集问题类型id
 
-    private Integer questionId;
+    private Integer questionId; //问题id
 
-    private String questionName;
+    private String questionName; //问题名称
 
-    private Double coefficient;
+    private Double coefficient; // 系数
 
-    private Integer quality;
+    private Integer quantity;//数量
 
-    private Integer status;
+    private Integer status;//状态
 
-    private String remark;
+    private String remark;//备注
 
-    private Date created;
+    private Date created; //创建时间
 
-    private Date modified;
+    private Date modified;//修改时间
 
-    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer quality, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.collectId = collectId;
         this.collectType = collectType;
         this.questionId = questionId;
         this.questionName = questionName;
         this.coefficient = coefficient;
-        this.quality = quality;
+        this.quantity = quantity;
         this.status = status;
         this.remark = remark;
         this.created = created;
@@ -94,12 +94,12 @@ public class QualityQuestion {
         this.coefficient = coefficient;
     }
 
-    public Integer getQuality() {
-        return quality;
+    public Integer getquantity() {
+        return quantity;
     }
 
-    public void setQuality(Integer quality) {
-        this.quality = quality;
+    public void setquantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Integer getStatus() {

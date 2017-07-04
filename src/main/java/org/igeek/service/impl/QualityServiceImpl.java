@@ -10,6 +10,7 @@ import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.UserCategoryMapper;
 import org.igeek.pojo.Quality;
+import org.igeek.pojo.QualityQuestion;
 import org.igeek.pojo.UserCategory;
 import org.igeek.service.IQualityService;
 import org.igeek.vo.QualityVo;
@@ -40,7 +41,10 @@ public class QualityServiceImpl implements IQualityService {
             return ServerResponse.createByErrorMsg("请输入完整的质量问题信息");
         }
         if (quality.getId() == null) {
-
+//            int resultCount = qualityMapper.selectByTitle(quality.getTitle());
+//            if(resultCount > 0){
+//                return ServerResponse.createBySuccess("您输入的质量信息已存在");
+//            }
 //            遇到扣系数问题时，不输入钱数
             if (quality.getQuestionType() == 2) {
                 quality.setUsername(username);
@@ -84,6 +88,8 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
+
+
     public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status,Integer userType) {
         PageHelper.startPage(pageNum, pageSize);
         List<Quality> qualityList = qualityMapper.listAllQualityInfo(status,userType);
@@ -96,9 +102,12 @@ public class QualityServiceImpl implements IQualityService {
         return ServerResponse.createBySuccess(pageInfo);
     }
 
+
+
+
+
     /**
      * 组装信息
-     *
      * @param quality
      * @return
      */
@@ -114,6 +123,11 @@ public class QualityServiceImpl implements IQualityService {
     }
 
 
+
+
+
+
+
     public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status) {
         if (qualityId == null && status == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
@@ -124,6 +138,8 @@ public class QualityServiceImpl implements IQualityService {
         }
         return ServerResponse.createByErrorMsg("删除质量问题信息失败");
     }
+
+
 
 
 

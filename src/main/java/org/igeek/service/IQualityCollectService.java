@@ -2,6 +2,7 @@ package org.igeek.service;
 
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.QualityCollection;
+import org.igeek.pojo.QualityQuestion;
 import org.igeek.vo.ProductVo;
 import org.igeek.vo.QualityVo;
 import org.igeek.vo.UserVo;
@@ -15,7 +16,7 @@ public interface IQualityCollectService {
 
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection);
 
-    public ServerResponse<String> addOrUpdateQuestion(Integer qualitys, Double coefficients, Integer q_id, Integer q_type);
+    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion);
 
     public ServerResponse<Set<UserVo>> searchUserList(String name);
 
