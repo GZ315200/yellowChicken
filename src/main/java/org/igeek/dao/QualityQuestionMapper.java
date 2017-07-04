@@ -1,5 +1,6 @@
 package org.igeek.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.igeek.pojo.QualityQuestion;
 
 public interface QualityQuestionMapper {
@@ -14,4 +15,6 @@ public interface QualityQuestionMapper {
     int updateByPrimaryKeySelective(QualityQuestion record);
 
     int updateByPrimaryKey(QualityQuestion record);
+
+    QualityQuestion getQualityQuestionList(@Param("collectType") Integer collectType);
 }

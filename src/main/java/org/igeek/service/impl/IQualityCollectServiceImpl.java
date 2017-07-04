@@ -42,11 +42,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         return null;
     }
 
-    @Override
-    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
-
-        return null;
-    }
 
 
     /**

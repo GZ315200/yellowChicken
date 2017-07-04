@@ -164,6 +164,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="getQualityQuestionList" resultMap="BaseResultMap" parameterType="int">
+    select <include refid="Base_Column_List"/>
+    from mj_quantity_question where collect_type = #{collectType}  and status = 1
+  </select>
+
+
+
+
     <!--<insert id="insertQuestionBatch" parameterType="list">-->
     <!--&lt;!&ndash;<selectKey resultType="int" keyProperty="id" order="AFTER">&ndash;&gt;-->
     <!--&lt;!&ndash;SELECT&ndash;&gt;-->

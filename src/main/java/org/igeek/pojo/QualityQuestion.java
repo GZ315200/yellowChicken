@@ -18,6 +18,8 @@ public class QualityQuestion {
 
     private Double coefficient; // 系数
 
+    private Integer userId;//员工类别
+
     private Integer quantity;//数量
 
     private Integer status;//状态
@@ -28,13 +30,14 @@ public class QualityQuestion {
 
     private Date modified;//修改时间
 
-    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer userId, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.collectId = collectId;
         this.collectType = collectType;
         this.questionId = questionId;
         this.questionName = questionName;
         this.coefficient = coefficient;
+        this.userId = userId;
         this.quantity = quantity;
         this.status = status;
         this.remark = remark;
@@ -44,6 +47,22 @@ public class QualityQuestion {
 
     public QualityQuestion() {
         super();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Integer getId() {
