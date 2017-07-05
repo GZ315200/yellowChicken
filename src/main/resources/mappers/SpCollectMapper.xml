@@ -1,42 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.igeek.dao.SpCollectMapper" >
-  <resultMap id="BaseResultMap" type="org.igeek.pojo.SpCollect" >
-    <constructor >
-      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="user_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ower_id" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ower_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="ower_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="pro_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="pro_code" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="pro_title" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="pro_cate_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="pro_cate_title" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="count" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="beizhu" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="modified" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.igeek.dao.SpCollectMapper">
+  <resultMap id="BaseResultMap" type="org.igeek.pojo.SpCollect">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ower_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ower_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ower_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_cate_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_cate_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="count" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="beizhu" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, user_id, user_code, user_name, ower_id, ower_code, ower_name, pro_id, pro_code, 
     pro_title, pro_cate_id, pro_cate_title, count, beizhu, status, created, modified
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mj_shpeicaiji
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.igeek.pojo.SpCollect" >
+  <insert id="insert" parameterType="org.igeek.pojo.SpCollect">
     insert into mj_shpeicaiji (id, user_id, user_code, 
       user_name, ower_id, ower_code, 
       ower_name, pro_id, pro_code, 
@@ -50,170 +50,170 @@
       #{count,jdbcType=INTEGER}, #{beizhu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.igeek.pojo.SpCollect" >
+  <insert id="insertSelective" parameterType="org.igeek.pojo.SpCollect">
     insert into mj_shpeicaiji
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="userCode != null" >
+      <if test="userCode != null">
         user_code,
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         user_name,
       </if>
-      <if test="owerId != null" >
+      <if test="owerId != null">
         ower_id,
       </if>
-      <if test="owerCode != null" >
+      <if test="owerCode != null">
         ower_code,
       </if>
-      <if test="owerName != null" >
+      <if test="owerName != null">
         ower_name,
       </if>
-      <if test="proId != null" >
+      <if test="proId != null">
         pro_id,
       </if>
-      <if test="proCode != null" >
+      <if test="proCode != null">
         pro_code,
       </if>
-      <if test="proTitle != null" >
+      <if test="proTitle != null">
         pro_title,
       </if>
-      <if test="proCateId != null" >
+      <if test="proCateId != null">
         pro_cate_id,
       </if>
-      <if test="proCateTitle != null" >
+      <if test="proCateTitle != null">
         pro_cate_title,
       </if>
-      <if test="count != null" >
+      <if test="count != null">
         count,
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         beizhu,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="created != null" >
+      <if test="created != null">
         created,
       </if>
-      <if test="modified != null" >
+      <if test="modified != null">
         modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userCode != null" >
+      <if test="userCode != null">
         #{userCode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="owerId != null" >
+      <if test="owerId != null">
         #{owerId,jdbcType=VARCHAR},
       </if>
-      <if test="owerCode != null" >
+      <if test="owerCode != null">
         #{owerCode,jdbcType=VARCHAR},
       </if>
-      <if test="owerName != null" >
+      <if test="owerName != null">
         #{owerName,jdbcType=VARCHAR},
       </if>
-      <if test="proId != null" >
+      <if test="proId != null">
         #{proId,jdbcType=INTEGER},
       </if>
-      <if test="proCode != null" >
+      <if test="proCode != null">
         #{proCode,jdbcType=VARCHAR},
       </if>
-      <if test="proTitle != null" >
+      <if test="proTitle != null">
         #{proTitle,jdbcType=VARCHAR},
       </if>
-      <if test="proCateId != null" >
+      <if test="proCateId != null">
         #{proCateId,jdbcType=INTEGER},
       </if>
-      <if test="proCateTitle != null" >
+      <if test="proCateTitle != null">
         #{proCateTitle,jdbcType=VARCHAR},
       </if>
-      <if test="count != null" >
+      <if test="count != null">
         #{count,jdbcType=INTEGER},
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         #{beizhu,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="created != null" >
+      <if test="created != null">
         #{created,jdbcType=TIMESTAMP},
       </if>
-      <if test="modified != null" >
+      <if test="modified != null">
         #{modified,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.SpCollect" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.SpCollect">
     update mj_shpeicaiji
-    <set >
-      <if test="userId != null" >
+    <set>
+      <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userCode != null" >
+      <if test="userCode != null">
         user_code = #{userCode,jdbcType=VARCHAR},
       </if>
-      <if test="userName != null" >
+      <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="owerId != null" >
+      <if test="owerId != null">
         ower_id = #{owerId,jdbcType=VARCHAR},
       </if>
-      <if test="owerCode != null" >
+      <if test="owerCode != null">
         ower_code = #{owerCode,jdbcType=VARCHAR},
       </if>
-      <if test="owerName != null" >
+      <if test="owerName != null">
         ower_name = #{owerName,jdbcType=VARCHAR},
       </if>
-      <if test="proId != null" >
+      <if test="proId != null">
         pro_id = #{proId,jdbcType=INTEGER},
       </if>
-      <if test="proCode != null" >
+      <if test="proCode != null">
         pro_code = #{proCode,jdbcType=VARCHAR},
       </if>
-      <if test="proTitle != null" >
+      <if test="proTitle != null">
         pro_title = #{proTitle,jdbcType=VARCHAR},
       </if>
-      <if test="proCateId != null" >
+      <if test="proCateId != null">
         pro_cate_id = #{proCateId,jdbcType=INTEGER},
       </if>
-      <if test="proCateTitle != null" >
+      <if test="proCateTitle != null">
         pro_cate_title = #{proCateTitle,jdbcType=VARCHAR},
       </if>
-      <if test="count != null" >
+      <if test="count != null">
         count = #{count,jdbcType=INTEGER},
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         beizhu = #{beizhu,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="created != null" >
+      <if test="created != null">
         created = #{created,jdbcType=TIMESTAMP},
       </if>
-      <if test="modified != null" >
+      <if test="modified != null">
         modified = #{modified,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.SpCollect" >
+  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.SpCollect">
     update mj_shpeicaiji
     set user_id = #{userId,jdbcType=INTEGER},
       user_code = #{userCode,jdbcType=VARCHAR},
@@ -234,8 +234,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getSpCollectList" resultMap="BaseResultMap" parameterType="int">
-    select <include refid="Base_Column_List"/>
+  <select id="getSpCollectList" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where status = #{status}
   </select>

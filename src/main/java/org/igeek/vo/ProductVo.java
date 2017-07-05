@@ -11,6 +11,16 @@ public class ProductVo {
 
     private Integer id;
     private String productDetail;
+    private String workerName;
+
+
+    public String getWorkerName() {
+        return workerName;
+    }
+
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
+    }
 
     public Integer getId() {
         return id;

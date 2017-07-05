@@ -5,7 +5,7 @@ import org.igeek.pojo.QualityCollection;
 import org.igeek.pojo.QualityQuestion;
 import org.igeek.service.IKilnService;
 import org.igeek.service.IQualityCollectService;
-import org.igeek.service.IQualityService;
+import org.igeek.service.IQualityQuestionService;
 import org.igeek.service.IRankService;
 import org.igeek.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,115 +32,149 @@ public class QualityCollectController {
     @Autowired
     private IRankService iRankService;
 
+//    @Autowired
+//    private IQualityService iQualityService;
+
     @Autowired
-    private IQualityService iQualityService;
+    private IQualityQuestionService iQualityQuestionService;
 
 
+    /**
+     * 获取质量采集的页面显示信息
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping("get_quality_collect_info")
+    @ResponseBody
+    public ServerResponse getQualityCollectInfo(Integer userId) {
+        return iQualityCollectService.getQualityCollectInfo(userId);
+    }
 
+
+    /**
+     * 更新和增加质量采集问题的员工信息、质量信息，等级、数量、
+     * typeId 传参时将问题类型id,用, 逗号连接
+     *
+     * @param qualityCollection
+     * @return
+     */
     @RequestMapping("addOrUpdate")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection){
-
-        return null;
+    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
+        return iQualityCollectService.addOrUpdateInfo(qualityCollection);
     }
 
 
     /**
      * 增加或先修改问题信息
-     * @param qualityId 质量问题id
-     * @param quantity 数量
-     * @param questionType 问题类型
-     * @param coefficient 系数
+     * <p>
+     * qualityId    质量问题id
+     * quantity     数量
+     * questionType 问题类型
+     * coefficient  系数
+     *
      * @return
      */
     @RequestMapping("addOrUpdate_question")
     @ResponseBody
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
-
-        return null;
+        return iQualityQuestionService.addOrUpdateQuestion(qualityQuestion);
     }
 
 
-
+    /**
+     * 获取质量采集问题的数量和系数列表
+     *
+     * @param collectType
+     * @return
+     */
+    @RequestMapping("get_quality_question_list")
+    @ResponseBody
+    public ServerResponse getQualityQuestionList(Integer collectType) {
+        return iQualityQuestionService.getQualityQuestionList(collectType);
+    }
 
 
     /**
      * 获得用户id、姓名列表
+     *
      * @param name
      * @return
      */
     @RequestMapping("get_user_list")
     @ResponseBody
-    public ServerResponse<Set<UserVo>> getUserList(String name){
+    public ServerResponse<Set<UserVo>> getUserList(String name) {
         return iQualityCollectService.searchUserList(name);
     }
 
 
-
     /**
      * 获得窑炉信息列表
+     *
      * @param status
      * @return
      */
     @RequestMapping("get_kilnName_list")
     @ResponseBody
-    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1",required = false) Integer status){
+    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1", required = false) Integer status) {
         return iKilnService.searchKilnNameList(status);
     }
 
 
-
     /**
      * 获得等级标题
-     * @param status
+     *
+     * @param status 已调通
      * @return
      */
     @RequestMapping(value = "get_rank_title")
     @ResponseBody
-    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status",defaultValue = "1") Integer status){
+    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status", defaultValue = "1") Integer status) {
         return iRankService.searchRankTitle(status);
     }
 
 
-
     /**
-     *获取工种信息列表
-     * @param category
-     * @return
+     * 获取工种信息列表
+     *
+     * @param category 输入员工类别（如：成型工=1）
+     * @return 已经调通
      */
     @RequestMapping("get_user_category")
     @ResponseBody
-    public ServerResponse<Set<UserVo>> getUserCategoryList(Integer category){
+    public ServerResponse<Set<UserVo>> getUserCategoryList(Integer category) {
         return iQualityCollectService.searchUserCategoryList(category);
     }
 
 
-
     /**
      * 获取质量类别列表
-     * @param status 状态
-     * @param question_type 所属问题类型
-     * @return
+     *
+     * @param status        状态
+     * @param question_type 所属问题类型 1：成型问题，2：修坯 3：喷窑 4，登窑，5 烧窑。
+     * @return 已调通
      */
     @RequestMapping("get_quality_category")
     @ResponseBody
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(@RequestParam(defaultValue = "1",required = false) Integer status,
-                                                                 Integer question_type){
+    public ServerResponse<Set<QualityVo>> getQualityCategoryList(@RequestParam(defaultValue = "1", required = false) Integer status,
+                                                                 Integer question_type) {
         return iQualityCollectService.getQualityCategoryList(status, question_type);
     }
 
 
-
     /**
      * 获取成型工的产品信息
-     * @param status
+     * 获取成型工信息
+     * @param status 已调通，
      * @return
      */
     @RequestMapping("get_product_code")
     @ResponseBody
-    public ServerResponse<Set<ProductVo>> getProductCode(@RequestParam(defaultValue = "1",required = false) Integer status){
+    public ServerResponse<Set<ProductVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status) {
         return iQualityCollectService.searchProIdList(status);
     }
+
 
 
 

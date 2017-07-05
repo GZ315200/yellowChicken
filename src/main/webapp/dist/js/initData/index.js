@@ -44,9 +44,9 @@
         })
     }
     //绑定添加页面
-    submenu[6].onclick = loadKilnInfoPage;
-    submenu[7].onclick = loadLevelInfoPage;
-    submenu[8].onclick = loadQualityIssuesInfoPage;
+    submenu[0].onclick = loadKilnInfoPage;
+    submenu[1].onclick = loadLevelInfoPage;
+    submenu[2].onclick = loadQualityIssuesInfoPage;
 
 })()
 

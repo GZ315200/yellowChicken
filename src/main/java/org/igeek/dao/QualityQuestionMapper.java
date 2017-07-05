@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.igeek.pojo.QualityQuestion;
 
 public interface QualityQuestionMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(QualityQuestion record);

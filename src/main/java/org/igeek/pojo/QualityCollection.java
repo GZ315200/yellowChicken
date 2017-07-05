@@ -1,41 +1,42 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class QualityCollection {
-    private Integer id;
 
-    private String userCode;
+    private Integer id; //采集id
 
-    private Integer userId;
+    private Integer userId; //员工id
 
-    private Integer productId;
+    private String userCode; //员工编码
 
-    private Integer typeId;
+    private String userName; //员工姓名
 
-    private Integer rankId;
+    private Integer productId; //产品id
 
-    private Integer quantity;
+    private String typeId; //采集问题类型(1:成型问题2:修坯/上水3:喷釉4:登窑5:烧窑)
 
-    private Integer yaoluId;
+    private Integer rankId; //等级id
 
-    private Integer status;
+    private Integer quantity; //数量
 
-    private Long count;
+    private Integer yaoluId; //窑炉id
 
-    private String remark;
+    private Integer status; //状态
 
-    private Date created;
+    private Long count; //统计次数
 
-    private Date modified;
+    private String remark; //备注
 
-    public QualityCollection(Integer id, String userCode, Integer userId, Integer productId, Integer typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Long count, String remark, Date created, Date modified) {
+    private Date created; //创建时间
+
+    private Date modified; //修改时间
+
+    public QualityCollection(Integer id, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Long count, String remark, Date created, Date modified) {
         this.id = id;
-        this.userCode = userCode;
         this.userId = userId;
+        this.userCode = userCode;
+        this.userName = userName;
         this.productId = productId;
         this.typeId = typeId;
         this.rankId = rankId;
@@ -60,6 +61,14 @@ public class QualityCollection {
         this.id = id;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public String getUserCode() {
         return userCode;
     }
@@ -68,12 +77,12 @@ public class QualityCollection {
         this.userCode = userCode == null ? null : userCode.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public Integer getProductId() {
@@ -84,12 +93,12 @@ public class QualityCollection {
         this.productId = productId;
     }
 
-    public Integer getTypeId() {
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId == null ? null : typeId.trim();
     }
 
     public Integer getRankId() {

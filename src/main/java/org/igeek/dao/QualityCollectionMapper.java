@@ -2,6 +2,8 @@ package org.igeek.dao;
 
 import org.igeek.pojo.QualityCollection;
 
+import java.util.List;
+
 public interface QualityCollectionMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -13,5 +15,10 @@ public interface QualityCollectionMapper {
 
     int updateByPrimaryKeySelective(QualityCollection record);
 
+    int updateCollectCount(Integer collectId);
+
     int updateByPrimaryKey(QualityCollection record);
+
+    List<QualityCollection> getQualityCollection(Integer userId);
+
 }

@@ -1,43 +1,44 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.Date;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class QualityQuestion {
+
     private Integer id;
 
-    private Integer collectId;//采集次数id
+    private Integer collectId;
 
-    private Integer collectType;//采集问题类型id
+    private String questionType;
 
-    private Integer questionId; //问题id
+    private Integer collectType;
 
-    private String questionName; //问题名称
+    private Integer questionId;
 
-    private Double coefficient; // 系数
+    private String questionName;
 
-    private Integer userId;//员工类别
+    private Integer userId;
 
-    private Integer quantity;//数量
+    private Double coefficient;
 
-    private Integer status;//状态
+    private Integer quantity;
 
-    private String remark;//备注
+    private Integer status;
 
-    private Date created; //创建时间
+    private String remark;
 
-    private Date modified;//修改时间
+    private Date created;
 
-    public QualityQuestion(Integer id, Integer collectId, Integer collectType, Integer questionId, String questionName, Double coefficient, Integer userId, Integer quantity, Integer status, String remark, Date created, Date modified) {
+    private Date modified;
+
+    public QualityQuestion(Integer id, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.collectId = collectId;
+        this.questionType = questionType;
         this.collectType = collectType;
         this.questionId = questionId;
         this.questionName = questionName;
-        this.coefficient = coefficient;
         this.userId = userId;
+        this.coefficient = coefficient;
         this.quantity = quantity;
         this.status = status;
         this.remark = remark;
@@ -47,22 +48,6 @@ public class QualityQuestion {
 
     public QualityQuestion() {
         super();
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -79,6 +64,14 @@ public class QualityQuestion {
 
     public void setCollectId(Integer collectId) {
         this.collectId = collectId;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType == null ? null : questionType.trim();
     }
 
     public Integer getCollectType() {
@@ -103,6 +96,14 @@ public class QualityQuestion {
 
     public void setQuestionName(String questionName) {
         this.questionName = questionName == null ? null : questionName.trim();
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Double getCoefficient() {
