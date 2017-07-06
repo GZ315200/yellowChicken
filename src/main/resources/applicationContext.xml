@@ -18,22 +18,4 @@
 
     <import resource="applicationContext-datasource.xml"/>
 
-    <!-- 支持RESTful访问静态资源 -->
-    <mvc:default-servlet-handler/>
-    <!--For static resources-->
-    <mvc:resources location="/" mapping="/**/*.html"/>
-    <mvc:resources location="/" mapping="/**/*.jsp"/>
-    <mvc:resources location="/" mapping="/**/*.js"/>
-    <mvc:resources location="/" mapping="/**/*.css"/>
-    <mvc:resources location="/" mapping="/**/*.png"/>
-    <mvc:resources location="/" mapping="/**/*.gif"/>
-    <mvc:resources location="/" mapping="/**/*.icon"/>
-    <mvc:resources location="/" mapping="/**/*.swf"/>
-    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
-    <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
-    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
 </beans>

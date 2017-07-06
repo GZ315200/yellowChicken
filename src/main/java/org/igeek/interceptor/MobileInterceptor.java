@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Gyges on 2017/6/28.
+ * 手机拦截
  */
 public class MobileInterceptor implements HandlerInterceptor {
     @Override
