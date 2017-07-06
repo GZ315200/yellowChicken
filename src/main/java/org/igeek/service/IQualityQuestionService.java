@@ -10,6 +10,6 @@ public interface IQualityQuestionService {
 
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion);
 
-    public ServerResponse<QualityQuestion> getQualityQuestionList(Integer collectType);
+    public ServerResponse<QualityQuestion> getQualityQuestionList(Integer collectType,Integer workerId);
 
 }

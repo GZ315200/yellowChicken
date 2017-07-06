@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Gyges on 2017/6/28.
+ * 等级信息的所有接口
  */
 @Controller
 @RequestMapping(value = "/rank/")

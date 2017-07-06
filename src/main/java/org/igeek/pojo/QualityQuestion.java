@@ -6,23 +6,23 @@ public class QualityQuestion {
 
     private Integer id;
 
-    private Integer collectId;
+    private Integer collectId;//采集id
 
-    private String questionType;
+    private String questionType;//问题类型（扣系数，扣钱）
 
-    private Integer collectType;
+    private Integer collectType;//采集问题类型
 
-    private Integer questionId;
+    private Integer questionId;//问题id
 
-    private String questionName;
+    private String questionName;//问题名称
 
-    private Integer userId;
+    private Integer userId;//员工id，选择采集问题所对应的员工名
 
-    private Double coefficient;
+    private Double coefficient;//系数
 
-    private Integer quantity;
+    private Integer quantity;//数量
 
-    private Integer status;
+    private Integer status;//默认为1
 
     private String remark;
 
@@ -114,11 +114,11 @@ public class QualityQuestion {
         this.coefficient = coefficient;
     }
 
-    public Integer getquantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setquantity(Integer quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

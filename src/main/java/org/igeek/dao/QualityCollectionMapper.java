@@ -1,5 +1,6 @@
 package org.igeek.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.igeek.pojo.QualityCollection;
 
 import java.util.List;
@@ -15,10 +16,12 @@ public interface QualityCollectionMapper {
 
     int updateByPrimaryKeySelective(QualityCollection record);
 
-    int updateCollectCount(Integer collectId);
+    int updateCollectCount(@Param("collectId") Integer collectId,@Param("workerId") Integer workerId,@Param("count") Long count);
 
     int updateByPrimaryKey(QualityCollection record);
 
-    List<QualityCollection> getQualityCollection(Integer userId);
+    List<QualityCollection> getQualityCollection(@Param("workerCode") String workerCode, @Param("workerId")  Integer workerId);
+
+    List<QualityCollection> getAllCollectionList();
 
 }

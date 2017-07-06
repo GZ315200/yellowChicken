@@ -15,6 +15,7 @@ import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/28.
+ * 质量问题的所有接口
  */
 @Controller
 @RequestMapping(value = "/quality/")

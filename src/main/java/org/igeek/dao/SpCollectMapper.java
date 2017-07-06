@@ -1,5 +1,6 @@
 package org.igeek.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.igeek.pojo.SpCollect;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface SpCollectMapper {
 
     int updateByPrimaryKey(SpCollect record);
 
-    List<SpCollect> getSpCollectList(Integer status);
+    List<SpCollect> getSpCollectList(@Param("status") Integer status, @Param("workerId") Integer workerId);
 }

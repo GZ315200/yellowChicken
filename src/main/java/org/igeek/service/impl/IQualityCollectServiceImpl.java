@@ -2,16 +2,14 @@ package org.igeek.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.apache.commons.collections.CollectionUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityCollectionMapper;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.SpCollectMapper;
 import org.igeek.dao.UserMapper;
-import org.igeek.pojo.Quality;
-import org.igeek.pojo.QualityCollection;
-import org.igeek.pojo.SpCollect;
-import org.igeek.pojo.User;
+import org.igeek.pojo.*;
 import org.igeek.service.IQualityCollectService;
 import org.igeek.vo.ProductVo;
 import org.igeek.vo.QualityCollectVo;
@@ -33,10 +31,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     private UserMapper userMapper;
     @Autowired
     private QualityCollectionMapper collectionMapper;
-    //    @Autowired
-//    private ProductMapper productMapper;
-//    @Autowired
-//    private QualityQuestionMapper qualityQuestionMapper;
     @Autowired
     private QualityMapper qualityMapper;
     @Autowired
@@ -51,12 +45,12 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
-//        String productList = String.valueOf(Splitter.on(",").splitToList(qualityCollection.getTypeId()));
-//        if (StringUtils.isBlank(productList)) {
-//            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
-//        }
-//        qualityCollection.setTypeId(productList);
         if (qualityCollection.getId() == null) {
+            String workerCode = qualityCollection.getUserCode();
+            List<QualityCollection> qualityCollections = collectionMapper.getQualityCollection(workerCode,qualityCollection.getUserId());
+            if(qualityCollections.size() > 0){
+                return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
+            }
             int resultCount = collectionMapper.insert(qualityCollection);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("插入质量采集问题信息成功");
@@ -102,6 +96,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
+
+
     @Override
     public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category) {
         Set<UserVo> userVoList = Sets.newHashSet();
@@ -120,15 +116,17 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status) {
+    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status,Integer workerId) {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
-        List<SpCollect> productList = spCollectMapper.getSpCollectList(status);
+        List<SpCollect> productList = spCollectMapper.getSpCollectList(status,workerId);
         Set<ProductVo> productVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
                 ProductVo productVo = new ProductVo();
                 productVo.setProductDetail(spCollect.getProId() + "-" + spCollect.getProCode());
                 productVo.setWorkerName(spCollect.getUserCode() + "-"+ spCollect.getUserName());
+                productVo.setWorkerId(spCollect.getUserId());
+                productVo.setWorkerCode(spCollect.getUserCode());
                 productVoSet.add(productVo);
             }
             return ServerResponse.createBySuccess(productVoSet);
@@ -138,8 +136,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionType) {
-        List<Quality> qualityList = qualityMapper.selectAllQualityQuestion(status, questionType);
+    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionCollectType) {
+        List<Quality> qualityList = qualityMapper.selectAllQualityQuestion(status, questionCollectType);
         Set<QualityVo> qualityVoList = Sets.newHashSet();
         if (qualityList.size() > 0) {
             for (Quality quality : qualityList) {
@@ -156,8 +154,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
     @Override
-    public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(Integer userId) {
-        List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(userId);
+    public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId) {
+        List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(workerCode,workerId);
         List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
         if (qualityCollectionList.size() > 0) {
             for (QualityCollection collection : qualityCollectionList) {
@@ -186,15 +184,25 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<String> updateCount(Integer collectId){
+    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count){
         if(collectId != null) {
-            int rowCount = collectionMapper.updateCollectCount(collectId);
+            int rowCount = collectionMapper.updateCollectCount(collectId,workerId,count);
             if (rowCount > 0){
                 return ServerResponse.createBySuccess("更新采集次数成功");
             }
             return ServerResponse.createByErrorMsg("更新采集次数失败");
         }
         return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+    }
+
+
+
+    public ServerResponse searchAllCollectList(){
+        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList();
+        if (CollectionUtils.isEmpty(qualityCollectionList)){
+            return ServerResponse.createByErrorMsg("质量采集列表为空");
+        }
+        return ServerResponse.createBySuccess(qualityCollectionList);
     }
 
 

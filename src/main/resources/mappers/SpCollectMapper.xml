@@ -48,7 +48,7 @@
       #{owerName,jdbcType=VARCHAR}, #{proId,jdbcType=INTEGER}, #{proCode,jdbcType=VARCHAR}, 
       #{proTitle,jdbcType=VARCHAR}, #{proCateId,jdbcType=INTEGER}, #{proCateTitle,jdbcType=VARCHAR}, 
       #{count,jdbcType=INTEGER}, #{beizhu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP})
+      now(), now())
   </insert>
   <insert id="insertSelective" parameterType="org.igeek.pojo.SpCollect">
     insert into mj_shpeicaiji
@@ -152,10 +152,10 @@
         #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null">
-        #{created,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="modified != null">
-        #{modified,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
@@ -208,7 +208,7 @@
         created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="modified != null">
-        modified = #{modified,jdbcType=TIMESTAMP},
+        modified = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -230,14 +230,17 @@
       beizhu = #{beizhu,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
-      modified = #{modified,jdbcType=TIMESTAMP}
+      modified = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getSpCollectList" parameterType="int" resultMap="BaseResultMap">
+  <select id="getSpCollectList" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where status = #{status}
+    <if test="workerId != null">
+      and user_id = #{workerId}
+    </if>
   </select>
 
 </mapper>

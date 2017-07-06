@@ -23,9 +23,11 @@ public interface IQualityCollectService {
 
     public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionType);
 
-    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status);
+    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status,Integer workerId);
 
-    public  ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(Integer userId);
+    public  ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId);
 
-    public ServerResponse<String> updateCount(Integer collectId);
+    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count);
+
+    public ServerResponse searchAllCollectList();
 }

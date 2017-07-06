@@ -22,9 +22,9 @@ public class QualityCollection {
 
     private Integer yaoluId; //窑炉id
 
-    private Integer status; //状态
+    private Integer status; //状态 默认为1
 
-    private Long count; //统计次数
+    private Long count; //统计次数 默认为0
 
     private String remark; //备注
 

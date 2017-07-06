@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class QualityVo {
 
     private Integer qualityId;
-    private String qualityName;
+    private String qualityQuestionName;
     private Integer questionType;
     private BigDecimal amount;
     private Integer workerType;
@@ -33,11 +33,11 @@ public class QualityVo {
     }
 
     public String getQualityName() {
-        return qualityName;
+        return qualityQuestionName;
     }
 
     public void setQualityName(String qualityName) {
-        this.qualityName = qualityName;
+        this.qualityQuestionName = qualityName;
     }
 
     public Integer getQuestionType() {

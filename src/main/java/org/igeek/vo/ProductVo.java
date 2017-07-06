@@ -12,7 +12,25 @@ public class ProductVo {
     private Integer id;
     private String productDetail;
     private String workerName;
+    private Integer workerId;
+    private String workerCode;
 
+
+    public Integer getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
+    }
+
+    public String getWorkerCode() {
+        return workerCode;
+    }
+
+    public void setWorkerCode(String workerCode) {
+        this.workerCode = workerCode;
+    }
 
     public String getWorkerName() {
         return workerName;

@@ -22,7 +22,7 @@ public class Quality {
 
     private BigDecimal money;
 
-    private Integer questionType;
+    private Integer questionType;//问题类型：1:扣款问题 2:扣系数问题
 
     private Date created;
 

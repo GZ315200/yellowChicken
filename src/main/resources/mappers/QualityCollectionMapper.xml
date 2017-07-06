@@ -43,7 +43,7 @@
       #{userName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, #{typeId,jdbcType=VARCHAR}, 
       #{rankId,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, #{yaoluId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{count,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, 
-      #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP})
+     now(), now())
   </insert>
     <insert id="insertSelective" parameterType="org.igeek.pojo.QualityCollection">
         insert into mj_quality_collection
@@ -129,10 +129,10 @@
                 #{remark,jdbcType=VARCHAR},
             </if>
             <if test="created != null">
-                #{created,jdbcType=TIMESTAMP},
+               now(),
             </if>
             <if test="modified != null">
-                #{modified,jdbcType=TIMESTAMP},
+                now(),
             </if>
         </trim>
     </insert>
@@ -176,7 +176,7 @@
                 created = #{created,jdbcType=TIMESTAMP},
             </if>
             <if test="modified != null">
-                modified = #{modified,jdbcType=TIMESTAMP},
+                modified = now(),
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -195,23 +195,33 @@
       count = #{count,jdbcType=BIGINT},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
-      modified = #{modified,jdbcType=TIMESTAMP}
+      modified = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="getQualityCollection" parameterType="int" resultMap="BaseResultMap">
+    <select id="getQualityCollection" parameterType="string" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from mj_quality_collection where status = 1
-        <if test="userId != null">
-            and user_id = #{userId}
+        <if test="workerCode != null">
+            and user_code = #{workerCode}
+        </if>
+        <if test="workerId != null">
+            and user_id = #{workerId}
         </if>
     </select>
 
-    <update id="updateCollectCount" parameterType="int">
+    <update id="updateCollectCount" parameterType="map">
     update mj_quality_collection
-    set count = #{count,jdbcType=BIGINT} + 1
-    where id = #{id,jdbcType=INTEGER}
+    set  modified = now(), count = #{count,jdbcType=BIGINT} + 1
+    where id = #{collectId}
+    and user_id = #{workerId}
   </update>
+
+
+    <select id="getAllCollectionList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from mj_quality_collection where status = 1
+    </select>
 
 </mapper>

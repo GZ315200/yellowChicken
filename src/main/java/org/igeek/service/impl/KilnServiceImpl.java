@@ -2,7 +2,6 @@ package org.igeek.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -36,9 +35,6 @@ public class KilnServiceImpl implements IKilnService {
      */
     public ServerResponse<String> updateOrSaveKilnValue(Kiln kiln) {
         int rowCount = 0;
-        if (Objects.equal(kiln, null)) {
-            return ServerResponse.createByErrorMsg("请输入完整窑炉信息");
-        }
         if (kiln.getId() != null) {
             rowCount = kilnMapper.updateByPrimaryKey(kiln);
             if (rowCount > 0) {
