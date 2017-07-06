@@ -48,8 +48,8 @@ public class QualityCollectController {
      */
     @RequestMapping("get_quality_collect_info")
     @ResponseBody
-    public ServerResponse getQualityCollectInfo(@RequestParam(required = false) String workerCode,
-                                                Integer workerId) {
+    public ServerResponse getQualityCollectInfo(@RequestParam(defaultValue = " ",required = false) String workerCode,
+                                                @RequestParam(defaultValue = " ",required = false) Integer workerId) {
         return iQualityCollectService.getQualityCollectInfo(workerCode,workerId);
     }
 
@@ -67,7 +67,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_product_code")
     @ResponseBody
-    public ServerResponse<Set<ProductVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
+    public ServerResponse<Set<ProductCollectVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
                                                          @RequestParam(required = false) Integer workerId) {
         return iQualityCollectService.searchProIdList(status,workerId);
     }

@@ -87,7 +87,7 @@ public class KilnServiceImpl implements IKilnService {
         KilnVo kilnVo = new KilnVo();
         kilnVo.setId(kiln.getId());
         kilnVo.setKilnName(kiln.getTitle());
-        kilnVo.setDescription(kiln.getremark());
+        kilnVo.setDescription(kiln.getRemark());
         return kilnVo;
     }
 

@@ -7,14 +7,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ProductVo {
+public class ProductCollectVo {
 
     private Integer id;
     private String productDetail;
     private String workerName;
     private Integer workerId;
     private String workerCode;
+    private Integer count;
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public Integer getWorkerId() {
         return workerId;

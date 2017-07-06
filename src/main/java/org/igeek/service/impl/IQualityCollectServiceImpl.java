@@ -9,9 +9,12 @@ import org.igeek.dao.QualityCollectionMapper;
 import org.igeek.dao.QualityMapper;
 import org.igeek.dao.SpCollectMapper;
 import org.igeek.dao.UserMapper;
-import org.igeek.pojo.*;
+import org.igeek.pojo.Quality;
+import org.igeek.pojo.QualityCollection;
+import org.igeek.pojo.SpCollect;
+import org.igeek.pojo.User;
 import org.igeek.service.IQualityCollectService;
-import org.igeek.vo.ProductVo;
+import org.igeek.vo.ProductCollectVo;
 import org.igeek.vo.QualityCollectVo;
 import org.igeek.vo.QualityVo;
 import org.igeek.vo.UserVo;
@@ -116,20 +119,21 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<Set<ProductVo>> searchProIdList(Integer status,Integer workerId) {
+    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId) {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
         List<SpCollect> productList = spCollectMapper.getSpCollectList(status,workerId);
-        Set<ProductVo> productVoSet = Sets.newHashSet();
+        Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
-                ProductVo productVo = new ProductVo();
-                productVo.setProductDetail(spCollect.getProId() + "-" + spCollect.getProCode());
-                productVo.setWorkerName(spCollect.getUserCode() + "-"+ spCollect.getUserName());
-                productVo.setWorkerId(spCollect.getUserId());
-                productVo.setWorkerCode(spCollect.getUserCode());
-                productVoSet.add(productVo);
+                ProductCollectVo productCollectVo = new ProductCollectVo();
+                productCollectVo.setProductDetail(spCollect.getProId() + "-" + spCollect.getProCode());
+                productCollectVo.setWorkerName(spCollect.getUserCode() + "-"+ spCollect.getUserName());
+                productCollectVo.setWorkerId(spCollect.getUserId());
+                productCollectVo.setWorkerCode(spCollect.getUserCode());
+                productCollectVo.setCount(0);//默认为零
+                ProductCollectVoSet.add(productCollectVo);
             }
-            return ServerResponse.createBySuccess(productVoSet);
+            return ServerResponse.createBySuccess(ProductCollectVoSet);
         }
         return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
     }

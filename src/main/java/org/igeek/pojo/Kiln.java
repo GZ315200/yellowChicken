@@ -1,30 +1,25 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.Date;
 
-/**
- * 窑炉信息
- */
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Kiln {
-
     private Integer id;
+
+    private Integer orgId;
 
     private String title;
 
     private String remark;
 
-    private String status;
-
+    private Integer status;
 
     private Date created;
 
     private Date modified;
 
-    public Kiln(Integer id, String title, String remark, String status, Date created, Date modified) {
+    public Kiln(Integer id, Integer orgId, String title, String remark, Integer status, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
         this.title = title;
         this.remark = remark;
         this.status = status;
@@ -44,6 +39,14 @@ public class Kiln {
         this.id = id;
     }
 
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -52,20 +55,20 @@ public class Kiln {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getremark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setremark(String remark) {
+    public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreated() {
