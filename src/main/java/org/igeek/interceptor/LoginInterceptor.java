@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             HttpSession session = request.getSession();
             Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
             if (Objects.isNull(organization)) {
-                response.sendRedirect("/login");
+                response.sendRedirect("/login.html");
                 return false;
             }
         }
