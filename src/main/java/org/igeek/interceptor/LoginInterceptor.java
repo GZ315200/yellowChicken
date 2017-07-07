@@ -22,13 +22,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("###########进入拦截器################");
         String url = request.getRequestURI();
+//        非登录界面拦截
         if (!url.contains("login")) {
+            logger.info("###########进入拦截器################");
             HttpSession session = request.getSession();
             Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
             if (Objects.isNull(organization)) {
-                response.sendRedirect("/login.html");
+                response.sendRedirect(request.getContextPath() + "/login.html");
                 return false;
             }
         }
