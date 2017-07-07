@@ -2,6 +2,8 @@ package org.igeek.interceptor;
 
 import org.igeek.common.Const;
 import org.igeek.pojo.Organization;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,19 +18,21 @@ import java.util.Objects;
  */
 public class LoginInterceptor implements HandlerInterceptor {
 
+    public static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.info("###########进入拦截器################");
         String url = request.getRequestURI();
-        if (url.indexOf("login") > 0) {
-            return true;
+        if (!url.contains("login")) {
+            HttpSession session = request.getSession();
+            Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+            if (Objects.isNull(organization)) {
+                response.sendRedirect("/login");
+                return false;
+            }
         }
-        HttpSession session = request.getSession();
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (Objects.nonNull(organization)){
-            return true;
-        }
-        request.getRequestDispatcher(request.getContextPath()+"/login.html").forward(request,response);
-        return false;
+        return true;
     }
 
     @Override
