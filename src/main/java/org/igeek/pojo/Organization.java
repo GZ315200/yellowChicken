@@ -1,7 +1,10 @@
 package org.igeek.pojo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Organization {
     private Integer id;
 

@@ -48,8 +48,8 @@ public class UserCategoryTest {
     public void getResult() throws JsonProcessingException {
 //        System.out.println(userCategoryMapper.getUserList(1));
         ObjectMapper objectMapper = new ObjectMapper();
-        String result = objectMapper.writeValueAsString(iKilnService.searchKilnNameList(1));
-        System.out.println(result);
+//        String result = objectMapper.(iKilnService.searchKilnNameList(1));
+//        System.out.println(result);writeValueAsString
     }
 
     @Test

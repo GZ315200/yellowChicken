@@ -60,6 +60,12 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <!-- 需排除拦截的地址 -->
+            <mvc:exclude-mapping path="/org/**"/>
+            <mvc:exclude-mapping path="/dist/**"/>
+            <mvc:exclude-mapping path="/bootstrap/**"/>
+            <mvc:exclude-mapping path="/plugins/**"/>
+            <mvc:exclude-mapping path="/pages/**"/>
             <bean class="org.igeek.interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

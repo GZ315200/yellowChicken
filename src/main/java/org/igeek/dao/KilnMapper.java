@@ -20,10 +20,12 @@ public interface KilnMapper {
 
     int selectByKilnName(@Param("kilnName") String kilnName);
 
-    List<Kiln> selectAllList(String status);
+    List<Kiln> selectAllList(@Param("status") String status,@Param("orgId") Integer orgId);
 
-    int updateStatusById(@Param(value = "status") String status, @Param(value = "kilnId") Integer id);
+    int updateStatusById(@Param(value = "status") String status,
+                         @Param(value = "kilnId") Integer id,
+                         @Param("orgId") Integer orgId);
 
-    List<Kiln> getKilnList(Integer status);
+    List<Kiln> getKilnList(@Param("status") Integer status, @Param("orgId") Integer orgId);
 
 }

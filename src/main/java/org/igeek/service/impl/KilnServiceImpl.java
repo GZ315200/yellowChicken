@@ -63,9 +63,9 @@ public class KilnServiceImpl implements IKilnService {
      * @param pageSize
      * @return
      */
-    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize,String status) {
+    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize, String status, Integer orgId) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Kiln> kilnList = kilnMapper.selectAllList(status);
+        List<Kiln> kilnList = kilnMapper.selectAllList(status, orgId);
         List<KilnVo> kilnVoList = Lists.newArrayList();
         for (Kiln kilnItem : kilnList) {
             KilnVo kilnVo = assembleKilnList(kilnItem);
@@ -94,17 +94,20 @@ public class KilnServiceImpl implements IKilnService {
 
     /**
      * 更新窑炉信息状态
+     *
      * @param kilnId
      * @param status
      * @return
      */
-    public ServerResponse<String> updateStatus(Integer kilnId, String status) {
+    public ServerResponse<String> updateStatus(Integer kilnId, String status, Integer orgId) {
         if (kilnId == null && StringUtils.isBlank(status)) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        int rowCount = kilnMapper.updateStatusById(status,kilnId);
-        if (rowCount > 0){
-            return ServerResponse.createBySuccess("删除窑炉信息成功");
+        if (status.equals("0")) {
+            int rowCount = kilnMapper.updateStatusById(status, kilnId, orgId);
+            if (rowCount > 0) {
+                return ServerResponse.createBySuccess("删除窑炉信息成功");
+            }
         }
         return ServerResponse.createByErrorMsg("删除窑炉信息失败");
     }
@@ -112,20 +115,21 @@ public class KilnServiceImpl implements IKilnService {
 
     /**
      * 获得窑炉名称列表
+     *
      * @param status
      * @return
      */
-    public ServerResponse<Set<KilnVo>> searchKilnNameList(Integer status){
-            Set<KilnVo> kilnVoSet = Sets.newHashSet();
-            List<Kiln> kilnList = kilnMapper.getKilnList(status);
-            if (kilnList.size() > 0){
-                for(Kiln kiln : kilnList){
-                    KilnVo kilnVo = new KilnVo();
-                    kilnVo.setKilnIdNme(kiln.getId()+"-"+kiln.getTitle());
-                    kilnVoSet.add(kilnVo);
-                }
-                return ServerResponse.createBySuccess("查询窑炉名称列表成功",kilnVoSet);
+    public ServerResponse<Set<KilnVo>> searchKilnNameList(Integer status, Integer orgId) {
+        Set<KilnVo> kilnVoSet = Sets.newHashSet();
+        List<Kiln> kilnList = kilnMapper.getKilnList(status, orgId);
+        if (kilnList.size() > 0) {
+            for (Kiln kiln : kilnList) {
+                KilnVo kilnVo = new KilnVo();
+                kilnVo.setKilnIdNme(kiln.getId() + "-" + kiln.getTitle());
+                kilnVoSet.add(kilnVo);
             }
-            return ServerResponse.createByErrorMsg("查询窑炉名称列表失败");
+            return ServerResponse.createBySuccess("查询窑炉名称列表成功", kilnVoSet);
         }
+        return ServerResponse.createByErrorMsg("查询窑炉名称列表失败");
+    }
 }

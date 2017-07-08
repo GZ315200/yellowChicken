@@ -14,10 +14,10 @@ public interface IKilnService {
 
     public ServerResponse<String> updateOrSaveKilnValue(Kiln kiln);
 
-    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize,String status);
+    public ServerResponse<PageInfo> listAllKiln(int pageNum, int pageSize,String status,Integer orgId);
 
-    public ServerResponse<String> updateStatus(Integer kilnId, String status);
+    public ServerResponse<String> updateStatus(Integer kilnId, String status,Integer orgId);
 
-    public ServerResponse<Set<KilnVo>> searchKilnNameList(Integer status);
+    public ServerResponse<Set<KilnVo>> searchKilnNameList(Integer status,Integer orgId);
 
 }

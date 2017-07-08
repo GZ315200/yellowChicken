@@ -159,7 +159,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
     @Override
     public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId) {
-        List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(workerCode,workerId);
+        List<QualityCollection> qualityCollectionList = null;
+        qualityCollectionList = collectionMapper.getQualityCollection(workerCode,workerId);
         List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
         if (qualityCollectionList.size() > 0) {
             for (QualityCollection collection : qualityCollectionList) {
@@ -168,7 +169,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             }
             return ServerResponse.createBySuccess(qualityCollectVoList);
         }
-        return ServerResponse.createByErrorMsg("获取质量采集信息失败");
+        return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
     }
 
 

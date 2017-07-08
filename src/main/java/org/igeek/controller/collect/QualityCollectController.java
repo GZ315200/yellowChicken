@@ -1,6 +1,8 @@
 package org.igeek.controller.collect;
 
+import org.igeek.common.Const;
 import org.igeek.common.ServerResponse;
+import org.igeek.pojo.Organization;
 import org.igeek.pojo.QualityCollection;
 import org.igeek.pojo.QualityQuestion;
 import org.igeek.service.IKilnService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 /**
@@ -49,7 +52,7 @@ public class QualityCollectController {
     @RequestMapping("get_quality_collect_info")
     @ResponseBody
     public ServerResponse getQualityCollectInfo(@RequestParam(defaultValue = " ",required = false) String workerCode,
-                                                @RequestParam(defaultValue = " ",required = false) Integer workerId) {
+                                                @RequestParam(required = false) Integer workerId) {
         return iQualityCollectService.getQualityCollectInfo(workerCode,workerId);
     }
 
@@ -161,8 +164,15 @@ public class QualityCollectController {
      */
     @RequestMapping("get_kilnName_list")
     @ResponseBody
-    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1", required = false) Integer status) {
-        return iKilnService.searchKilnNameList(status);
+    public ServerResponse<Set<KilnVo>> getKilnList(@RequestParam(defaultValue = "1", required = false) Integer status,
+                                                   HttpSession session) {
+
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        Integer orgId = organization.getOrgId();
+        return iKilnService.searchKilnNameList(status,orgId);
     }
 
 

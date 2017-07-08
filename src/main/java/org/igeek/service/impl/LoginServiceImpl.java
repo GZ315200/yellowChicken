@@ -34,7 +34,7 @@ public class LoginServiceImpl implements ILoginService {
             return ServerResponse.createBySuccess("密码错误");
         }
         organization.setPassword(StringUtils.EMPTY);
-        return ServerResponse.createBySuccess("登录成功");
+        return ServerResponse.createBySuccess("登录成功",organization);
     }
 
 

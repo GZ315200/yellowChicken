@@ -121,19 +121,21 @@
     SELECT count(1) from mj_yaolu_category where title = #{kilnName}
   </select>
 
-    <select id="selectAllList" resultMap="BaseResultMap">
+    <select id="selectAllList" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
         from mj_yaolu_category where status = #{status}
+        and org_id = #{orgId}
     </select>
     <update id="updateStatusById" parameterType="java.util.Map">
     update mj_yaolu_category
     set status = #{status}
     where id = #{kilnId}
+    and org_id = #{orgId}
   </update>
     <select id="getKilnList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from mj_yaolu_category where status = #{status} group by title
+        from mj_yaolu_category where status = #{status} and  org_id = #{orgId} group by title
     </select>
 </mapper>

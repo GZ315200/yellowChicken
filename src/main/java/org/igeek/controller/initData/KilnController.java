@@ -57,7 +57,12 @@ public class KilnController {
                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                 @RequestParam(value = "status",defaultValue = "1") String status,
                                                 HttpSession session) {
-        return iKilnService.listAllKiln(pageNum, pageSize,status);
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        Integer orgId = organization.getOrgId();
+        return iKilnService.listAllKiln(pageNum, pageSize,status,orgId);
     }
 
 
@@ -70,8 +75,13 @@ public class KilnController {
      */
     @RequestMapping(value = "update_status")
     @ResponseBody
-    public ServerResponse<String> updateStatus(Integer kilnId, String status) {
-        return iKilnService.updateStatus(kilnId, status);
+    public ServerResponse<String> updateStatus(Integer kilnId, String status,HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        Integer orgId = organization.getOrgId();
+        return iKilnService.updateStatus(kilnId, status,orgId);
     }
 
 
