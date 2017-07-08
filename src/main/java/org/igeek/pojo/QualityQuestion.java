@@ -3,26 +3,27 @@ package org.igeek.pojo;
 import java.util.Date;
 
 public class QualityQuestion {
-
     private Integer id;
 
-    private Integer collectId;//采集id
+    private Integer orgId;
 
-    private String questionType;//问题类型（扣系数，扣钱）
+    private Integer collectId;
 
-    private Integer collectType;//采集问题类型
+    private String questionType;
 
-    private Integer questionId;//问题id
+    private Integer collectType;
 
-    private String questionName;//问题名称
+    private Integer questionId;
 
-    private Integer userId;//员工id，选择采集问题所对应的员工名
+    private String questionName;
 
-    private Double coefficient;//系数
+    private Integer userId;
 
-    private Integer quantity;//数量
+    private Double coefficient;
 
-    private Integer status;//默认为1
+    private Integer quantity;
+
+    private Integer status;
 
     private String remark;
 
@@ -30,8 +31,9 @@ public class QualityQuestion {
 
     private Date modified;
 
-    public QualityQuestion(Integer id, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer orgId, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
         this.collectId = collectId;
         this.questionType = questionType;
         this.collectType = collectType;
@@ -56,6 +58,14 @@ public class QualityQuestion {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public Integer getCollectId() {

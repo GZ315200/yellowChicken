@@ -43,38 +43,45 @@ public class QualityCollectController {
     /**
      * 获取质量采集的页面显示信息
      * 调通
+     *
      * @param workerCode 成型工的工号 ,如果不输入查询所有的该成型工的采集信息.
-     *   @param  workerId  workerId 成型工的id 用于判定成型工采集的唯一性
+     * @param workerId   workerId 成型工的id 用于判定成型工采集的唯一性
      * @return 采集的id，成型工姓名，成型工工号，采集的次数。
-     *
-     *
      */
     @RequestMapping("get_quality_collect_info")
     @ResponseBody
-    public ServerResponse getQualityCollectInfo(@RequestParam(defaultValue = " ",required = false) String workerCode,
-                                                @RequestParam(required = false) Integer workerId) {
-        return iQualityCollectService.getQualityCollectInfo(workerCode,workerId);
+    public ServerResponse getQualityCollectInfo(@RequestParam(defaultValue = " ", required = false) String workerCode,
+                                                @RequestParam(required = false) Integer workerId,
+                                                HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId,organization.getOrgId());
     }
 
 
     /**
      * 获取成型工的产品信息
      * 获取成型工信息，
-     *
+     * <p>
      * 默认输入，查出成型工的所有，id、员工代号，姓名，注浆过的产品
      *
-     *
-     * @param status 已调通，
+     * @param status   已调通，
      * @param workerId 成型工的id
      * @return
      */
     @RequestMapping("get_product_code")
     @ResponseBody
     public ServerResponse<Set<ProductCollectVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                                         @RequestParam(required = false) Integer workerId) {
-        return iQualityCollectService.searchProIdList(status,workerId);
+                                                                @RequestParam(required = false) Integer workerId,
+                                                                HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.searchProIdList(status, workerId, organization.getOrgId());
     }
-
 
 
     /**
@@ -86,7 +93,12 @@ public class QualityCollectController {
      */
     @RequestMapping("addOrUpdate")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
+    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection,HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        qualityCollection.setOrgId(organization.getOrgId());
         return iQualityCollectService.addOrUpdateInfo(qualityCollection);
     }
 
@@ -103,34 +115,46 @@ public class QualityCollectController {
      */
     @RequestMapping("addOrUpdate_question")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
+    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion,HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        qualityQuestion.setOrgId(organization.getOrgId());
         return iQualityQuestionService.addOrUpdateQuestion(qualityQuestion);
     }
 
 
     /**
      * 更新采集的次数
+     *
      * @param collectId 采集id
-     * @param count 采集次数 + 1, count 为之前的次数
+     * @param workerId 工人id
+     * @param count     采集次数 + 1, count 为之前的次数
      * @return 调通
      */
     @RequestMapping("update_collect_count")
     @ResponseBody
-    public ServerResponse<String> updateCollectCount(Integer collectId,Integer workerId,Long count){
-        return iQualityCollectService.updateCount(collectId, workerId ,count);
+    public ServerResponse<String> updateCollectCount(Integer collectId,
+                                                     Integer workerId, Long count,
+                                                     HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.updateCount(collectId, workerId, count,organization.getOrgId());
     }
 
 
     /**
      * 获取质量采集问题的数量和系数列表
+     *
      * @param collectType 采集问题类型（1： 成型问题， 2 修坯问题， 3，喷釉，4，）
-     * @param workerId 工人id
-     * @return
-     *          员工id 一直不变，以不变应万变。
-     * @<code>
-     *     当输入collectType时，只查出所有的问题类型的信息，没有员工的限制
-     *     当输入collectType 、workId  查出该员工所对应的指定的问题信息。
-     *     当输入workId 时 查出该员工下所有的问题信息。
+     * @param workerId    工人id
+     * @return 员工id 一直不变，以不变应万变。
+     * @<code> 当输入collectType时，只查出所有的问题类型的信息，没有员工的限制
+     * 当输入collectType 、workId  查出该员工所对应的指定的问题信息。
+     * 当输入workId 时 查出该员工下所有的问题信息。
      * </code>
      * 调通
      */
@@ -138,8 +162,13 @@ public class QualityCollectController {
     @RequestMapping("get_quality_question_list")
     @ResponseBody
     public ServerResponse getQualityQuestionList(@RequestParam(required = false) Integer collectType,
-                                                 @RequestParam(required = false) Integer workerId) {
-        return iQualityQuestionService.getQualityQuestionList(collectType,workerId);
+                                                 @RequestParam(required = false) Integer workerId,
+                                                 HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityQuestionService.getQualityQuestionList(collectType, workerId, organization.getOrgId());
     }
 //    /**
 //     * 获得用户id、姓名列表
@@ -172,7 +201,7 @@ public class QualityCollectController {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
         Integer orgId = organization.getOrgId();
-        return iKilnService.searchKilnNameList(status,orgId);
+        return iKilnService.searchKilnNameList(status, orgId);
     }
 
 
@@ -184,13 +213,13 @@ public class QualityCollectController {
      */
     @RequestMapping(value = "get_rank_title")
     @ResponseBody
-    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status", defaultValue = "1")Integer status,
-                                                   HttpSession session) {
+    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status", defaultValue = "1") Integer status,
+                                                    HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null){
+        if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iRankService.searchRankTitle(status,organization.getOrgId());
+        return iRankService.searchRankTitle(status, organization.getOrgId());
     }
 
 
@@ -202,15 +231,19 @@ public class QualityCollectController {
      */
     @RequestMapping("get_user_category")
     @ResponseBody
-    public ServerResponse<Set<UserVo>> getUserCategoryList(Integer category) {
-        return iQualityCollectService.searchUserCategoryList(category);
+    public ServerResponse<Set<UserVo>> getUserCategoryList(Integer category, HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.searchUserCategoryList(category, organization.getOrgId());
     }
 
 
     /**
      * 获取质量问题类别列表
      *
-     * @param status        状态
+     * @param status              状态
      * @param questionCollectType 所属问题类型 1：成型问题，2：修坯 3：喷窑 4，登窑，5 烧窑。
      * @return 已调通
      */
@@ -220,14 +253,11 @@ public class QualityCollectController {
                                                                  Integer questionCollectType,
                                                                  HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null){
+        if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getQualityCategoryList(status, questionCollectType,organization.getOrgId());
+        return iQualityCollectService.getQualityCategoryList(status, questionCollectType, organization.getOrgId());
     }
-
-
-
 
 
 }

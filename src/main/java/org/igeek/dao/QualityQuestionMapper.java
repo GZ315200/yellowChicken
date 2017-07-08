@@ -18,8 +18,15 @@ public interface QualityQuestionMapper {
 
     int updateByPrimaryKey(QualityQuestion record);
 
-    QualityQuestion getQualityQuestionList(@Param("collectType") Integer collectType,@Param("workerId") Integer workerId);
 
-    List<QualityQuestion> getWorkerCollectInfo(@Param("workerId") Integer workerId,@Param("collectId") Integer collectId,@Param("questionId") Integer questionId);
+    QualityQuestion getQualityQuestionList(@Param("collectType") Integer collectType,
+                                           @Param("workerId") Integer workerId,
+                                           @Param("orgId") Integer orgId);
+
+    List<QualityQuestion> getWorkerCollectInfo(@Param("workerId") Integer workerId,
+                                               @Param("collectId") Integer collectId,
+                                               @Param("questionId") Integer questionId,
+                                               @Param("orgId") Integer orgId);
+
 
 }

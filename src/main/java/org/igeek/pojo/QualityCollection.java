@@ -3,37 +3,39 @@ package org.igeek.pojo;
 import java.util.Date;
 
 public class QualityCollection {
+    private Integer id;
 
-    private Integer id; //采集id
+    private Integer orgId;
 
-    private Integer userId; //员工id
+    private Integer userId;
 
-    private String userCode; //员工编码
+    private String userCode;
 
-    private String userName; //员工姓名
+    private String userName;
 
-    private Integer productId; //产品id
+    private Integer productId;
 
-    private String typeId; //采集问题类型(1:成型问题2:修坯/上水3:喷釉4:登窑5:烧窑)
+    private String typeId;
 
-    private Integer rankId; //等级id
+    private Integer rankId;
 
-    private Integer quantity; //数量
+    private Integer quantity;
 
-    private Integer yaoluId; //窑炉id
+    private Integer yaoluId;
 
-    private Integer status; //状态 默认为1
+    private Integer status;
 
-    private Long count; //统计次数 默认为0
+    private Long count;
 
-    private String remark; //备注
+    private String remark;
 
-    private Date created; //创建时间
+    private Date created;
 
-    private Date modified; //修改时间
+    private Date modified;
 
-    public QualityCollection(Integer id, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Long count, String remark, Date created, Date modified) {
+    public QualityCollection(Integer id, Integer orgId, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Long count, String remark, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
         this.userId = userId;
         this.userCode = userCode;
         this.userName = userName;
@@ -59,6 +61,14 @@ public class QualityCollection {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public Integer getUserId() {

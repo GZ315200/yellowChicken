@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="org.igeek.pojo.SpCollect">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="user_code" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -23,8 +24,9 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, user_code, user_name, ower_id, ower_code, ower_name, pro_id, pro_code, 
-    pro_title, pro_cate_id, pro_cate_title, count, beizhu, status, created, modified
+    id, org_id, user_id, user_code, user_name, ower_id, ower_code, ower_name, pro_id, 
+    pro_code, pro_title, pro_cate_id, pro_cate_title, count, beizhu, status, created, 
+    modified
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -37,24 +39,29 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.igeek.pojo.SpCollect">
-    insert into mj_shpeicaiji (id, user_id, user_code, 
-      user_name, ower_id, ower_code, 
-      ower_name, pro_id, pro_code, 
-      pro_title, pro_cate_id, pro_cate_title, 
-      count, beizhu, status, 
-      created, modified)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{owerId,jdbcType=VARCHAR}, #{owerCode,jdbcType=VARCHAR}, 
-      #{owerName,jdbcType=VARCHAR}, #{proId,jdbcType=INTEGER}, #{proCode,jdbcType=VARCHAR}, 
-      #{proTitle,jdbcType=VARCHAR}, #{proCateId,jdbcType=INTEGER}, #{proCateTitle,jdbcType=VARCHAR}, 
-      #{count,jdbcType=INTEGER}, #{beizhu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      now(), now())
+    insert into mj_shpeicaiji (id, org_id, user_id, 
+      user_code, user_name, ower_id, 
+      ower_code, ower_name, pro_id, 
+      pro_code, pro_title, pro_cate_id, 
+      pro_cate_title, count, beizhu, 
+      status, created, modified
+      )
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{owerId,jdbcType=VARCHAR}, 
+      #{owerCode,jdbcType=VARCHAR}, #{owerName,jdbcType=VARCHAR}, #{proId,jdbcType=INTEGER}, 
+      #{proCode,jdbcType=VARCHAR}, #{proTitle,jdbcType=VARCHAR}, #{proCateId,jdbcType=INTEGER}, 
+      #{proCateTitle,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{beizhu,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.igeek.pojo.SpCollect">
     insert into mj_shpeicaiji
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="orgId != null">
+        org_id,
       </if>
       <if test="userId != null">
         user_id,
@@ -109,6 +116,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
@@ -152,16 +162,19 @@
         #{status,jdbcType=INTEGER},
       </if>
       <if test="created != null">
-        now(),
+        #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="modified != null">
-        now(),
+        #{modified,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.SpCollect">
     update mj_shpeicaiji
     <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
@@ -208,14 +221,15 @@
         created = #{created,jdbcType=TIMESTAMP},
       </if>
       <if test="modified != null">
-        modified = now(),
+        modified = #{modified,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.SpCollect">
     update mj_shpeicaiji
-    set user_id = #{userId,jdbcType=INTEGER},
+    set org_id = #{orgId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       user_code = #{userCode,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       ower_id = #{owerId,jdbcType=VARCHAR},
@@ -230,7 +244,7 @@
       beizhu = #{beizhu,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
-      modified = now()
+      modified = #{modified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

@@ -1,169 +1,180 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.igeek.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="org.igeek.pojo.User" >
-    <constructor >
-      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="username" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="category" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="numstr" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="codestr" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="otherinfo" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="beizhu" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="modified" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.igeek.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="org.igeek.pojo.User">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="category" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="numstr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="codestr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="otherinfo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="beizhu" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, username, password, name, category, numstr, codestr, otherinfo, beizhu, status, 
-    created, modified
+  <sql id="Base_Column_List">
+    id, org_id, username, password, name, category, numstr, codestr, otherinfo, beizhu, 
+    status, created, modified
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from mj_user
-    where id = #{id,jdbcType=INTEGER} where status = '1'
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mj_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.igeek.pojo.User" >
-    insert into mj_user (id, username, password, 
-      name, category, numstr, 
-      codestr, otherinfo, beizhu, 
-      status, created, modified
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, #{numstr,jdbcType=VARCHAR}, 
-      #{codestr,jdbcType=VARCHAR}, #{otherinfo,jdbcType=VARCHAR}, #{beizhu,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, now(), now()
-      )
+  <insert id="insert" parameterType="org.igeek.pojo.User">
+    insert into mj_user (id, org_id, username, 
+      password, name, category, 
+      numstr, codestr, otherinfo, 
+      beizhu, status, created, 
+      modified)
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{numstr,jdbcType=VARCHAR}, #{codestr,jdbcType=VARCHAR}, #{otherinfo,jdbcType=VARCHAR}, 
+      #{beizhu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, now(),
+      now())
   </insert>
-  <insert id="insertSelective" parameterType="org.igeek.pojo.User" >
+  <insert id="insertSelective" parameterType="org.igeek.pojo.User">
     insert into mj_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="username != null" >
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="username != null">
         username,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         category,
       </if>
-      <if test="numstr != null" >
+      <if test="numstr != null">
         numstr,
       </if>
-      <if test="codestr != null" >
+      <if test="codestr != null">
         codestr,
       </if>
-      <if test="otherinfo != null" >
+      <if test="otherinfo != null">
         otherinfo,
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         beizhu,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="created != null" >
+      <if test="created != null">
         created,
       </if>
-      <if test="modified != null" >
+      <if test="modified != null">
         modified,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         #{category,jdbcType=INTEGER},
       </if>
-      <if test="numstr != null" >
+      <if test="numstr != null">
         #{numstr,jdbcType=VARCHAR},
       </if>
-      <if test="codestr != null" >
+      <if test="codestr != null">
         #{codestr,jdbcType=VARCHAR},
       </if>
-      <if test="otherinfo != null" >
+      <if test="otherinfo != null">
         #{otherinfo,jdbcType=VARCHAR},
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         #{beizhu,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="created != null" >
-        now(),
+      <if test="created != null">
+       now(),
       </if>
-      <if test="modified != null" >
-        now(),
+      <if test="modified != null">
+       now(),
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.User">
     update mj_user
-    <set >
-      <if test="username != null" >
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="category != null" >
+      <if test="category != null">
         category = #{category,jdbcType=INTEGER},
       </if>
-      <if test="numstr != null" >
+      <if test="numstr != null">
         numstr = #{numstr,jdbcType=VARCHAR},
       </if>
-      <if test="codestr != null" >
+      <if test="codestr != null">
         codestr = #{codestr,jdbcType=VARCHAR},
       </if>
-      <if test="otherinfo != null" >
+      <if test="otherinfo != null">
         otherinfo = #{otherinfo,jdbcType=VARCHAR},
       </if>
-      <if test="beizhu != null" >
+      <if test="beizhu != null">
         beizhu = #{beizhu,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="created != null" >
+      <if test="created != null">
         created = #{created,jdbcType=TIMESTAMP},
       </if>
-      <if test="modified != null" >
-        now(),
+      <if test="modified != null">
+        modified = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.User" >
+  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.User">
     update mj_user
-    set username = #{username,jdbcType=VARCHAR},
+    set org_id = #{orgId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       category = #{category,jdbcType=INTEGER},
@@ -173,22 +184,22 @@
       beizhu = #{beizhu,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
-      now()
+      modified = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getUserList" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select <include refid="Base_Column_List"/>
-    from mj_user where name like #{name} and status = 1
+  <select id="getUserList" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from mj_user where name like #{name} and status = 1 and org_id = #{orgId,jdbcType=INTEGER}
   </select>
 
-  <select id="getUserCategoryList" resultMap="BaseResultMap" parameterType="int">
-    select <include refid="Base_Column_List"/>
+  <select id="getUserCategoryList" parameterType="int" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
     from mj_user
     where
-      category = #{category}
+    category = #{category}
     and status = 1
+    and org_id = #{orgId,jdbcType=INTEGER}
   </select>
-
 
 </mapper>

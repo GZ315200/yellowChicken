@@ -50,7 +50,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
             String workerCode = qualityCollection.getUserCode();
-            List<QualityCollection> qualityCollections = collectionMapper.getQualityCollection(workerCode,qualityCollection.getUserId());
+            List<QualityCollection> qualityCollections = collectionMapper.getQualityCollection(workerCode,qualityCollection.getUserId(),qualityCollection.getOrgId());
             if(qualityCollections.size() > 0){
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
             }
@@ -79,14 +79,14 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
 
 
-    public ServerResponse<Set<UserVo>> searchUserList(String name) {
+    public ServerResponse<Set<UserVo>> searchUserList(String name,Integer orgId) {
         Set<UserVo> userVoList = Sets.newHashSet();
         if (name != null) {
             StringBuilder sb = new StringBuilder();
             sb.append("%").append(name).append("%");
             name = sb.toString();
         }
-        List<User> userList = userMapper.getUserList(name);
+        List<User> userList = userMapper.getUserList(name,orgId);
         if (userList.size() > 0) {
             for (User user : userList) {
                 UserVo userVo = new UserVo();
@@ -102,10 +102,10 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
     @Override
-    public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category) {
+    public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category,Integer orgId) {
         Set<UserVo> userVoList = Sets.newHashSet();
         if (category != null) {
-            List<User> userList = userMapper.getUserCategoryList(category);
+            List<User> userList = userMapper.getUserCategoryList(category,orgId);
             if (userList.size() > 0) {
                 for (User user : userList) {
                     UserVo userVo = new UserVo();
@@ -119,15 +119,15 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId) {
+    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId,Integer orgId) {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
-        List<SpCollect> productList = spCollectMapper.getSpCollectList(status,workerId);
+        List<SpCollect> productList = spCollectMapper.getSpCollectList(status,workerId,orgId);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
                 ProductCollectVo productCollectVo = new ProductCollectVo();
-                productCollectVo.setProductDetail(spCollect.getProId() + "-" + spCollect.getProCode());
-                productCollectVo.setWorkerName(spCollect.getUserCode() + "-"+ spCollect.getUserName());
+                productCollectVo.setProductDetail(spCollect.getProCode());
+                productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
                 productCollectVo.setCount(0);//默认为零
@@ -158,9 +158,9 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
     @Override
-    public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId) {
+    public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId,Integer orgId) {
         List<QualityCollection> qualityCollectionList = null;
-        qualityCollectionList = collectionMapper.getQualityCollection(workerCode,workerId);
+        qualityCollectionList = collectionMapper.getQualityCollection(workerCode,workerId,orgId);
         List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
         if (qualityCollectionList.size() > 0) {
             for (QualityCollection collection : qualityCollectionList) {
@@ -189,9 +189,9 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count){
+    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count,Integer orgId){
         if(collectId != null) {
-            int rowCount = collectionMapper.updateCollectCount(collectId,workerId,count);
+            int rowCount = collectionMapper.updateCollectCount(collectId,workerId,count,orgId);
             if (rowCount > 0){
                 return ServerResponse.createBySuccess("更新采集次数成功");
             }
@@ -202,8 +202,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse searchAllCollectList(){
-        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList();
+    public ServerResponse searchAllCollectList(Integer orgId){
+        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList(orgId);
         if (CollectionUtils.isEmpty(qualityCollectionList)){
             return ServerResponse.createByErrorMsg("质量采集列表为空");
         }

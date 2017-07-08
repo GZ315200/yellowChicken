@@ -19,15 +19,15 @@ public interface IQualityCollectService {
 
 //    public ServerResponse<Set<UserVo>> searchUserList(String name);
 
-    public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category);
+    public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category,Integer orgId);
 
     public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionType,Integer orgId);
 
-    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId);
+    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId,Integer orgId);
 
-    public  ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId);
+    public  ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode,Integer workerId,Integer orgId);
 
-    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count);
+    public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count,Integer orgId);
 
 //    public ServerResponse searchAllCollectList();
 }

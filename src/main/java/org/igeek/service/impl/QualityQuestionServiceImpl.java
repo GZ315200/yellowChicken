@@ -27,7 +27,7 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
             Integer workerId = qualityQuestion.getUserId();
             Integer collectId = qualityQuestion.getCollectId();
             Integer questionId = qualityQuestion.getQuestionId();
-            List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getWorkerCollectInfo(workerId, collectId, questionId);
+            List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getWorkerCollectInfo(workerId, collectId, questionId,qualityQuestion.getOrgId());
             if (qualityQuestionList.size() > 0) {
                 return ServerResponse.createByErrorMsg("该成型工产品问题已经采集过");
             }
@@ -46,9 +46,9 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
     }
 
 
-    public ServerResponse<QualityQuestion> getQualityQuestionList(Integer collectType, Integer workerId) {
+    public ServerResponse<QualityQuestion> getQualityQuestionList(Integer collectType, Integer workerId,Integer orgId) {
         if (Objects.nonNull(collectType)) {
-            QualityQuestion qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId);
+            QualityQuestion qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId,orgId);
             if (Objects.nonNull(qualityQuestion)) {
                 return ServerResponse.createBySuccess(qualityQuestion);
             }

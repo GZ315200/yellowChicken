@@ -125,7 +125,9 @@ public class KilnServiceImpl implements IKilnService {
         if (kilnList.size() > 0) {
             for (Kiln kiln : kilnList) {
                 KilnVo kilnVo = new KilnVo();
-                kilnVo.setKilnIdNme(kiln.getId() + "-" + kiln.getTitle());
+                kilnVo.setKilnName(kiln.getTitle());
+                kilnVo.setId(kiln.getId());
+//                kilnVo.setKilnIdNme(kiln.getId() + "-" + kiln.getTitle());
                 kilnVoSet.add(kilnVo);
             }
             return ServerResponse.createBySuccess("查询窑炉名称列表成功", kilnVoSet);

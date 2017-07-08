@@ -1,18 +1,14 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.Date;
 
-
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class User {
     private Integer id;
 
+    private Integer orgId;
+
     private String username;
 
-    @JsonIgnore
     private String password;
 
     private String name;
@@ -33,8 +29,9 @@ public class User {
 
     private Date modified;
 
-    public User(Integer id, String username, String password, String name, Integer category, String numstr, String codestr, String otherinfo, String beizhu, Integer status, Date created, Date modified) {
+    public User(Integer id, Integer orgId, String username, String password, String name, Integer category, String numstr, String codestr, String otherinfo, String beizhu, Integer status, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -58,6 +55,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public String getUsername() {

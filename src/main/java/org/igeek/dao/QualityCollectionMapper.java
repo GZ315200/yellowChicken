@@ -16,12 +16,17 @@ public interface QualityCollectionMapper {
 
     int updateByPrimaryKeySelective(QualityCollection record);
 
-    int updateCollectCount(@Param("collectId") Integer collectId,@Param("workerId") Integer workerId,@Param("count") Long count);
-
     int updateByPrimaryKey(QualityCollection record);
 
-    List<QualityCollection> getQualityCollection(@Param("workerCode") String workerCode, @Param("workerId")  Integer workerId);
 
-    List<QualityCollection> getAllCollectionList();
+    int updateCollectCount(@Param("collectId") Integer collectId,
+                           @Param("workerId") Integer workerId,
+                           @Param("count") Long count,
+                           @Param("orgId") Integer orgId);
 
+    List<QualityCollection> getQualityCollection(@Param("workerCode") String workerCode,
+                                                 @Param("workerId")  Integer workerId,
+                                                 @Param("orgId") Integer orgId);
+
+    List<QualityCollection> getAllCollectionList(Integer orgId);
 }

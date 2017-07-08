@@ -5,6 +5,8 @@ import java.util.Date;
 public class SpCollect {
     private Integer id;
 
+    private Integer orgId;
+
     private Integer userId;
 
     private String userCode;
@@ -37,8 +39,9 @@ public class SpCollect {
 
     private Date modified;
 
-    public SpCollect(Integer id, Integer userId, String userCode, String userName, String owerId, String owerCode, String owerName, Integer proId, String proCode, String proTitle, Integer proCateId, String proCateTitle, Integer count, String beizhu, Integer status, Date created, Date modified) {
+    public SpCollect(Integer id, Integer orgId, Integer userId, String userCode, String userName, String owerId, String owerCode, String owerName, Integer proId, String proCode, String proTitle, Integer proCateId, String proCateTitle, Integer count, String beizhu, Integer status, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
         this.userId = userId;
         this.userCode = userCode;
         this.userName = userName;
@@ -67,6 +70,14 @@ public class SpCollect {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public Integer getUserId() {
