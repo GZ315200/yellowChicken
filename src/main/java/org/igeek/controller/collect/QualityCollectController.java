@@ -50,7 +50,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_quality_collect_info")
     @ResponseBody
-    public ServerResponse getQualityCollectInfo(@RequestParam(defaultValue = " ", required = false) String workerCode,
+    public ServerResponse getQualityCollectInfo(@RequestParam(required = false) String workerCode,
                                                 @RequestParam(required = false) Integer workerId,
                                                 HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);

@@ -28,5 +28,7 @@ public interface QualityCollectionMapper {
                                                  @Param("workerId")  Integer workerId,
                                                  @Param("orgId") Integer orgId);
 
+    List<QualityCollection> getQualityCollectionWithEmpty(Integer orgId);
+
     List<QualityCollection> getAllCollectionList(Integer orgId);
 }
