@@ -35,7 +35,7 @@ public class RankServiceImpl implements IRankService {
             return ServerResponse.createByErrorMsg("请输入完整等级信息");
         }
         if (rank.getId() == null) {
-            int resultCount = rankMapper.selectByRankTitle(rank.getTitle());
+            int resultCount = rankMapper.selectByRankTitle(rank.getTitle(),rank.getOrgId());
             if (resultCount > 0) {
                 return ServerResponse.createByErrorMsg("该等级信息已经存在");
             }
@@ -54,9 +54,9 @@ public class RankServiceImpl implements IRankService {
     }
 
     @Override
-    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status) {
+    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status,Integer orgId) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Rank> rankList = rankMapper.selectAllRankList(status);
+        List<Rank> rankList = rankMapper.selectAllRankList(status,orgId);
         List<RankVo> rankVoList = Lists.newArrayList();
         for (Rank rankItem : rankList) {
             rankVoList.add(assembleRankVo(rankItem));
@@ -76,16 +76,16 @@ public class RankServiceImpl implements IRankService {
         RankVo rankVo = new RankVo();
         rankVo.setRankId(rank.getId());
         rankVo.setRankName(rank.getTitle());
-        rankVo.setRemark(rank.getremark());
+        rankVo.setRemark(rank.getRemark());
         return rankVo;
     }
 
 
-    public ServerResponse<String> updateRankStatus(Integer rankId, String status) {
+    public ServerResponse<String> updateRankStatus(Integer rankId, String status,Integer orgId) {
         if (rankId == null && StringUtils.isBlank(status)) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        int rowCount = rankMapper.updateStatusById(rankId, status);
+        int rowCount = rankMapper.updateStatusById(rankId, status,orgId);
         if (rowCount > 0) {
             return ServerResponse.createBySuccess("删除等级信息成功");
         }
@@ -94,9 +94,9 @@ public class RankServiceImpl implements IRankService {
 
 
     @Override
-    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status) {
+    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status,Integer orgId) {
         Set<RankVo> rankVoSet = Sets.newHashSet();
-        List<Rank> rankTitle = rankMapper.getRankTitle(status);
+        List<Rank> rankTitle = rankMapper.getRankTitle(status,orgId);
         if(rankTitle.size() > 0){
             for(Rank rank : rankTitle) {
                 RankVo rankVo = new RankVo();

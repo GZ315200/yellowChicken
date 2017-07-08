@@ -17,11 +17,11 @@ public interface IQualityCollectService {
 
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection);
 
-    public ServerResponse<Set<UserVo>> searchUserList(String name);
+//    public ServerResponse<Set<UserVo>> searchUserList(String name);
 
     public ServerResponse<Set<UserVo>> searchUserCategoryList(Integer category);
 
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionType);
+    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionType,Integer orgId);
 
     public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status,Integer workerId);
 
@@ -29,5 +29,5 @@ public interface IQualityCollectService {
 
     public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count);
 
-    public ServerResponse searchAllCollectList();
+//    public ServerResponse searchAllCollectList();
 }

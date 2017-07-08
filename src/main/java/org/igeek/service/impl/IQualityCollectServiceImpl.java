@@ -140,8 +140,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
 
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionCollectType) {
-        List<Quality> qualityList = qualityMapper.selectAllQualityQuestion(status, questionCollectType);
+    public ServerResponse<Set<QualityVo>> getQualityCategoryList(Integer status, Integer questionCollectType,Integer orgId) {
+        List<Quality> qualityList = qualityMapper.selectAllQualityQuestion(status, questionCollectType,orgId);
         Set<QualityVo> qualityVoList = Sets.newHashSet();
         if (qualityList.size() > 0) {
             for (Quality quality : qualityList) {

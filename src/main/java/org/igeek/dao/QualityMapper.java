@@ -18,13 +18,17 @@ public interface QualityMapper {
 
     int updateByPrimaryKey(Quality record);
 
-    int selectByTitle(@Param("qualityName") String qualityName);
+    int selectByTitle(@Param("qualityName") String qualityName,@Param("orgId") Integer orgId);
 
-    List<Quality> listAllQualityInfo(@Param("status") Integer status, @Param("userId") Integer userId);
+    List<Quality> listAllQualityInfo(@Param("status") Integer status,
+                                     @Param("userId") Integer userId,
+                                     @Param("orgId") Integer orgId);
 
-    int updateStatusById(@Param("qualityId") Integer qualityId,@Param("status") Integer status);
+    int updateStatusById(@Param("qualityId") Integer qualityId,
+                         @Param("status") Integer status,
+                         @Param("orgId") Integer orgId);
 
-    List<Quality> selectAllQualityQuestion(@Param("status") Integer status,@Param("questionType") Integer questionType);
-
-
+    List<Quality> selectAllQualityQuestion(@Param("status") Integer status,
+                                           @Param("questionType") Integer questionType,
+                                           @Param("orgId") Integer orgId);
 }

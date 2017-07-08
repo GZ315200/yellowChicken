@@ -49,6 +49,7 @@ public class LoginController {
     @ResponseBody
     public ServerResponse<Organization> loginOut(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);
+        logger.info("*****************登出************");
         return ServerResponse.createBySuccess();
     }
 

@@ -184,8 +184,13 @@ public class QualityCollectController {
      */
     @RequestMapping(value = "get_rank_title")
     @ResponseBody
-    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status", defaultValue = "1") Integer status) {
-        return iRankService.searchRankTitle(status);
+    public ServerResponse<Set<RankVo>> getRankTitle(@RequestParam(value = "status", defaultValue = "1")Integer status,
+                                                   HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iRankService.searchRankTitle(status,organization.getOrgId());
     }
 
 
@@ -212,8 +217,13 @@ public class QualityCollectController {
     @RequestMapping("get_quality_category")
     @ResponseBody
     public ServerResponse<Set<QualityVo>> getQualityCategoryList(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                                                 Integer questionCollectType) {
-        return iQualityCollectService.getQualityCategoryList(status, questionCollectType);
+                                                                 Integer questionCollectType,
+                                                                 HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getQualityCategoryList(status, questionCollectType,organization.getOrgId());
     }
 
 

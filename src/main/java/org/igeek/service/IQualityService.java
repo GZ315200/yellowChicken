@@ -14,9 +14,10 @@ public interface IQualityService {
 
     public ServerResponse<String> updateOrAddQuality(Quality quality);
 
-    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status,Integer userType);
+    public ServerResponse<PageInfo> getQualityInfoList(int pageNum, int pageSize,Integer status,
+                                                       Integer userType,Integer orgId);
 
-    public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status);
+    public ServerResponse<String> updateQualityStatus(Integer qualityId, Integer status,Integer orgId);
 
     public ServerResponse<Set<UserVo>> getUserList(Integer status);
 

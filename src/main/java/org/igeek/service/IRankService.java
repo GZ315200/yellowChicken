@@ -15,11 +15,11 @@ public interface IRankService {
 
     public ServerResponse<String> updateOrSaveKilnValue(Rank rank);
 
-    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status);
+    public ServerResponse<PageInfo> getRankList(int pageNum, int pageSize,String status,Integer orgId);
 
-    public ServerResponse<String> updateRankStatus(Integer rankId, String status);
+    public ServerResponse<String> updateRankStatus(Integer rankId, String status,Integer orgId);
 
-    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status);
+    public ServerResponse<Set<RankVo>> searchRankTitle(Integer status,Integer orgId);
 
 
 

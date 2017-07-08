@@ -1,7 +1,9 @@
 package org.igeek.controller.initData;
 
 import com.github.pagehelper.PageInfo;
+import org.igeek.common.Const;
 import org.igeek.common.ServerResponse;
+import org.igeek.pojo.Organization;
 import org.igeek.pojo.Quality;
 import org.igeek.service.IQualityService;
 import org.igeek.vo.UserVo;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 /**
@@ -34,7 +37,12 @@ public class QualityController {
      */
     @RequestMapping(value = "addOrUpdate")
     @ResponseBody
-    public ServerResponse<String> updateOrAddQuality(Quality quality) {
+    public ServerResponse<String> updateOrAddQuality(Quality quality, HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        quality.setOrgId(organization.getOrgId());
         return iQualityService.updateOrAddQuality(quality);
     }
 
@@ -49,8 +57,13 @@ public class QualityController {
     public ServerResponse<PageInfo> getQualityInfoList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                        @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                        @RequestParam(value = "status",defaultValue = "1") Integer status,
-                                                       @RequestParam(value = "userType",required = false) Integer userType) {
-        return iQualityService.getQualityInfoList(pageNum, pageSize,status,userType);
+                                                       @RequestParam(value = "userType",required = false) Integer userType,
+                                                       HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityService.getQualityInfoList(pageNum, pageSize,status,userType,organization.getOrgId());
     }
 
 
@@ -62,8 +75,12 @@ public class QualityController {
      */
     @RequestMapping(value = "update_status")
     @ResponseBody
-    public ServerResponse<String> updateQualityStatus(Integer qualityId,Integer status){
-        return iQualityService.updateQualityStatus(qualityId, status);
+    public ServerResponse<String> updateQualityStatus(Integer qualityId,Integer status,HttpSession session){
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null){
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityService.updateQualityStatus(qualityId, status,organization.getOrgId());
     }
 
 

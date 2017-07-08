@@ -1,18 +1,16 @@
 package org.igeek.pojo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
-
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Quality {
     private Integer id;
 
-    private Integer userId;
+    private Integer orgId;
 
     private String username;
+
+    private Integer userId;
 
     private String title;
 
@@ -22,14 +20,16 @@ public class Quality {
 
     private BigDecimal money;
 
-    private Integer questionType;//问题类型：1:扣款问题 2:扣系数问题
+    private Integer questionType;
 
     private Date created;
 
     private Date modified;
 
-    public Quality(Integer id, Integer userId, String title, String remark, Integer status, BigDecimal money, Integer questionType, Date created, Date modified) {
+    public Quality(Integer id, Integer orgId, String username, Integer userId, String title, String remark, Integer status, BigDecimal money, Integer questionType, Date created, Date modified) {
         this.id = id;
+        this.orgId = orgId;
+        this.username = username;
         this.userId = userId;
         this.title = title;
         this.remark = remark;
@@ -38,15 +38,6 @@ public class Quality {
         this.questionType = questionType;
         this.created = created;
         this.modified = modified;
-    }
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Quality() {
@@ -59,6 +50,22 @@ public class Quality {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public Integer getUserId() {

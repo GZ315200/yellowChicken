@@ -18,11 +18,13 @@ public interface RankMapper {
 
     int updateByPrimaryKey(Rank record);
 
-    int selectByRankTitle(@Param("rankName") String rankName);
+    int selectByRankTitle(@Param("rankName") String rankName,@Param("orgId") Integer orgId);
 
-    List<Rank> selectAllRankList(String status);
+    List<Rank> selectAllRankList(@Param("status") String status,@Param("orgId") Integer orgId);
 
-    int updateStatusById(@Param("rankId") Integer rankId,@Param("status") String status);
+    int updateStatusById(@Param("rankId") Integer rankId,
+                         @Param("status") String status,
+                         @Param("orgId") Integer orgId);
 
-    List<Rank> getRankTitle(Integer status);
+    List<Rank> getRankTitle(@Param("status") Integer status,@Param("orgId") Integer orgId);
 }

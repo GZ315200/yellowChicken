@@ -80,8 +80,8 @@
             <!--<columnOverride column="detail" jdbcType="VARCHAR" />-->
             <!--<columnOverride column="sub_images" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <!--<table tableName="mj_usercategory" domainObjectName="UserCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="mj_yaolu_category" domainObjectName="Kiln" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="mj_usercategory" domainObjectName="UserCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--<table tableName="mj_yaolu_category" domainObjectName="Kiln" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!-- geelynote mybatis插件的搭建 -->
     </context>
 </generatorConfiguration>

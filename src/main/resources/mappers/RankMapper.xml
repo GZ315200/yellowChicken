@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.igeek.dao.RankMapper">
     <resultMap id="BaseResultMap" type="org.igeek.pojo.Rank">
         <constructor>
-            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="status" jdbcType="INTEGER" javaType="java.lang.String"/>
-            <arg column="created" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-            <arg column="modified" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-    id, title, remark, status, created, modified
+    id, org_id, title, remark, status, created, modified
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from mj_rank_category
@@ -25,18 +26,21 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="org.igeek.pojo.Rank">
-    insert into mj_rank_category (id, title, remark, 
-      status, created, modified
-      )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, now(), now()
-      )
+    insert into mj_rank_category (id, org_id, title, 
+      remark, status, created, 
+      modified)
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, now(),
+     now())
   </insert>
     <insert id="insertSelective" parameterType="org.igeek.pojo.Rank">
         insert into mj_rank_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
+            </if>
+            <if test="orgId != null">
+                org_id,
             </if>
             <if test="title != null">
                 title,
@@ -58,6 +62,9 @@
             <if test="id != null">
                 #{id,jdbcType=INTEGER},
             </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=INTEGER},
+            </if>
             <if test="title != null">
                 #{title,jdbcType=VARCHAR},
             </if>
@@ -78,6 +85,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.Rank">
         update mj_rank_category
         <set>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=INTEGER},
+            </if>
             <if test="title != null">
                 title = #{title,jdbcType=VARCHAR},
             </if>
@@ -98,33 +108,35 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.Rank">
     update mj_rank_category
-    set title = #{title,jdbcType=VARCHAR},
+    set org_id = #{orgId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       modified = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="selectByRankTitle" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select count(1) from mj_rank_category where title=#{rankName}
+    <select id="selectByRankTitle" parameterType="map" resultType="java.lang.Integer">
+    select count(1) from mj_rank_category where title=#{rankName} and org_id = #{orgId,jdbcType=INTEGER}
   </select>
 
-    <select id="selectAllRankList" resultMap="BaseResultMap">
+    <select id="selectAllRankList" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        from mj_rank_category where status = #{status}
+        from mj_rank_category where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
     </select>
 
     <update id="updateStatusById" parameterType="java.util.Map">
         update mj_rank_category
         set status = #{status}
-        where id = #{rankId}
+        where id = #{rankId} and org_id = #{orgId,jdbcType=INTEGER}
     </update>
 
-    <select id="getRankTitle" resultMap="BaseResultMap" parameterType="int">
-        select <include refid="Base_Column_List"/>
+    <select id="getRankTitle" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
         from mj_rank_category
-        where status = #{status}
+        where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
     </select>
 
 </mapper>
