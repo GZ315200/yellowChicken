@@ -11,7 +11,7 @@ public class QualityCollectVo {
     private Integer collectId;//采集id
     private String formWorkerNum;//注浆工工号
     private String formWorkerName;//注浆工姓名
-    private Long count;//统计次数
+    private int count;//统计次数
 
 
     public QualityCollectVo() {
@@ -41,11 +41,11 @@ public class QualityCollectVo {
         this.formWorkerName = formWorkerName;
     }
 
-    public Long getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

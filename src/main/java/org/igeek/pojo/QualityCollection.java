@@ -25,7 +25,7 @@ public class QualityCollection {
 
     private Integer status;
 
-    private Long count;
+    private Integer count;
 
     private String remark;
 
@@ -33,7 +33,7 @@ public class QualityCollection {
 
     private Date modified;
 
-    public QualityCollection(Integer id, Integer orgId, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Long count, String remark, Date created, Date modified) {
+    public QualityCollection(Integer id, Integer orgId, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Integer count, String remark, Date created, Date modified) {
         this.id = id;
         this.orgId = orgId;
         this.userId = userId;
@@ -143,11 +143,11 @@ public class QualityCollection {
         this.status = status;
     }
 
-    public Long getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Long count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

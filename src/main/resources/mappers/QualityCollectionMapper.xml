@@ -14,7 +14,7 @@
             <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="yaolu_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <arg column="count" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="count" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
             <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
@@ -44,7 +44,7 @@
     values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
       #{typeId,jdbcType=VARCHAR}, #{rankId,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
-      #{yaoluId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{count,jdbcType=BIGINT}, 
+      #{yaoluId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{count,jdbcType=INTEGER},
       #{remark,jdbcType=VARCHAR}, now(), now()
       )
   </insert>
@@ -132,7 +132,7 @@
                 #{status,jdbcType=INTEGER},
             </if>
             <if test="count != null">
-                #{count,jdbcType=BIGINT},
+                #{count,jdbcType=INTEGER},
             </if>
             <if test="remark != null">
                 #{remark,jdbcType=VARCHAR},
@@ -179,7 +179,7 @@
                 status = #{status,jdbcType=INTEGER},
             </if>
             <if test="count != null">
-                count = #{count,jdbcType=BIGINT},
+                count = #{count,jdbcType=INTEGER},
             </if>
             <if test="remark != null">
                 remark = #{remark,jdbcType=VARCHAR},
@@ -205,7 +205,7 @@
       quantity = #{quantity,jdbcType=INTEGER},
       yaolu_id = #{yaoluId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      count = #{count,jdbcType=BIGINT},
+      count = #{count,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
       modified = now()
@@ -232,7 +232,7 @@
 
     <update id="updateCollectCount" parameterType="map">
     update mj_quality_collection
-    set  modified = now(), count = #{count,jdbcType=BIGINT} + 1
+    set  modified = now(), count = #{count,jdbcType=INTEGER} + 1
     where id = #{collectId} and org_id = #{orgId,jdbcType=INTEGER}
     and user_id = #{workerId}
   </update>

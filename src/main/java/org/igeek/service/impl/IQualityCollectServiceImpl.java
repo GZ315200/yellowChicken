@@ -50,6 +50,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
             String workerCode = qualityCollection.getUserCode();
+            qualityCollection.setCount(0);
             List<QualityCollection> qualityCollections = collectionMapper.getQualityCollection(workerCode,qualityCollection.getUserId(),qualityCollection.getOrgId());
             if(qualityCollections.size() > 0){
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
