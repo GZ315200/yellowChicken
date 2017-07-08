@@ -17,6 +17,8 @@ public class QualityQuestion {
 
     private String questionName;
 
+    private String workName;
+
     private Integer userId;
 
     private Double coefficient;
@@ -31,7 +33,7 @@ public class QualityQuestion {
 
     private Date modified;
 
-    public QualityQuestion(Integer id, Integer orgId, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer orgId, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, String workName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.orgId = orgId;
         this.collectId = collectId;
@@ -39,6 +41,7 @@ public class QualityQuestion {
         this.collectType = collectType;
         this.questionId = questionId;
         this.questionName = questionName;
+        this.workName = workName;
         this.userId = userId;
         this.coefficient = coefficient;
         this.quantity = quantity;
@@ -106,6 +109,14 @@ public class QualityQuestion {
 
     public void setQuestionName(String questionName) {
         this.questionName = questionName == null ? null : questionName.trim();
+    }
+
+    public String getWorkName() {
+        return workName;
+    }
+
+    public void setWorkName(String workName) {
+        this.workName = workName == null ? null : workName.trim();
     }
 
     public Integer getUserId() {

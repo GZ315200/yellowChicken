@@ -57,7 +57,7 @@ public class QualityCollectController {
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId,organization.getOrgId());
+        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId, organization.getOrgId());
     }
 
 
@@ -93,7 +93,7 @@ public class QualityCollectController {
      */
     @RequestMapping("addOrUpdate")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection,HttpSession session) {
+    public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
@@ -115,7 +115,7 @@ public class QualityCollectController {
      */
     @RequestMapping("addOrUpdate_question")
     @ResponseBody
-    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion,HttpSession session) {
+    public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
@@ -129,7 +129,7 @@ public class QualityCollectController {
      * 更新采集的次数
      *
      * @param collectId 采集id
-     * @param workerId 工人id
+     * @param workerId  工人id
      * @param count     采集次数 + 1, count 为之前的次数
      * @return 调通
      */
@@ -142,7 +142,7 @@ public class QualityCollectController {
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.updateCount(collectId, workerId, count,organization.getOrgId());
+        return iQualityCollectService.updateCount(collectId, workerId, count, organization.getOrgId());
     }
 
 
@@ -257,6 +257,24 @@ public class QualityCollectController {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
         return iQualityCollectService.getQualityCategoryList(status, questionCollectType, organization.getOrgId());
+    }
+
+
+    /**
+     * 获取质量采集信息详情
+     * @param orgId
+     * @param status
+     * @param session
+     * @return
+     */
+    public ServerResponse getQualityCollectDetail(Integer orgId, Integer status,
+                                                  Integer userId,
+                                                  HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return null;
     }
 
 
