@@ -117,7 +117,7 @@ public class QualityServiceImpl implements IQualityService {
         qualityVo.setQualityName(quality.getTitle());
         qualityVo.setDescription(quality.getRemark());
         qualityVo.setAmount(quality.getMoney());
-        qualityVo.setQuestionType(quality.getQuestionType());
+        qualityVo.setCollectType(quality.getQuestionType());
         qualityVo.setWorkerType(quality.getUserId());
         return qualityVo;
     }

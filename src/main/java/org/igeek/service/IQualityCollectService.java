@@ -29,5 +29,5 @@ public interface IQualityCollectService {
 
     public ServerResponse<String> updateCount(Integer collectId,Integer workerId,Long count,Integer orgId);
 
-//    public ServerResponse searchAllCollectList();
+    public ServerResponse getQualityCollectDetail(Integer orgId, Integer status, Integer userId);
 }

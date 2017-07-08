@@ -12,7 +12,7 @@ public class QualityVo {
 
     private Integer qualityId;
     private String qualityQuestionName;
-    private Integer questionType;
+    private Integer collectType;
     private BigDecimal amount;
     private Integer workerType;
     private String description;
@@ -40,12 +40,20 @@ public class QualityVo {
         this.qualityQuestionName = qualityName;
     }
 
-    public Integer getQuestionType() {
-        return questionType;
+    public String getQualityQuestionName() {
+        return qualityQuestionName;
     }
 
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
+    public void setQualityQuestionName(String qualityQuestionName) {
+        this.qualityQuestionName = qualityQuestionName;
+    }
+
+    public Integer getCollectType() {
+        return collectType;
+    }
+
+    public void setCollectType(Integer collectType) {
+        this.collectType = collectType;
     }
 
     public BigDecimal getAmount() {

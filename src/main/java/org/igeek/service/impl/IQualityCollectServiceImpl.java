@@ -2,7 +2,6 @@ package org.igeek.service.impl;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.apache.commons.collections.CollectionUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityCollectionMapper;
@@ -149,7 +148,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             for (Quality quality : qualityList) {
                 QualityVo qualityVo = new QualityVo();
                 qualityVo.setQualityIdName(quality.getTitle());
-                qualityVo.setQuestionType(quality.getQuestionType());
+                qualityVo.setCollectType(quality.getQuestionType());
                 qualityVo.setQualityId(quality.getId());
                 qualityVoList.add(qualityVo);
             }
@@ -214,14 +213,21 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
     }
 
+//    public ServerResponse searchAllCollectList(Integer orgId){
+//        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList(orgId);
+//        if (CollectionUtils.isEmpty(qualityCollectionList)){
+//            return ServerResponse.createByErrorMsg("质量采集列表为空");
+//        }
+//        return ServerResponse.createBySuccess(qualityCollectionList);
+//    }
 
 
-    public ServerResponse searchAllCollectList(Integer orgId){
-        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList(orgId);
-        if (CollectionUtils.isEmpty(qualityCollectionList)){
-            return ServerResponse.createByErrorMsg("质量采集列表为空");
-        }
-        return ServerResponse.createBySuccess(qualityCollectionList);
+    @Override
+    public ServerResponse getQualityCollectDetail(Integer orgId, Integer status, Integer userId) {
+
+
+
+        return null;
     }
 
 
