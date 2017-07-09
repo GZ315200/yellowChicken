@@ -128,13 +128,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             if (productList.size() > 0) {
                 for (SpCollect spCollect : productList) {
                     ProductCollectVo productCollectVo = new ProductCollectVo();
-//                    productCollectVo.setProductDetail(spCollect.getProCode());
                     productCollectVo.setWorkerName(spCollect.getUserName());
                     productCollectVo.setWorkerId(spCollect.getUserId());
                     productCollectVo.setWorkerCode(spCollect.getUserCode());
                     QualityCollection qualityCollection = collectionMapper.getQualityCollection(spCollect.getUserCode(),spCollect.getUserId(), orgId);
                     productCollectVo.setCount(qualityCollection.getCount());
-// productCollectVo.setCount(0);//默认为零
                     ProductCollectVoSet.add(productCollectVo);
                 }
                 return ServerResponse.createBySuccess(ProductCollectVoSet);
@@ -154,7 +152,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
                 QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
                 productCollectVo.setCount(qualityCollection.getCount());
-//                productCollectVo.setCount(0);//默认为零
                 ProductCollectVoSet.add(productCollectVo);
             }
             return ServerResponse.createBySuccess(ProductCollectVoSet);

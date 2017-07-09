@@ -101,6 +101,7 @@ public class RankServiceImpl implements IRankService {
             for(Rank rank : rankTitle) {
                 RankVo rankVo = new RankVo();
                 rankVo.setRankIdName(rank.getTitle());
+                rankVo.setRankId(rank.getId());
                 rankVoSet.add(rankVo);
             }
             return ServerResponse.createBySuccess("查询等级信息成功",rankVoSet);
