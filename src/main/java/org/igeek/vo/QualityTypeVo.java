@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QualityTypeVo {
 
-
+    private Integer id;
     private Integer questionId;
     private String questionName;
     private Integer questionQuantity;
@@ -21,6 +21,14 @@ public class QualityTypeVo {
 
 
     public QualityTypeVo() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getQuestionId() {

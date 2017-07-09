@@ -15,7 +15,7 @@ public class CollectDetail {
      * workerId
      */
 
-
+    private Integer id;
     private String workerName;
     private Integer workerId;
     private String kilnName;
@@ -24,6 +24,14 @@ public class CollectDetail {
     private Integer quantity;
     private List<QualityTypeVo> qualityTypeVoList;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getWorkerName() {
         return workerName;

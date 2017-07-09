@@ -182,7 +182,7 @@
     where id = #{qualityId} and org_id = #{orgId,jdbcType=INTEGER}
   </update>
 
-    <select id="selectAllQualityQuestion" parameterType="map" resultMap="BaseResultMap">
+      <select id="selectAllQualityQuestion" parameterType="map" resultMap="BaseResultMap">
         select <include refid="Base_Column_List">
     </include>
         from mj_quality_category where status = #{status} and question_type = #{questionType} and

@@ -245,6 +245,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     private CollectDetail assembleCollectDetail(QualityCollection collection) throws GeneralSecurityException {
         CollectDetail collectDetail = new CollectDetail();
+        collectDetail.setId(collection.getId());//用于修改数据
         Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId());
         if (Objects.isNull(kiln)) {
             throw new GeneralServiceException("窑炉信息不存在");
@@ -270,6 +271,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         }
         for (QualityQuestion qualityQuestion : qualityQuestionList) {
             QualityTypeVo qualityTypeVo = new QualityTypeVo();
+            qualityTypeVo.setId(qualityQuestion.getId());//用于修改数据
             qualityTypeVo.setCoefficient(qualityQuestion.getCoefficient());
             qualityTypeVo.setCollectType(qualityQuestion.getCollectType());
             qualityTypeVo.setCollectId(qualityQuestion.getCollectId());
