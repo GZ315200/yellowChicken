@@ -262,6 +262,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         }
         collectDetail.setRankName(rank.getTitle());
         collectDetail.setWorkerName(collection.getUserName());
+        collectDetail.setWorkerId(collection.getUserId());
         List<QualityTypeVo> qualityTypeVoList = Lists.newArrayList();
         List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getQualityQuestionList(null, collection.getUserId(), collection.getOrgId());
         if (CollectionUtils.isEmpty(qualityQuestionList)) {
@@ -270,6 +271,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         for (QualityQuestion qualityQuestion : qualityQuestionList) {
             QualityTypeVo qualityTypeVo = new QualityTypeVo();
             qualityTypeVo.setCoefficient(qualityQuestion.getCoefficient());
+            qualityTypeVo.setCollectType(qualityQuestion.getCollectType());
             qualityTypeVo.setCollectId(qualityQuestion.getCollectId());
             qualityTypeVo.setQuestionId(qualityQuestion.getQuestionId());
             qualityTypeVo.setQuestionName(qualityQuestion.getQuestionName());
@@ -280,6 +282,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         collectDetail.setQualityTypeVoList(qualityTypeVoList);
         return collectDetail;
     }
+
+    /**
+     * collectType
+     * workerId
+     */
 
 
 }

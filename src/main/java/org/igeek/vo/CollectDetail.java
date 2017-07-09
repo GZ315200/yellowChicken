@@ -10,8 +10,14 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CollectDetail {
+    /**
+     * collectType
+     * workerId
+     */
+
 
     private String workerName;
+    private Integer workerId;
     private String kilnName;
     private String productCode;
     private String rankName;
@@ -61,6 +67,14 @@ public class CollectDetail {
 
     public List<QualityTypeVo> getQualityTypeVoList() {
         return qualityTypeVoList;
+    }
+
+    public Integer getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
     }
 
     public void setQualityTypeVoList(List<QualityTypeVo> qualityTypeVoList) {

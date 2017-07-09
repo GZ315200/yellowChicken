@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Created by Gyges on 2017/7/2.
+ * 用于采集不同类型的质量问题
  */
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QualityTypeVo {
 
@@ -16,6 +16,8 @@ public class QualityTypeVo {
     private Double coefficient;
     private String questionWorkerName;
     private Integer collectId;
+    private Integer collectType;
+
 
 
     public QualityTypeVo() {
@@ -67,6 +69,14 @@ public class QualityTypeVo {
 
     public void setCollectId(Integer collectId) {
         this.collectId = collectId;
+    }
+
+    public Integer getCollectType() {
+        return collectType;
+    }
+
+    public void setCollectType(Integer collectType) {
+        this.collectType = collectType;
     }
 
     //    private Double
