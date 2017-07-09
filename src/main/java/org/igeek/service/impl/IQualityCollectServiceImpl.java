@@ -132,7 +132,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                     productCollectVo.setWorkerId(spCollect.getUserId());
                     productCollectVo.setWorkerCode(spCollect.getUserCode());
                     QualityCollection qualityCollection = collectionMapper.getQualityCollection(spCollect.getUserCode(),spCollect.getUserId(), orgId);
-                    productCollectVo.setCount(qualityCollection.getCount());
+                    if (Objects.isNull(qualityCollection)){
+                        productCollectVo.setCount(0);//默认为0
+                    }else{
+                        productCollectVo.setCount(qualityCollection.getCount());
+                    }
                     ProductCollectVoSet.add(productCollectVo);
                 }
                 return ServerResponse.createBySuccess(ProductCollectVoSet);
