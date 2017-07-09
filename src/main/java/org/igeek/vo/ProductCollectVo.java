@@ -10,11 +10,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class ProductCollectVo {
 
     private Integer id;
+    private Integer productId;
     private String productDetail;
     private String workerName;
     private Integer workerId;
     private String workerCode;
     private Integer count;
+
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
     public Integer getCount() {
         return count;

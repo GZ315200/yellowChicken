@@ -148,6 +148,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             for (SpCollect spCollect : productList) {
                 ProductCollectVo productCollectVo = new ProductCollectVo();
                 productCollectVo.setProductDetail(spCollect.getProCode());
+                productCollectVo.setProductId(spCollect.getProId());
                 productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());

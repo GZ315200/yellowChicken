@@ -80,7 +80,7 @@ public class QualityCollectController {
     @ResponseBody
     public ServerResponse<Set<ProductCollectVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
                                                                 @RequestParam(required = false) Integer workerId,
-                                                                String workerCode,
+                                                                @RequestParam(defaultValue = "empty") String workerCode,
                                                                 HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
