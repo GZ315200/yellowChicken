@@ -16,6 +16,8 @@ public class ProductCollectVo {
     private Integer workerId;
     private String workerCode;
     private Integer count;
+    private String collectId;
+
 
 
     public Integer getProductId() {

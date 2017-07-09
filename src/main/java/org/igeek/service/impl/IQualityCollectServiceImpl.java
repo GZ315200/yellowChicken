@@ -52,16 +52,16 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
-            String workerCode = qualityCollection.getUserCode();
+//            String workerCode = qualityCollection.getUserCode();
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
             String uid = null;
             uid = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));//将生成的采集id放在cache中
             qualityCollection.setCollectId(uid);//生成采集id
-            QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
-            if (Objects.nonNull(qualityCollections)) {
-                return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
-            }
+//            QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
+//            if (Objects.nonNull(qualityCollections)) {
+//                return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
+//            }
             int resultCount = collectionMapper.insert(qualityCollection);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("插入质量采集问题信息成功");
@@ -150,7 +150,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
         }
         String uid = UUID.randomUUID().toString().replace("-", "");
-        TokenCache.setKey(String.valueOf(workerId),uid);//将生成的采集id放在cache中
+        TokenCache.setKey(String.valueOf(workerId), uid);//将生成的采集id放在cache中
         productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
@@ -209,15 +209,18 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
         }
         QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
+        QualityCollectVo qualityCollectVo = new QualityCollectVo();
         if (Objects.nonNull(qualityCollection)) {
-            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection);
+            qualityCollectVo = assembleQualityInfo(qualityCollection);
             return ServerResponse.createBySuccess(qualityCollectVo);
         }
-        return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
+//        String
+        qualityCollectVo.setCollectId(UUID.randomUUID().toString().replace("-", ""));
+        return ServerResponse.createBySuccess("列表为空生成collectId",qualityCollectVo.getCollectId());
     }
 
 
-    /**
+    /*
      * 组装数据
      *
      * @param qualityCollection
@@ -225,11 +228,9 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
         QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        if (StringUtils.isNotBlank(qualityCollection.getCollectId())) {
+//            String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
+        if (StringUtils.isNotBlank(qualityCollection.getCollectId())){
             qualityCollectVo.setCollectId(qualityCollection.getCollectId());
-        }else {
-            String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
-            qualityCollectVo.setCollectId(collectId);
         }
         qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
         qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());

@@ -24,9 +24,9 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
     @Override
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
         if (qualityQuestion.getId() == null) {
-            Integer workerId = qualityQuestion.getUserId();
-            String collectId = qualityQuestion.getCollectId();
-            Integer questionId = qualityQuestion.getQuestionId();
+//            Integer workerId = qualityQuestion.getUserId();
+//            String collectId = qualityQuestion.getCollectId();
+//            Integer questionId = qualityQuestion.getQuestionId();
             qualityQuestion.setStatus(1);
 ////            String collectId = TokenCache.getValue(String.valueOf(qualityQuestion.getUserId()));
 //            if(StringUtils.isBlank(collectId)){
@@ -34,10 +34,10 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
 //            }else {
 //                qualityQuestion.setCollectId(collectId);
 //            }
-            List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getWorkerCollectInfo(workerId, collectId, questionId,qualityQuestion.getOrgId());
-            if (qualityQuestionList.size() > 0) {
-                return ServerResponse.createByErrorMsg("该成型工产品问题已经采集过");
-            }
+//            List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getWorkerCollectInfo(workerId, collectId, questionId,qualityQuestion.getOrgId());
+//            if (qualityQuestionList.size() > 0) {
+//                return ServerResponse.createByErrorMsg("该成型工产品问题已经采集过");
+//            }
             int rowCount = qualityQuestionMapper.insert(qualityQuestion);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("插入质量问题信息成功");
