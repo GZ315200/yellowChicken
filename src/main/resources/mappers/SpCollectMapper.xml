@@ -250,11 +250,18 @@
 
   <select id="getSpCollectList" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
-    from mj_shpeicaiji
+    from mj_shpeicaiji and org_id = #{orgId,jdbcType=INTEGER}
     where status = #{status}
     <if test="workerId != null">
       and user_id = #{workerId}
     </if>
+  </select>
+
+  <select id="selectSpCollectByProductId" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List"/>
+    from mj_shpeicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and pro_id = #{proId,jdbcType=INTEGER}
   </select>
 
 </mapper>

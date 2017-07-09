@@ -242,6 +242,7 @@
         select
         <include refid="Base_Column_List"/>
         from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+        and user_id = #{workerId}
     </select>
 
 </mapper>

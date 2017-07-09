@@ -6,32 +6,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * Created by Gyges on 2017/7/2.
  */
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class QualityTypeVo {
 
 
-    private Integer questionType;//问题类别（1：成型问题，2,喷釉问题）
-    private Integer questionId;//问题id
-    private Integer quantity;//数量
-    private Double coefficient;//系数
+    private Integer questionId;
+    private String questionName;
+    private Integer questionQuantity;
+    private Double coefficient;
+    private String questionWorkerName;
+    private Integer collectId;
 
 
     public QualityTypeVo() {
-    }
-
-    public QualityTypeVo(Integer questionType, Integer questionId, Integer quantity, Double coefficient) {
-        this.questionType = questionType;
-        this.questionId = questionId;
-        this.quantity = quantity;
-        this.coefficient = coefficient;
-    }
-
-    public Integer getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
     }
 
     public Integer getQuestionId() {
@@ -42,12 +29,28 @@ public class QualityTypeVo {
         this.questionId = questionId;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getQuestionName() {
+        return questionName;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
+    }
+
+    public Integer getQuestionQuantity() {
+        return questionQuantity;
+    }
+
+    public void setQuestionQuantity(Integer questionQuantity) {
+        this.questionQuantity = questionQuantity;
+    }
+
+    public String getQuestionWorkerName() {
+        return questionWorkerName;
+    }
+
+    public void setQuestionWorkerName(String questionWorkerName) {
+        this.questionWorkerName = questionWorkerName;
     }
 
     public Double getCoefficient() {
@@ -58,7 +61,14 @@ public class QualityTypeVo {
         this.coefficient = coefficient;
     }
 
+    public Integer getCollectId() {
+        return collectId;
+    }
 
-//    private Double
+    public void setCollectId(Integer collectId) {
+        this.collectId = collectId;
+    }
+
+    //    private Double
 
 }

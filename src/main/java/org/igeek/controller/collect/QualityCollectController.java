@@ -10,6 +10,8 @@ import org.igeek.service.IQualityCollectService;
 import org.igeek.service.IQualityQuestionService;
 import org.igeek.service.IRankService;
 import org.igeek.vo.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.security.GeneralSecurityException;
 import java.util.Set;
 
 /**
@@ -26,6 +29,8 @@ import java.util.Set;
 @Controller
 @RequestMapping("/quality/collect/")
 public class QualityCollectController {
+
+    public static final Logger logger = LoggerFactory.getLogger(QualityCollectController.class);
 
     @Autowired
     private IQualityCollectService iQualityCollectService;
@@ -262,19 +267,22 @@ public class QualityCollectController {
 
     /**
      * 获取质量采集信息详情
-     * @param orgId
-     * @param status
      * @param session
      * @return
      */
-    public ServerResponse getQualityCollectDetail(Integer orgId, Integer status,
-                                                  Integer userId,
-                                                  HttpSession session) {
+    @RequestMapping("get_quality_collect_detail")
+    @ResponseBody
+    public ServerResponse getQualityCollectDetail(Integer workerId,HttpSession session) {
+        try {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return null;
+            return  iQualityCollectService.getQualityCollectDetail(organization.getOrgId(),workerId);
+        } catch (GeneralSecurityException e) {
+            logger.error("获取信息异常",e);
+        }
+        return ServerResponse.createByErrorMsg("获取质量采集详情信息异常");
     }
 
 

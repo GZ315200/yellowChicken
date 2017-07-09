@@ -47,9 +47,9 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
     }
 
 
-    public ServerResponse<QualityQuestion> getQualityQuestionList(Integer collectType, Integer workerId,Integer orgId) {
+    public ServerResponse getQualityQuestionList(Integer collectType, Integer workerId,Integer orgId) {
         if (Objects.nonNull(collectType)) {
-            QualityQuestion qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId,orgId);
+            List<QualityQuestion> qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId,orgId);
             if (Objects.nonNull(qualityQuestion)) {
                 return ServerResponse.createBySuccess(qualityQuestion);
             }

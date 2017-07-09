@@ -15,6 +15,7 @@ public class QualityVo {
     private Integer collectType;
     private BigDecimal amount;
     private Integer workerType;
+    private Integer workerId;
     private String description;
     private String qualityIdName;
 
@@ -86,5 +87,13 @@ public class QualityVo {
 
     public void setQualityIdName(String qualityIdName) {
         this.qualityIdName = qualityIdName;
+    }
+
+    public Integer getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
     }
 }
