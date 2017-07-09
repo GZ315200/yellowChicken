@@ -5,10 +5,10 @@
          id="WebApp_ID" version="2.5">
 
     <display-name>Archetype Created Web Application</display-name>
-    <!--&lt;!&ndash;welcome pages&ndash;&gt;-->
-    <!--<welcome-file-list>-->
-        <!--<welcome-file>login.html</welcome-file>-->
-    <!--</welcome-file-list>-->
+    <!--welcome pages-->
+    <welcome-file-list>
+        <welcome-file>login.html</welcome-file>
+    </welcome-file-list>
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -46,7 +46,6 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
 
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>

@@ -5,6 +5,8 @@
     //初始化数据模块
     $("#container").load("pages/dataCollection/qualityInspectionCollection/index.html", null, function() {
         console.log("质量检验采集");
+        getQualityCollectInfo();
+
     })
     //获取所有页面节点
     var submenu = document.getElementById("submenu").children;
@@ -16,6 +18,7 @@
         this.setAttribute("class","cur");
         $("#container").load("pages/dataCollection/qualityInspectionCollection/index.html", null, function() {
             console.log("窑炉信息页面添加");
+            getQualityCollectInfo();
         })
     }
     //绑定添加页面

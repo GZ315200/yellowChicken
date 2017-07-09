@@ -92,7 +92,7 @@ function qualityIssuesUpdateMenu(id){
     });
     $('#saveAddNew').click(function(){
         updateQualityList(id);
-        setTimeout(' $("#container").load("pages/initData/kilnInfo/addition.html", null, function() {qualityIssuesAddMenu()})',1000);
+        setTimeout(' $("#container").load("pages/initData/qualityIssues/addition.html", null, function() {qualityIssuesAddMenu()})',1000);
     });
 };
 

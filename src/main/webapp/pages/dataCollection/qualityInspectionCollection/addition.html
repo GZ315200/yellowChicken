@@ -4,32 +4,28 @@
             <div class="col-lg-1-5">
                 <label class="col-sm-5 control-label-thin">员工信息</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="kilnName" name="title" placeholder="员工信息" value="">
+                    <input type="text" class="form-control" id="collectWorkerName" name="title" placeholder="员工信息" value="" readonly="readonly">
                 </div>
             </div>
             <div class="col-lg-1-5">
                 <label class="col-sm-5 control-label-thin">窑炉</label>
                 <div class="col-sm-7">
-                    <select class="form-control">
-                        <option value="0">1号窗炉</option>
-                        <option value="1">2号窗炉</option>
-                        <option value="2">3号窗炉 </option>
+                    <select class="form-control" id="kilinNameSel">
+
                     </select>
                 </div>
             </div>
             <div class="col-lg-1-5">
                 <label class="col-sm-5 control-label-thin">选择产品</label>
                 <div class="col-sm-7">
-                    <select class="form-control valid">
-                        <option value="0">请选择产品</option>
+                    <select class="form-control valid" id="productNameSel">
                     </select>
                 </div>
             </div>
             <div class="col-lg-1-5">
                 <label class="col-sm-5 control-label-thin">等级</label>
                 <div class="col-sm-7">
-                    <select class="form-control valid">
-                        <option value="0">请选择等级</option>
+                    <select class="form-control valid" id="levelNameSel">
                     </select>
                 </div>
             </div>
@@ -48,37 +44,37 @@
                         <tr>
                             <th>成型问题</th>
                             <th>数量</th>
-                            <th>系数</th>
+                            <th class="coefx">系数</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="questionType1">
                         <tr>
                             <th>接线裂</th>
                             <td>
-                                <input type="text" class="form-control">
+                                <input id="" type="text" class="form-control">
                             </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>正面大裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
+                            <td class="coefx">
                                 <input type="text" class="form-control">
                             </td>
                         </tr>
-                        <tr>
-                            <th>针孔</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
+                        <!--<tr>-->
+                            <!--<th>正面大裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td class="coefx">-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>针孔</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td class="coefx">-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
                         </tbody>
                     </table>
                 </div>
