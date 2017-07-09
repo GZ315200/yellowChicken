@@ -123,7 +123,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
         List<SpCollect> productList = null;
         if (workerCode.equals("empty")) {
-            productList = spCollectMapper.getSpCollectList(status, null, orgId, workerCode);
+            productList = spCollectMapper.getSpCollectList(status, null, orgId, null);
             Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
             if (productList.size() > 0) {
                 for (SpCollect spCollect : productList) {
@@ -132,7 +132,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                     productCollectVo.setWorkerName(spCollect.getUserName());
                     productCollectVo.setWorkerId(spCollect.getUserId());
                     productCollectVo.setWorkerCode(spCollect.getUserCode());
-                    QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
+                    QualityCollection qualityCollection = collectionMapper.getQualityCollection(spCollect.getUserCode(),spCollect.getUserId(), orgId);
                     productCollectVo.setCount(qualityCollection.getCount());
 // productCollectVo.setCount(0);//默认为零
                     ProductCollectVoSet.add(productCollectVo);
@@ -142,7 +142,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
         }
 
-        productList = spCollectMapper.getSpCollectList(status, workerId, orgId, null);
+        productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
@@ -151,6 +151,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
+                QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
+                productCollectVo.setCount(qualityCollection.getCount());
 //                productCollectVo.setCount(0);//默认为零
                 ProductCollectVoSet.add(productCollectVo);
             }

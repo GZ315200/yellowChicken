@@ -256,7 +256,7 @@
       and user_id = #{workerId}
     </if>
     <if test="workerCode != null">
-      and user_code = #{userCode,jdbcType=VARCHAR}
+      and user_code = #{workerCode,jdbcType=VARCHAR}
     </if>
   </select>
 
