@@ -3,6 +3,7 @@ package org.igeek.service.impl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.common.TokenCache;
@@ -52,11 +53,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
             String workerCode = qualityCollection.getUserCode();
-            String uid = UUID.randomUUID().toString().replace("-","");
+            String uid = UUID.randomUUID().toString().replace("-", "");
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
             qualityCollection.setCollectId(uid);//生成采集id
-            TokenCache.setKey(String.valueOf(qualityCollection.getUserId()),uid);//将生成的采集id放在cache中
+            TokenCache.setKey(String.valueOf(qualityCollection.getUserId()), uid);//将生成的采集id放在cache中
             QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
             if (Objects.nonNull(qualityCollections)) {
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
@@ -136,10 +137,10 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                     productCollectVo.setWorkerName(spCollect.getUserName());
                     productCollectVo.setWorkerId(spCollect.getUserId());
                     productCollectVo.setWorkerCode(spCollect.getUserCode());
-                    QualityCollection qualityCollection = collectionMapper.getQualityCollection(spCollect.getUserCode(),spCollect.getUserId(), orgId);
-                    if (Objects.isNull(qualityCollection)){
+                    QualityCollection qualityCollection = collectionMapper.getQualityCollection(spCollect.getUserCode(), spCollect.getUserId(), orgId);
+                    if (Objects.isNull(qualityCollection)) {
                         productCollectVo.setCount(0);//默认次数为0
-                    }else{
+                    } else {
                         productCollectVo.setCount(qualityCollection.getCount());
                     }
                     ProductCollectVoSet.add(productCollectVo);
@@ -160,9 +161,9 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
                 QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
-                if (Objects.isNull(qualityCollection)){
+                if (Objects.isNull(qualityCollection)) {
                     productCollectVo.setCount(0);//默认次数为0
-                }else{
+                } else {
                     productCollectVo.setCount(qualityCollection.getCount());
                 }
                 ProductCollectVoSet.add(productCollectVo);
@@ -223,8 +224,12 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
         QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
-        qualityCollectVo.setCollectId(collectId);
+        if (StringUtils.isNotBlank(qualityCollection.getCollectId())) {
+            qualityCollectVo.setCollectId(qualityCollection.getCollectId());
+        }else {
+            String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
+            qualityCollectVo.setCollectId(collectId);
+        }
         qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
         qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
         qualityCollectVo.setCount(qualityCollection.getCount());
