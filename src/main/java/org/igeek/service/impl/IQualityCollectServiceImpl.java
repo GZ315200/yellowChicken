@@ -53,11 +53,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
             String workerCode = qualityCollection.getUserCode();
-            String uid = UUID.randomUUID().toString().replace("-", "");
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
+            String uid = null;
+            uid = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));//将生成的采集id放在cache中
             qualityCollection.setCollectId(uid);//生成采集id
-            TokenCache.setKey(String.valueOf(qualityCollection.getUserId()), uid);//将生成的采集id放在cache中
             QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
             if (Objects.nonNull(qualityCollections)) {
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
@@ -149,7 +149,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             }
             return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
         }
-
+        String uid = UUID.randomUUID().toString().replace("-", "");
+        TokenCache.setKey(String.valueOf(workerId),uid);//将生成的采集id放在cache中
         productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
