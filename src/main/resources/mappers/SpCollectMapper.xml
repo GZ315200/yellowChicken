@@ -255,6 +255,9 @@
     <if test="workerId != null">
       and user_id = #{workerId}
     </if>
+    <if test="workerCode != null">
+      and user_code = #{userCode,jdbcType=VARCHAR}
+    </if>
   </select>
 
   <select id="selectSpCollectByProductId" resultMap="BaseResultMap" parameterType="map">

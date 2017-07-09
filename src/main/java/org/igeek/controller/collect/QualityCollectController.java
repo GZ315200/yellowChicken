@@ -80,12 +80,13 @@ public class QualityCollectController {
     @ResponseBody
     public ServerResponse<Set<ProductCollectVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
                                                                 @RequestParam(required = false) Integer workerId,
+                                                                String workerCode,
                                                                 HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.searchProIdList(status, workerId, organization.getOrgId());
+        return iQualityCollectService.searchProIdList(status, workerId,workerCode,organization.getOrgId());
     }
 
 

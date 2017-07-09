@@ -52,8 +52,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             String workerCode = qualityCollection.getUserCode();
             qualityCollection.setCount(0);
             qualityCollection.setStatus(1);
-            List<QualityCollection> qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
-            if (qualityCollections.size() > 0) {
+            QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
+            if (Objects.nonNull(qualityCollections)) {
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
             }
             int resultCount = collectionMapper.insert(qualityCollection);
@@ -119,9 +119,30 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status, Integer workerId, Integer orgId) {
+    public ServerResponse<Set<ProductCollectVo>> searchProIdList(Integer status, Integer workerId, String workerCode, Integer orgId) {
 // TODO: 2017/6/30 查出产品代号，而且是成型工的.
-        List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId);
+        List<SpCollect> productList = null;
+        if (workerCode.equals("empty")) {
+            productList = spCollectMapper.getSpCollectList(status, null, orgId, workerCode);
+            Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
+            if (productList.size() > 0) {
+                for (SpCollect spCollect : productList) {
+                    ProductCollectVo productCollectVo = new ProductCollectVo();
+//                    productCollectVo.setProductDetail(spCollect.getProCode());
+                    productCollectVo.setWorkerName(spCollect.getUserName());
+                    productCollectVo.setWorkerId(spCollect.getUserId());
+                    productCollectVo.setWorkerCode(spCollect.getUserCode());
+                    QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
+                    productCollectVo.setCount(qualityCollection.getCount());
+// productCollectVo.setCount(0);//默认为零
+                    ProductCollectVoSet.add(productCollectVo);
+                }
+                return ServerResponse.createBySuccess(ProductCollectVoSet);
+            }
+            return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
+        }
+
+        productList = spCollectMapper.getSpCollectList(status, workerId, orgId, null);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
@@ -130,7 +151,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
-                productCollectVo.setCount(0);//默认为零
+//                productCollectVo.setCount(0);//默认为零
                 ProductCollectVoSet.add(productCollectVo);
             }
             return ServerResponse.createBySuccess(ProductCollectVoSet);
@@ -158,7 +179,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
     @Override
-    public ServerResponse<List<QualityCollectVo>> getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
+    public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
         List<QualityCollection> qualityCollectionList = null;
         if (workerCode.equals("empty")) {
             qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
@@ -172,14 +193,10 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             }
             return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
         }
-        qualityCollectionList = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
-        List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
-        if (qualityCollectionList.size() > 0) {
-            for (QualityCollection collection : qualityCollectionList) {
-                QualityCollectVo qualityCollectVo = assembleQualityInfo(collection);
-                qualityCollectVoList.add(qualityCollectVo);
-            }
-            return ServerResponse.createBySuccess(qualityCollectVoList);
+        QualityCollection qualityCollection = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
+        if (Objects.nonNull(qualityCollection)) {
+            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection);
+            return ServerResponse.createBySuccess(qualityCollectVo);
         }
         return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
     }
