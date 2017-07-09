@@ -250,8 +250,8 @@
 
   <select id="getSpCollectList" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
-    from mj_shpeicaiji and org_id = #{orgId,jdbcType=INTEGER}
-    where status = #{status}
+    from mj_shpeicaiji
+    where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
     <if test="workerId != null">
       and user_id = #{workerId}
     </if>
