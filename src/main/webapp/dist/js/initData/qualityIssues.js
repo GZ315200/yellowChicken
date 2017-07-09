@@ -53,7 +53,7 @@ function qualityIssuesAddMenu(){
     });
     $('#saveAddNew').click(function(){
         updateOrAddQuality();
-        setTimeout(' $("#container").load("pages/initData/kilnInfo/addition.html", null, function() {qualityIssuesAddMenu()})',1000);
+        setTimeout(' $("#container").load("pages/initData/qualityIssues/addition.html", null, function() {qualityIssuesAddMenu()})',1000);
     });
 };
 

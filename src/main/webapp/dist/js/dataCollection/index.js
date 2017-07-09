@@ -17,7 +17,6 @@
         }
         this.setAttribute("class","cur");
         $("#container").load("pages/dataCollection/qualityInspectionCollection/index.html", null, function() {
-            console.log("窑炉信息页面添加");
             getQualityCollectInfo();
         })
     }

@@ -32,7 +32,7 @@
             <div class="col-lg-1-5">
                 <label class="col-sm-5 control-label-thin">数量</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control required"  placeholder="请输入数量" value="">
+                    <input type="text" id="userQuantityInp" class="form-control required"  placeholder="请输入数量" value="">
                 </div>
             </div>
 
@@ -48,15 +48,15 @@
                         </tr>
                         </thead>
                         <tbody id="questionType1">
-                        <tr>
-                            <th>接线裂</th>
-                            <td>
-                                <input id="" type="text" class="form-control">
-                            </td>
-                            <td class="coefx">
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
+                        <!--<tr>-->
+                            <!--<th>接线裂</th>-->
+                            <!--<td>-->
+                                <!--<input id="" type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td class="coefx">-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
                         <!--<tr>-->
                             <!--<th>正面大裂</th>-->
                             <!--<td>-->
@@ -89,34 +89,34 @@
                             <th>系数</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>接线裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>正面大裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>针孔</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
+                        <tbody id="questionType2">
+                        <!--<tr>-->
+                            <!--<th>接线裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>正面大裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>针孔</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
                         </tbody>
                         <tfoot>
                         <tr>
@@ -125,9 +125,7 @@
 
                             </td>
                             <td colspan="2">
-                                <select class="form-control valid">
-                                    <option value="0">1-1 mazean</option>
-                                    <option value="1">1-2 xiaoxiao</option>
+                                <select class="form-control valid" id="collectQuestionWorkerSel2">
                                 </select>
                             </td>
                         </tr>
@@ -145,46 +143,43 @@
                             <th>系数</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>接线裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>正面大裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>针孔</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        </tbody>                        <tfoot>
+                        <tbody id="questionType3">
+                        <!--<tr>-->
+                            <!--<th>接线裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>正面大裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>针孔</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                        <tfoot>
                         <tr>
                             <td>
                                 <label class="control-label-thin">喷釉工</label>
 
                             </td>
                             <td colspan="2">
-                                <select class="form-control valid">
-                                    <option value="0">1-1 mazean</option>
-                                    <option value="1">1-2 xiaoxiao</option>
-                                    <option value="1">1-3 james</option>
-                                    <option value="1">1-4 lucas</option>
+                                <select class="form-control valid" id="collectQuestionWorkerSel3">
                                 </select>
                             </td>
                         </tr>
@@ -202,44 +197,44 @@
                             <th>系数</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>接线裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>正面大裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>针孔</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        </tbody>                        <tfoot>
+                        <tbody id="questionType4">
+                        <!--<tr>-->
+                            <!--<th>接线裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>正面大裂</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<th>针孔</th>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<input type="text" class="form-control">-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                        <tfoot>
                         <tr>
                             <td>
                                 <label class="control-label-thin">登窑工</label>
 
                             </td>
                             <td colspan="2">
-                                <select class="form-control valid">
-                                    <option value="0">1-1 mazean</option>
-                                    <option value="1">1-2 xiaoxiao</option>
+                                <select class="form-control valid" id="collectQuestionWorkerSel4">
+
                                 </select>
                             </td>
                         </tr>
@@ -257,44 +252,18 @@
                             <th>系数</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>接线裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>正面大裂</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>针孔</th>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control">
-                            </td>
-                        </tr>
-                        </tbody>                        <tfoot>
+                        <tbody id="questionType5">
+
+                        </tbody>
+                        <tfoot>
                         <tr>
                             <td>
                                 <label class="control-label-thin">烧窑工</label>
 
                             </td>
                             <td colspan="2">
-                                <select class="form-control valid">
-                                    <option value="0">1-1 mazean</option>
-                                    <option value="1">1-2 xiaoxiao</option>
+                                <select class="form-control valid" id="collectQuestionWorkerSel5">
+
                                 </select>
                             </td>
                         </tr>
