@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
+import org.igeek.common.TokenCache;
 import org.igeek.dao.*;
 import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
@@ -17,6 +18,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by Gyges on 2017/6/29.
@@ -50,8 +52,11 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
             String workerCode = qualityCollection.getUserCode();
-            qualityCollection.setCount(0);
+            String uid = UUID.randomUUID().toString().replace("-","");
+            qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
+            qualityCollection.setCollectId(uid);//生成采集id
+            TokenCache.setKey(String.valueOf(qualityCollection.getUserId()),uid);//将生成的采集id放在cache中
             QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
             if (Objects.nonNull(qualityCollections)) {
                 return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
@@ -218,7 +223,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
         QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        qualityCollectVo.setCollectId(qualityCollection.getId());
+        String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
+        qualityCollectVo.setCollectId(collectId);
         qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
         qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
         qualityCollectVo.setCount(qualityCollection.getCount());
@@ -226,7 +232,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<String> updateCount(Integer collectId, Integer workerId, Long count, Integer orgId) {
+    public ServerResponse<String> updateCount(String collectId, Integer workerId, Long count, Integer orgId) {
         if (collectId != null) {
             int rowCount = collectionMapper.updateCollectCount(collectId, workerId, count, orgId);
             if (rowCount > 0) {

@@ -26,7 +26,7 @@ public interface IQualityCollectService {
 
     public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId);
 
-    public ServerResponse<String> updateCount(Integer collectId, Integer workerId, Long count, Integer orgId);
+    public ServerResponse<String> updateCount(String collectId, Integer workerId, Long count, Integer orgId);
 
     public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId) throws GeneralSecurityException;
 }

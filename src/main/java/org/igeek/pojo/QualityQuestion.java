@@ -7,7 +7,7 @@ public class QualityQuestion {
 
     private Integer orgId;
 
-    private Integer collectId;
+    private String collectId;
 
     private String questionType;
 
@@ -33,7 +33,7 @@ public class QualityQuestion {
 
     private Date modified;
 
-    public QualityQuestion(Integer id, Integer orgId, Integer collectId, String questionType, Integer collectType, Integer questionId, String questionName, String workName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
+    public QualityQuestion(Integer id, Integer orgId, String collectId, String questionType, Integer collectType, Integer questionId, String questionName, String workName, Integer userId, Double coefficient, Integer quantity, Integer status, String remark, Date created, Date modified) {
         this.id = id;
         this.orgId = orgId;
         this.collectId = collectId;
@@ -71,11 +71,11 @@ public class QualityQuestion {
         this.orgId = orgId;
     }
 
-    public Integer getCollectId() {
+    public String getCollectId() {
         return collectId;
     }
 
-    public void setCollectId(Integer collectId) {
+    public void setCollectId(String collectId) {
         this.collectId = collectId;
     }
 

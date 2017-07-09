@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class QualityCollectVo {
 
-    private Integer collectId;//采集id
+    private String collectId;//采集id
     private String formWorkerNum;//注浆工工号
     private String formWorkerName;//注浆工姓名
     private int count;//统计次数
@@ -17,11 +17,11 @@ public class QualityCollectVo {
     public QualityCollectVo() {
     }
 
-    public Integer getCollectId() {
+    public String getCollectId() {
         return collectId;
     }
 
-    public void setCollectId(Integer collectId) {
+    public void setCollectId(String collectId) {
         this.collectId = collectId;
     }
 

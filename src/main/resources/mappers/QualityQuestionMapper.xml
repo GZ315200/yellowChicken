@@ -5,7 +5,7 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="collect_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="collect_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="question_type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="collect_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="question_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -41,7 +41,7 @@
       coefficient, quantity, status, 
       remark, created, modified
       )
-    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{collectId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{collectId,jdbcType=VARCHAR},
       #{questionType,jdbcType=VARCHAR}, #{collectType,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, 
       #{questionName,jdbcType=VARCHAR}, #{workName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{coefficient,jdbcType=DOUBLE}, #{quantity,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
@@ -105,7 +105,7 @@
         #{orgId,jdbcType=INTEGER},
       </if>
       <if test="collectId != null">
-        #{collectId,jdbcType=INTEGER},
+        #{collectId,jdbcType=VARCHAR},
       </if>
       <if test="questionType != null">
         #{questionType,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
         org_id = #{orgId,jdbcType=INTEGER},
       </if>
       <if test="collectId != null">
-        collect_id = #{collectId,jdbcType=INTEGER},
+        collect_id = #{collectId,jdbcType=VARCHAR},
       </if>
       <if test="questionType != null">
         question_type = #{questionType,jdbcType=VARCHAR},
@@ -196,7 +196,7 @@
   <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.QualityQuestion">
     update mj_quality_question
     set org_id = #{orgId,jdbcType=INTEGER},
-      collect_id = #{collectId,jdbcType=INTEGER},
+      collect_id = #{collectId,jdbcType=VARCHAR},
       question_type = #{questionType,jdbcType=VARCHAR},
       collect_type = #{collectType,jdbcType=INTEGER},
       question_id = #{questionId,jdbcType=INTEGER},

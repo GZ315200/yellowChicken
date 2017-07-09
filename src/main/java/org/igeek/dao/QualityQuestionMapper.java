@@ -23,7 +23,7 @@ public interface QualityQuestionMapper {
                                            @Param("orgId") Integer orgId);
 
     List<QualityQuestion> getWorkerCollectInfo(@Param("workerId") Integer workerId,
-                                               @Param("collectId") Integer collectId,
+                                               @Param("collectId") String collectId,
                                                @Param("questionId") Integer questionId,
                                                @Param("orgId") Integer orgId);
 

@@ -5,6 +5,8 @@ import java.util.Date;
 public class QualityCollection {
     private Integer id;
 
+    private String collectId;
+
     private Integer orgId;
 
     private Integer userId;
@@ -33,8 +35,9 @@ public class QualityCollection {
 
     private Date modified;
 
-    public QualityCollection(Integer id, Integer orgId, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Integer count, String remark, Date created, Date modified) {
+    public QualityCollection(Integer id, String collectId, Integer orgId, Integer userId, String userCode, String userName, Integer productId, String typeId, Integer rankId, Integer quantity, Integer yaoluId, Integer status, Integer count, String remark, Date created, Date modified) {
         this.id = id;
+        this.collectId = collectId;
         this.orgId = orgId;
         this.userId = userId;
         this.userCode = userCode;
@@ -61,6 +64,14 @@ public class QualityCollection {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCollectId() {
+        return collectId;
+    }
+
+    public void setCollectId(String collectId) {
+        this.collectId = collectId == null ? null : collectId.trim();
     }
 
     public Integer getOrgId() {

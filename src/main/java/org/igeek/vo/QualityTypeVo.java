@@ -15,7 +15,7 @@ public class QualityTypeVo {
     private Integer questionQuantity;
     private Double coefficient;
     private String questionWorkerName;
-    private Integer collectId;
+    private String collectId;
     private Integer collectType;
 
 
@@ -71,11 +71,11 @@ public class QualityTypeVo {
         this.coefficient = coefficient;
     }
 
-    public Integer getCollectId() {
+    public String getCollectId() {
         return collectId;
     }
 
-    public void setCollectId(Integer collectId) {
+    public void setCollectId(String collectId) {
         this.collectId = collectId;
     }
 
