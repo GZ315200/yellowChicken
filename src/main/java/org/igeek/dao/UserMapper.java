@@ -18,7 +18,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-
     List<User> getUserList(@Param("username") String username,@Param("orgId") Integer orgId);
 
     List<User> getUserCategoryList(@Param("category") Integer category , @Param("orgId") Integer orgId);

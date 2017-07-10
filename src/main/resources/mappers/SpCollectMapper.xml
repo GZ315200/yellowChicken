@@ -267,4 +267,11 @@
     and pro_id = #{proId,jdbcType=INTEGER}
   </select>
 
+  <select id="getSpCollectInfo" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List"/>
+    from mj_shpeicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and user_id = #{workerId}
+  </select>
+
 </mapper>

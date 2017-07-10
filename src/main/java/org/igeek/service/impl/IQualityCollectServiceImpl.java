@@ -50,9 +50,18 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
+        if (StringUtils.isBlank(qualityCollection.getCollectId())) {
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+        }
         if (qualityCollection.getId() == null) {
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
+
+            SpCollect spCollect = spCollectMapper.getSpCollectInfo(qualityCollection.getUserId(), qualityCollection.getOrgId());
+            if (Objects.nonNull(spCollect)) {
+                qualityCollection.setUserCode(spCollect.getUserCode());
+                qualityCollection.setUserName(spCollect.getUserName());
+            }
             int resultCount = collectionMapper.insert(qualityCollection);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("插入质量采集问题信息成功");
@@ -203,9 +212,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             qualityCollectVo = assembleQualityInfo(qualityCollection);
             return ServerResponse.createBySuccess(qualityCollectVo);
         }
-//        String
         qualityCollectVo.setCollectId(UUID.randomUUID().toString().replace("-", ""));
-        return ServerResponse.createBySuccess("列表为空生成collectId",qualityCollectVo.getCollectId());
+        return ServerResponse.createBySuccess("列表为空生成collectId", qualityCollectVo);
     }
 
 
@@ -217,8 +225,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
         QualityCollectVo qualityCollectVo = new QualityCollectVo();
-//            String collectId = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));
-        if (StringUtils.isNotBlank(qualityCollection.getCollectId())){
+        if (StringUtils.isNotBlank(qualityCollection.getCollectId())) {
             qualityCollectVo.setCollectId(qualityCollection.getCollectId());
         }
         qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
