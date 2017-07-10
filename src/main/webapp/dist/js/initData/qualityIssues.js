@@ -117,9 +117,9 @@ function getQualityList() {
                 var amount = (optiondata.amount===undefined) ? "" : optiondata.amount;
                 var questionType = "";
                 // 1.扣款，2扣系数
-                if(optiondata.questionType===1) {
+                if(optiondata.collectType===1) {
                     questionType = "扣款问题";
-                } else if (optiondata.questionType===2) {
+                } else if (optiondata.collectType===2) {
                     questionType = "扣系数问题";
                 }
                 //工种
@@ -157,7 +157,7 @@ function getQualityList() {
                     + '<td>'+description+'</td>'
                     + '<td>'
                     + "<a class='btn btn-default ldelBtn' onclick='deleteQualityList(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;)' role='button'>删除</a>"
-                    + "<a class='btn btn-default btn-default2' onclick='loadQualityIssuesInfoAdditionModifyPage(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;,&quot;"+optiondata.questionType +"&quot;,&quot;"+amount +"&quot;,&quot;"+optiondata.workerType +"&quot;,&quot;"+description +"&quot;)' >查看修改</a>"
+                    + "<a class='btn btn-default btn-default2' onclick='loadQualityIssuesInfoAdditionModifyPage(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;,&quot;"+optiondata.collectType +"&quot;,&quot;"+amount +"&quot;,&quot;"+optiondata.workerType +"&quot;,&quot;"+description +"&quot;)' >查看修改</a>"
                     + '</td></tr>';
                 $("#qualityTableRow").append(tableHtml);
             });
@@ -189,9 +189,9 @@ function getQualityListByWorkerType() {
                 var amount = (optiondata.amount===undefined) ? "" : optiondata.amount;
                 var questionType = "";
                 // 1.扣款，2扣系数
-                if(optiondata.questionType===1) {
+                if(optiondata.collectType===1) {
                     questionType = "扣款问题";
-                } else if (optiondata.questionType===2) {
+                } else if (optiondata.collectType===2) {
                     questionType = "扣系数问题";
                 }
                 //工种
@@ -229,7 +229,7 @@ function getQualityListByWorkerType() {
                     + '<td>'+description+'</td>'
                     + '<td>'
                     + "<a class='btn btn-default ldelBtn' onclick='deleteQualityList(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;)' role='button'>删除</a>"
-                    + "<a class='btn btn-default btn-default2' onclick='loadQualityIssuesInfoAdditionModifyPage(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;,&quot;"+optiondata.questionType +"&quot;,&quot;"+amount +"&quot;,&quot;"+optiondata.workerType +"&quot;,&quot;"+description +"&quot;)' >查看修改</a>"
+                    + "<a class='btn btn-default btn-default2' onclick='loadQualityIssuesInfoAdditionModifyPage(&quot;"+optiondata.qualityId+"&quot,&quot;"+optiondata.qualityName +"&quot;,&quot;"+optiondata.collectType +"&quot;,&quot;"+amount +"&quot;,&quot;"+optiondata.workerType +"&quot;,&quot;"+description +"&quot;)' >查看修改</a>"
                     + '</td></tr>';
                 $("#qualityTableRow").append(tableHtml);
             });
