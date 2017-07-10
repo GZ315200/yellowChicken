@@ -285,7 +285,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             throw new GeneralServiceException("窑炉信息不存在");
         }
         collectDetail.setKilnName(kiln.getTitle());
-        SpCollect spCollect = spCollectMapper.selectSpCollectByProductId(collection.getProductId(),collection.getUserId(), collection.getOrgId());
+        SpCollect spCollect = spCollectMapper.selectSpCollectByProductId(collection.getOrgId(),collection.getProductId(),collection.getUserId());
         if (Objects.isNull(spCollect)) {
             throw new GeneralServiceException("收坯采集的产品不存在");
         }
