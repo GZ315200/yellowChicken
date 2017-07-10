@@ -23,7 +23,7 @@ function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
         submitQualityCollectionQuestion3(collectId);
         submitQualityCollectionQuestion4(collectId);
         submitQualityCollectionQuestion5(collectId);
-        addOrUpdateUserInfo(workerId);
+        addOrUpdateUserInfo(workerId,collectId);
         return updateCollectCount(workerId,count,collectId);
         // updateCollection();
         // setTimeout('$("#form_box").mask("数据保存完成.");',2000);
@@ -48,7 +48,7 @@ function updateQualityInspectionCollectionAddMenu(workerId,workerCode,count){
         submitQualityCollectionQuestion3(collectId);
         submitQualityCollectionQuestion4(collectId);
         submitQualityCollectionQuestion5(collectId);
-        addOrUpdateUserInfo(workerId);
+        addOrUpdateUserInfo(workerId,collectId);
         return updateCollectCount(workerId,count,collectId);
         // updateCollection();
         // setTimeout('$("#form_box").mask("数据保存完成.");',2000);
@@ -495,19 +495,20 @@ function submitQualityCollectionQuestion5(collectId) {
     }
 }
 
-function addOrUpdateUserInfo(userId) {
-    var userName = $("#collectWorkerName").val();
+function addOrUpdateUserInfo(userId,collectId) {
     var yaoluId = $('#kilinNameSel').children('option:selected').val();
     var productId=$('#productNameSel').children('option:selected').val();
     var rankId = $('#levelNameSel').children('option:selected').val();
     var quantity = $("#userQuantityInp").val();
+    console.log("collectId：==>"+collectId);
     $.ajax({
         type:"GET",
         url: "/quality/collect/addOrUpdate",
         dataType:"json",
         async: false,
-        data:{userId:userId,yaoluId:yaoluId,productId:productId,rankId:rankId,quantity:quantity},
+        data:{collectId:collectId,userId:userId,yaoluId:yaoluId,productId:productId,rankId:rankId,quantity:quantity},
         success:function (data) {
+            console.log("addOrUpdateUserInfo is successful")
             console.log(data);
         }
     })
@@ -532,7 +533,6 @@ function updateCollectCount(workerId,count,collectId) {
 
 //获取Collect
 function getCollectId(workerId,workerCode) {
-
     var rData = [];
     $.ajax({
         type:"GET",
@@ -578,5 +578,6 @@ function updateCollection(workerId) {
             console.log(data);
         }
     })
+
 }
 
