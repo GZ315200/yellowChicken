@@ -265,6 +265,7 @@
     from mj_shpeicaiji
     where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
     and pro_id = #{proId,jdbcType=INTEGER}
+    and user_id = #{workerId}
   </select>
 
   <select id="getSpCollectInfo" resultMap="BaseResultMap" parameterType="map">

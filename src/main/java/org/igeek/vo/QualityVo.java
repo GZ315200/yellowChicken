@@ -12,7 +12,7 @@ public class QualityVo {
 
     private Integer qualityId;
     private String qualityQuestionName;
-    private Integer collectType;
+    private Integer collectType;//(1:扣款，2：扣系数)
     private BigDecimal amount;
     private Integer workerType;
     private Integer workerId;
@@ -22,7 +22,6 @@ public class QualityVo {
 
     public QualityVo() {
     }
-
 
 
     public Integer getQualityId() {

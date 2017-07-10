@@ -18,7 +18,8 @@ public interface SpCollectMapper {
 
     int updateByPrimaryKey(SpCollect record);
 
-    SpCollect selectSpCollectByProductId(@Param("proId")Integer proId, @Param("orgId") Integer orgId);
+    SpCollect selectSpCollectByProductId(@Param("proId")Integer proId, @Param("orgId") Integer orgId,
+                                         @Param("workerId") Integer workerId);
 
     List<SpCollect> getSpCollectList(@Param("status") Integer status,
                                      @Param("workerId") Integer workerId,
