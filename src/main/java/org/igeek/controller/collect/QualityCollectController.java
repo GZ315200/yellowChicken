@@ -284,10 +284,7 @@ public class QualityCollectController {
         }
         return ServerResponse.createByErrorMsg("获取质量采集详情信息异常");
     }
-    /**
-     * collectType
-     * workerId
-     */
+
 
 
 }
