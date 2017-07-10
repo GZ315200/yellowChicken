@@ -142,7 +142,7 @@ public class QualityCollectController {
     @RequestMapping("update_collect_count")
     @ResponseBody
     public ServerResponse<String> updateCollectCount(String collectId,
-                                                     Integer workerId, Long count,
+                                                     Integer workerId, Integer count,
                                                      HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {

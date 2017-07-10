@@ -21,7 +21,7 @@ public interface QualityCollectionMapper {
 
     int updateCollectCount(@Param("collectId") String collectId,
                            @Param("workerId") Integer workerId,
-                           @Param("count") Long count,
+                           @Param("count") Integer count,
                            @Param("orgId") Integer orgId);
 
     QualityCollection getQualityCollection(@Param("workerCode") String workerCode,

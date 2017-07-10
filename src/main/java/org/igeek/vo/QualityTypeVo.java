@@ -17,10 +17,21 @@ public class QualityTypeVo {
     private String questionWorkerName;
     private String collectId;
     private Integer collectType;
+    private String questionType;
+
 
 
 
     public QualityTypeVo() {
+    }
+
+
+    public String getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(String questionType) {
+        this.questionType = questionType;
     }
 
     public Integer getId() {

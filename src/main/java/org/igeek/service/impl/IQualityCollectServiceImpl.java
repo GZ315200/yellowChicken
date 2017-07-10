@@ -6,7 +6,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
-import org.igeek.common.TokenCache;
 import org.igeek.dao.*;
 import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
@@ -52,16 +51,8 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
         if (qualityCollection.getId() == null) {
-//            String workerCode = qualityCollection.getUserCode();
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
-            String uid = null;
-            uid = TokenCache.getValue(String.valueOf(qualityCollection.getUserId()));//将生成的采集id放在cache中
-            qualityCollection.setCollectId(uid);//生成采集id
-//            QualityCollection qualityCollections = collectionMapper.getQualityCollection(workerCode, qualityCollection.getUserId(), qualityCollection.getOrgId());
-//            if (Objects.nonNull(qualityCollections)) {
-//                return ServerResponse.createByErrorMsg("该人员的质量信息已经被采集");
-//            }
             int resultCount = collectionMapper.insert(qualityCollection);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("插入质量采集问题信息成功");
@@ -149,8 +140,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             }
             return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
         }
-        String uid = UUID.randomUUID().toString().replace("-", "");
-        TokenCache.setKey(String.valueOf(workerId), uid);//将生成的采集id放在cache中
         productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
         Set<ProductCollectVo> ProductCollectVoSet = Sets.newHashSet();
         if (productList.size() > 0) {
@@ -239,7 +228,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse<String> updateCount(String collectId, Integer workerId, Long count, Integer orgId) {
+    public ServerResponse<String> updateCount(String collectId, Integer workerId, Integer count, Integer orgId) {
         if (collectId != null) {
             int rowCount = collectionMapper.updateCollectCount(collectId, workerId, count, orgId);
             if (rowCount > 0) {
@@ -310,6 +299,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         for (QualityQuestion qualityQuestion : qualityQuestionList) {
             QualityTypeVo qualityTypeVo = new QualityTypeVo();
             qualityTypeVo.setId(qualityQuestion.getId());//用于修改数据
+            qualityTypeVo.setQuestionType(qualityQuestion.getQuestionType());
             qualityTypeVo.setCoefficient(qualityQuestion.getCoefficient());
             qualityTypeVo.setCollectType(qualityQuestion.getCollectType());
             qualityTypeVo.setCollectId(qualityQuestion.getCollectId());
