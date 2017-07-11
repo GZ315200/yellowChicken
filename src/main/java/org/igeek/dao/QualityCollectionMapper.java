@@ -24,7 +24,7 @@ public interface QualityCollectionMapper {
                            @Param("count") Integer count,
                            @Param("orgId") Integer orgId);
 
-    QualityCollection getQualityCollection(@Param("workerCode") String workerCode,
+    List<QualityCollection> getQualityCollection(@Param("workerCode") String workerCode,
                                            @Param("workerId") Integer workerId,
                                            @Param("orgId") Integer orgId);
 

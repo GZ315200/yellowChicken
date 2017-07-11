@@ -243,7 +243,7 @@
 
     <update id="updateCollectCount" parameterType="map">
     update mj_quality_collection
-    set  modified = now(), count = #{count,jdbcType=INTEGER} + 1
+    set  count = #{count,jdbcType=INTEGER} + 1
     where collect_id = #{collectId} and org_id = #{orgId,jdbcType=INTEGER}
     and user_id = #{workerId}
   </update>

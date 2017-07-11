@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -78,7 +79,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_product_code")
     @ResponseBody
-    public ServerResponse<Set<ProductCollectVo>> getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
+    public ServerResponse getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
                                                                 @RequestParam(required = false) Integer workerId,
                                                                 @RequestParam(defaultValue = "empty") String workerCode,
                                                                 HttpSession session) {
@@ -119,7 +120,7 @@ public class QualityCollectController {
      *
      * @return
      */
-    @RequestMapping("addOrUpdate_question")
+    @RequestMapping(value = "addOrUpdate_question",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
@@ -139,7 +140,7 @@ public class QualityCollectController {
      * @param count     采集次数 + 1, count 为之前的次数
      * @return 调通
      */
-    @RequestMapping("update_collect_count")
+    @RequestMapping(value = "update_collect_count",method = RequestMethod.POST )
     @ResponseBody
     public ServerResponse<String> updateCollectCount(String collectId,
                                                      Integer workerId, Integer count,
