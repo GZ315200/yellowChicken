@@ -2,12 +2,26 @@
  * Created by Administrator on 2017/6/24.
  */
 (function () {
+
     //初始化数据模块
     $("#container").load("pages/initData/kilnInfo/index.html", null, function() {
         console.log("窑炉信息页面添加1");
         getKilnList();
-
     })
+
+    var userInfo=getCookie("userInfo");
+    $("#userInfo").html(userInfo);
+    //获取cookie值
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+        if(arr=document.cookie.match(reg))
+
+            return unescape(arr[2]);
+        else
+            return null;
+    }
     //获取所有页面节点
     var submenu = document.getElementById("submenu").children;
     //窑炉信息页面添加

@@ -8,6 +8,17 @@
         getQualityCollectInfo();
 
     })
+    var userInfo=getCookie("userInfo");
+    $("#userInfo").html(userInfo);
+    //获取cookie值
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
     //获取所有页面节点
     var submenu = document.getElementById("submenu").children;
     //窑炉信息页面添加

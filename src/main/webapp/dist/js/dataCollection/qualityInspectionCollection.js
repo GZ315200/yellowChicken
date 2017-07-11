@@ -34,9 +34,8 @@ function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
     });
     $('#saveAddNew').click(function(){
         $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
-            updateQualityInspectionCollectionAddMenu(workerId,workerCode,count);
-            initQualityCollectForm(workerId,workerCode);
-            updateCollection(workerId);
+            qualityInspectionCollectionAddMenu(workerId,workerCode,count);
+            initQualityCollectForm(workerId,workerCode)
         })
     });
 };
@@ -62,7 +61,11 @@ function updateQualityInspectionCollectionAddMenu(workerId,workerCode,count){
         $("#container").load("pages/dataCollection/qualityInspectionCollection/index.html", null, function() {getQualityCollectInfo()})
     });
     $('#saveAddNew').click(function(){
-        loadKilnInfoAdditionPage();
+        $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
+            updateQualityInspectionCollectionAddMenu(workerId,workerCode,count);
+            initQualityCollectForm(workerId,workerCode);
+            updateCollection(workerId);
+        })
     });
 };
 
@@ -81,7 +84,7 @@ function getQualityCollectInfo(workerCode,workerId) {
         data:{workerCode:workerCode,workerId:workerId},
         success: function (data) {
             $("#qualityCollectTableRow").html("");
-            // console.log(data);
+            console.log(data);
             var tableRow = data.data;
             $.each(tableRow , function (index, optiondata) {
                 var count = 0;

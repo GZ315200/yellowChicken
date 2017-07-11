@@ -114,6 +114,7 @@
                             storage.removeItem("comId");
                             storage.removeItem("userName");
                         }
+                        document.cookie="userInfo="+dat.orgId+"-"+dat.username;
                         location.href = 'enter1.html';
                     } else {
                         alert(data.msg);
