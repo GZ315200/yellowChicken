@@ -211,7 +211,7 @@ function get_quality_category_questionType2() {
         async: false,
         data:{questionCollectType:questionCollectType},
         success: function (data) {
-            // console.log(data);
+            console.log(data);
             $("#questionType2").html("");
             $.each(data.data, function(index, optiondata) {
                 var coefxHtml = '';
@@ -227,7 +227,7 @@ function get_quality_category_questionType2() {
                         +'</td>';
                 }
                 var questionHtml ='<tr>'
-                    +'<td id="questionType1-'+optiondata.qualityId+'-'+optiondata.workerId+'">'+optiondata.qualityIdName+'</td>'
+                    +'<td id="questionType2-'+optiondata.qualityId+'-'+optiondata.workerId+'">'+optiondata.qualityIdName+'</td>'
                     +'<td>'
                     +'<input type="text" class="form-control">'
                     +'</td>'
@@ -507,7 +507,7 @@ function addOrUpdateUserInfo(userId,collectId) {
     var productId=$('#productNameSel').children('option:selected').val();
     var rankId = $('#levelNameSel').children('option:selected').val();
     var quantity = $("#userQuantityInp").val();
-    // console.log("collectId：==>"+collectId);
+    console.log("collectId：==>"+collectId);
     $.ajax({
         type:"POST",
         url: "/quality/collect/addOrUpdate",
@@ -629,8 +629,9 @@ function updateCollection(workerId) {
     $("#levelNameSel option:contains("+rData.rankName+")").attr("selected", true);
     $("#userQuantityInp").val(rData.quantity);
     var questionData = rData.qualityTypeVoList;
-    for(var i in questionData) {
+    for(var i=0; i < questionData.length; i++) {
         var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+rData.workerId;
+        console.log(questionID);
         // console.log($("#"+questionID+"").next().next().children());
         $("#"+questionID+"").next().children().val(questionData[i].questionQuantity);
         $("#"+questionID+"").next().next().children().val(questionData[i].coefficient);
