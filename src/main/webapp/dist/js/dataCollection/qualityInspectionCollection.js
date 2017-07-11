@@ -78,7 +78,7 @@ function getQualityCollectInfo(workerCode,workerId) {
         workerCode="empty";
     }
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_product_code",
         dataType:"json",
         data:{workerCode:workerCode,workerId:workerId},
@@ -104,7 +104,7 @@ function getQualityCollectInfo(workerCode,workerId) {
 function initQualityCollectForm(workerId,workerCode) {
     var returnData=[];
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_product_code",
         dataType:"json",
         data:{workerCode:workerCode,workerId:workerId},
@@ -132,7 +132,7 @@ function initQualityCollectForm(workerId,workerCode) {
 
 function collectKilnNameSel() {
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_kilnName_list",
         dataType:"json",
         async: false,
@@ -147,7 +147,7 @@ function collectKilnNameSel() {
 
 function collectLevelNameSel() {
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_rank_title",
         dataType:"json",
         async: false,
@@ -169,7 +169,7 @@ function collectLevelNameSel() {
 function get_quality_category_questionType1() {
     var questionCollectType = 1;
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_category",
         dataType:"json",
         async: false,
@@ -205,7 +205,7 @@ function get_quality_category_questionType1() {
 function get_quality_category_questionType2() {
     var questionCollectType = 2;
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_category",
         dataType:"json",
         async: false,
@@ -246,7 +246,7 @@ function get_quality_category_questionType2() {
 function get_quality_category_questionType3() {
     var questionCollectType = 3;
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_category",
         dataType:"json",
         async: false,
@@ -288,7 +288,7 @@ function get_quality_category_questionType3() {
 function get_quality_category_questionType4() {
     var questionCollectType = 4;
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_category",
         dataType:"json",
         async: false,
@@ -328,7 +328,7 @@ function get_quality_category_questionType4() {
 function get_quality_category_questionType5() {
     var questionCollectType = 5;
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_category",
         dataType:"json",
         async: false,
@@ -381,7 +381,7 @@ function submitQualityCollectionQuestion1(collectId) {
         var quantity = $(qeustionType[i].children[1].children).val();
         var coefficient = $(qeustionType[i].children[2].children).val();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -408,7 +408,7 @@ function submitQualityCollectionQuestion2(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel2').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -435,7 +435,7 @@ function submitQualityCollectionQuestion3(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel3').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -462,7 +462,7 @@ function submitQualityCollectionQuestion4(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel4').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -490,7 +490,7 @@ function submitQualityCollectionQuestion5(collectId) {
         var workName = $('#collectQuestionWorkerSel5').children('option:selected').text();
         // console.log(workName);
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -509,7 +509,7 @@ function addOrUpdateUserInfo(userId,collectId) {
     var quantity = $("#userQuantityInp").val();
     // console.log("collectId：==>"+collectId);
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/addOrUpdate",
         dataType:"json",
         async: false,
@@ -529,7 +529,7 @@ function updateAddOrUpdateUserInfo(id,userId,collectId) {
     var quantity = $("#userQuantityInp").val();
     // console.log("collectId：==>"+collectId);
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/addOrUpdate",
         dataType:"json",
         async: false,
@@ -546,7 +546,7 @@ function updateAddOrUpdateUserInfo(id,userId,collectId) {
 function updateCollectCount(workerId,count,collectId) {
     // console.log("count:"+count);
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/update_collect_count",
         dataType:"json",
         async: false,
@@ -562,7 +562,7 @@ function updateCollectCount(workerId,count,collectId) {
 function getCollectId(workerId,workerCode) {
     var rData = [];
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_collect_info",
         dataType:"json",
         async: false,
@@ -580,7 +580,7 @@ function getCollectId(workerId,workerCode) {
 function get_user_category(category) {
     var rData = [];
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_user_category",
         dataType:"json",
         async: false,
@@ -596,7 +596,7 @@ function get_user_category(category) {
 function updateGetId(workerId) {
     var rData = [];
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_collect_detail",
         dataType:"json",
         async: false,
@@ -614,7 +614,7 @@ function updateCollection(workerId) {
     // console.log(typeof (workerId));
     var rData = [];
     $.ajax({
-        type:"GET",
+        type:"POST",
         url: "/quality/collect/get_quality_collect_detail",
         dataType:"json",
         async: false,
@@ -656,7 +656,7 @@ function updatesubmitQualityCollectionQuestion1(collectId) {
         var quantity = $(qeustionType[i].children[1].children).val();
         var coefficient = $(qeustionType[i].children[2].children).val();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -684,7 +684,7 @@ function updatesubmitQualityCollectionQuestion2(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel2').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -712,7 +712,7 @@ function updatesubmitQualityCollectionQuestion3(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel3').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -740,7 +740,7 @@ function updatesubmitQualityCollectionQuestion4(collectId) {
         var coefficient = $(qeustionType[i].children[2].children).val();
         var workName = $('#collectQuestionWorkerSel4').children('option:selected').text();
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
@@ -769,7 +769,7 @@ function updatesubmitQualityCollectionQuestion5(collectId) {
         var workName = $('#collectQuestionWorkerSel5').children('option:selected').text();
         // console.log(workName);
         $.ajax({
-            type:"GET",
+            type:"POST",
             url: "/quality/collect/addOrUpdate_question",
             dataType:"json",
             async: false,
