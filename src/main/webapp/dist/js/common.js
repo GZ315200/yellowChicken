@@ -12,5 +12,5 @@ function userlogOut() {
           location.href="login.html"
         }
     })
-    
+    location.href="login.html"
 }

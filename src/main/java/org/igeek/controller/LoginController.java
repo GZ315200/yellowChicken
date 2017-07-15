@@ -30,18 +30,21 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<Organization> login(String orgId, String username, String password, HttpSession session){
-        ServerResponse<Organization> response = iLoginService.login(orgId, username, password);
-        if(response.isSuccess()){
-            session.setAttribute(Const.CURRENT_USER,response.getData());
+    public ServerResponse<Organization> login(String orgId, String username, String password, HttpSession session) {
+        ServerResponse<Organization> response = null;
+        response = iLoginService.login(orgId, username, password);
+        if (response.isSuccess()) {
+            session.setAttribute(Const.CURRENT_USER, response.getData());
             return response;
         }
-        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getCodeDesc());
+        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.NEED_LOGIN.getCode(),
+                ResponseCode.NEED_LOGIN.getCodeDesc());
     }
 
 
     /**
      * 退出
+     *
      * @param session
      * @return
      */
@@ -56,16 +59,17 @@ public class LoginController {
 
     /**
      * 注册机构信息
+     *
      * @param organization
      * @return
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<Organization> register(Organization organization,HttpSession session){
+    public ServerResponse<Organization> register(Organization organization, HttpSession session) {
 //        ServerResponse<Organization> response = null;
 //        organization = (Organization) session.getAttribute(Const.CURRENT_USER);
 //        if (organization.getOrgId() == 1){
-            return iLoginService.addOrgInfo(organization);
+        return iLoginService.addOrgInfo(organization);
 //        }
     }
 

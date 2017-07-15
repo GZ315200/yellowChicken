@@ -1,0 +1,63 @@
+<style type="text/css">
+    .time{ line-height:30px; margin-top:10px; float:left; color:#1ACCBE; font-size:15px; font-weight:500; }
+    .hd{ display:none; }
+    .itable{ margin-bottom:-3px; }
+    .itable tr:last-child td{ border-bottom:0px; }
+    .itable .viewObj{ display:block; }
+    .itable .eidtObj{ display:none; width:60px; margin:0px auto; }
+    .itable.edit .viewObj{ display:none !important; }
+    .itable.edit .eidtObj{ display:block !important; }
+    .dodelBtn,.doquxiaoBtn{ margin-right:10px; }
+</style>
+<div id="form_box">
+    <div id="contentbox" >
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td style="text-align: right">员工姓名</td>
+                    <td style="text-align: left" align="left" colspan="2">陈林</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right">时间筛选</td>
+                    <td style=" text-align:left ">
+                        <input id="stime" type="date" class="form-control pull-left" style="width:150px; margin-right: 15px ; padding-right: 0px" value="2017-07-01" />
+                        <input id="etime" type="date" class="form-control pull-left" style="width:150px; margin-right: 15px;padding-right: 0px" value="2017-07-15" />
+                        <input type="button" class="btn btn-default2" value="查询" id="selectAbtn" />
+                        <input type="button" class="btn btn-default2" value="重置" id="resetBtn" />
+                    </td>
+                    <td align="right">
+                        <a class="btn btn-default2 pull-right" href="../../../dataCollection.html">返回</a>
+                    </td>
+                </tr>
+                <tr class="line_0">
+                    <td rowspan="2"></td>
+                    <td colspan="2">
+                        <span class="time">采集时间2017-07-15 16:40:35</span>
+                        <a class="pull-right btn btn-default2 doeditBtn" d_id="#ledt0" d_parent=".line_0" onclick="updateQualityInspectionCollectionAdditionPage(1,1,0)">编辑修改</a>
+                        <a class="pull-right btn btn-default dodelBtn" d_id="3" href="javascript:void(0)">删除</a>
+                    </td>
+                </tr>
+                <tr class="line_0">
+                    <td colspan="3">
+                        <table class="table itable" >
+                            <tr>
+                                <td width="90px">窑炉</td>
+                                <td style="text-align: left">产品</td>
+                                <td width="90px">等级</td>
+                                <td width="90px">数量</td>
+                            </tr>
+                            <tr>
+                                <td>3号窑炉</td>
+                                <td style="text-align: left">500A</td>
+                                <td>b</td>
+                                <td>123</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
