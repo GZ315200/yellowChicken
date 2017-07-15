@@ -18,7 +18,13 @@ public class ProductCollectVo {
     private Integer count;
     private String collectId;
 
+    public String getCollectId() {
+        return collectId;
+    }
 
+    public void setCollectId(String collectId) {
+        this.collectId = collectId;
+    }
 
     public Integer getProductId() {
         return productId;

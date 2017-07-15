@@ -2,14 +2,15 @@ package org.igeek.controller.collect;
 
 import org.igeek.common.Const;
 import org.igeek.common.ServerResponse;
+import org.igeek.pojo.CollectHomepage;
 import org.igeek.pojo.Organization;
 import org.igeek.pojo.QualityCollection;
 import org.igeek.pojo.QualityQuestion;
-import org.igeek.service.IKilnService;
-import org.igeek.service.IQualityCollectService;
-import org.igeek.service.IQualityQuestionService;
-import org.igeek.service.IRankService;
-import org.igeek.vo.*;
+import org.igeek.service.*;
+import org.igeek.vo.KilnVo;
+import org.igeek.vo.QualityVo;
+import org.igeek.vo.RankVo;
+import org.igeek.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.Set;
  * 质量采集的所有接口
  */
 @Controller
-@RequestMapping("/quality/collect/")
+@RequestMapping("/quality/collect")
 public class QualityCollectController {
 
     public static final Logger logger = LoggerFactory.getLogger(QualityCollectController.class);
@@ -44,6 +45,8 @@ public class QualityCollectController {
 
     @Autowired
     private IQualityQuestionService iQualityQuestionService;
+    @Autowired
+    private ICollectHomepageService iCollectHomepageService;
 
 
     /**
@@ -68,27 +71,60 @@ public class QualityCollectController {
 
 
     /**
-     * 获取成型工的产品信息
-     * 获取成型工信息，
-     * <p>
-     * 默认输入，查出成型工的所有，id、员工代号，姓名，注浆过的产品
-     *
+     *主页面根据workerCode,进行过滤。
      * @param status   已调通，
-     * @param workerId 成型工的id
      * @return
      */
-    @RequestMapping("get_product_code")
+    @RequestMapping("get_collect_homepage_info")
     @ResponseBody
-    public ServerResponse getProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                                                @RequestParam(required = false) Integer workerId,
-                                                                @RequestParam(defaultValue = "empty") String workerCode,
-                                                                HttpSession session) {
+    public ServerResponse getCollectHomePageInfo(@RequestParam(defaultValue = "1", required = false) Integer status,
+                                         @RequestParam(defaultValue = "") String workerCode, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.searchProIdList(status, workerId,workerCode,organization.getOrgId());
+        if (workerCode.equals("empty") || workerCode.equals("")) {
+            return iQualityCollectService.getCollectHomePageInfo(status, workerCode, organization.getOrgId());
+        } else {
+            return iQualityCollectService.getCollectHomePageInfo(status, workerCode, organization.getOrgId());
+        }
     }
+
+
+
+    @RequestMapping("add_worker_collect_info")
+    @ResponseBody
+    public ServerResponse addWorkerCollectInfo(CollectHomepage collectHomepage,HttpSession session){
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        collectHomepage.setOrgId(organization.getOrgId());
+        return iCollectHomepageService.addCollectWorkerInfoAndCount(collectHomepage);
+    }
+
+
+    /**
+     * 获取工人产品列表
+     * @param status
+     * @param workerCode
+     * @param workerId
+     * @param session
+     * @return
+     */
+    @RequestMapping("get_worker_productCode")
+    @ResponseBody
+    public ServerResponse getWorkerProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
+                                         String workerCode,Integer workerId,HttpSession session){
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getWorkerProductCode(status,workerId,workerCode,organization.getOrgId());
+    }
+
+
+
 
 
     /**
@@ -120,7 +156,7 @@ public class QualityCollectController {
      *
      * @return
      */
-    @RequestMapping(value = "addOrUpdate_question",method = RequestMethod.POST)
+    @RequestMapping(value = "addOrUpdate_question", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
@@ -134,22 +170,18 @@ public class QualityCollectController {
 
     /**
      * 更新采集的次数
-     *
-     * @param collectId 采集id
-     * @param workerId  工人id
-     * @param count     采集次数 + 1, count 为之前的次数
-     * @return 调通
+     * @param workerId 工人id
+     * @param session
+     * @return
      */
-    @RequestMapping(value = "update_collect_count",method = RequestMethod.POST )
+    @RequestMapping(value = "update_collect_count", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> updateCollectCount(String collectId,
-                                                     Integer workerId, Integer count,
-                                                     HttpSession session) {
+    public ServerResponse<String> updateCollectWorkerCount(Integer workerId, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.updateCount(collectId, workerId, count, organization.getOrgId());
+        return iCollectHomepageService.updateCollectWorkerCount( workerId, organization.getOrgId());
     }
 
 
@@ -249,6 +281,7 @@ public class QualityCollectController {
 
     /**
      * 获取质量问题类别列表
+     *
      * @param status              状态
      * @param questionCollectType 所属问题类型 1：成型问题，2：修坯 3：喷窑 4，登窑，5 烧窑。
      * @return 已调通
@@ -268,23 +301,26 @@ public class QualityCollectController {
 
     /**
      * 获取质量采集信息详情
+     *
      * @param session
      * @return
      */
     @RequestMapping("get_quality_collect_detail")
     @ResponseBody
-    public ServerResponse getQualityCollectDetail(Integer workerId,HttpSession session) {
+    public ServerResponse getQualityCollectDetail(Integer workerId, HttpSession session) {
         try {
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-            return  iQualityCollectService.getQualityCollectDetail(organization.getOrgId(),workerId);
+            Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+            if (organization == null) {
+                return ServerResponse.createByErrorMsg("当前用户不存在");
+            }
+            return iQualityCollectService.getQualityCollectDetail(organization.getOrgId(), workerId);
         } catch (GeneralSecurityException e) {
-            logger.error("获取信息异常",e);
+            logger.error("获取信息异常", e);
         }
         return ServerResponse.createByErrorMsg("获取质量采集详情信息异常");
     }
+
+
 
 
 

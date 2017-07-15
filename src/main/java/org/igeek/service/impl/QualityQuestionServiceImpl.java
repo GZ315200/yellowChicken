@@ -1,6 +1,5 @@
 package org.igeek.service.impl;
 
-import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.dao.QualityQuestionMapper;
@@ -24,9 +23,6 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
 
     @Override
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion) {
-        if (StringUtils.isBlank(qualityQuestion.getCollectId())) {
-            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
-        }
         if (qualityQuestion.getId() == null) {
             qualityQuestion.setStatus(1);
             int rowCount = qualityQuestionMapper.insert(qualityQuestion);
@@ -44,9 +40,9 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
     }
 
 
-    public ServerResponse getQualityQuestionList(Integer collectType, Integer workerId,Integer orgId) {
+    public ServerResponse getQualityQuestionList(Integer collectType, Integer workerId, Integer orgId) {
         if (Objects.nonNull(collectType)) {
-            List<QualityQuestion> qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId,orgId);
+            List<QualityQuestion> qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId, orgId);
             if (Objects.nonNull(qualityQuestion)) {
                 return ServerResponse.createBySuccess(qualityQuestion);
             }

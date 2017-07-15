@@ -1,6 +1,7 @@
 package org.igeek.controller;
 
 import org.igeek.common.Const;
+import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Organization;
 import org.igeek.service.ILoginService;
@@ -27,16 +28,15 @@ public class LoginController {
     private ILoginService iLoginService;
 
 
-
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<Organization> login(String orgId, String username, String password, HttpSession session){
-        ServerResponse<Organization> response = null;
-        response = iLoginService.login(orgId, username, password);
+        ServerResponse<Organization> response = iLoginService.login(orgId, username, password);
         if(response.isSuccess()){
             session.setAttribute(Const.CURRENT_USER,response.getData());
+            return response;
         }
-        return response;
+        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getCodeDesc());
     }
 
 

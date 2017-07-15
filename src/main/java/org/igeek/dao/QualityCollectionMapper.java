@@ -28,6 +28,11 @@ public interface QualityCollectionMapper {
                                            @Param("workerId") Integer workerId,
                                            @Param("orgId") Integer orgId);
 
+    QualityCollection getSingleQualityCollect(@Param("workerCode") String workerCode,
+                                             @Param("workerId") Integer workerId,
+                                              @Param("collectId") String collectId,
+                                             @Param("orgId") Integer orgId);
+
     List<QualityCollection> getQualityCollectionWithEmpty(Integer orgId);
 
     List<QualityCollection> getAllCollectionList(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId);

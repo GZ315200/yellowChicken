@@ -6,11 +6,15 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
+import org.igeek.common.TokenCache;
 import org.igeek.dao.*;
 import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
 import org.igeek.service.IQualityCollectService;
+import org.igeek.util.IdGen;
 import org.igeek.vo.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +22,14 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Created by Gyges on 2017/6/29.
  */
 @Service(value = "iQualityCollectService")
-public class IQualityCollectServiceImpl implements IQualityCollectService {
+public class QualityCollectServiceImpl implements IQualityCollectService {
+
+    public static final Logger logger = LoggerFactory.getLogger(QualityCollectServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
@@ -50,13 +55,9 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      */
     @Override
     public ServerResponse<String> addOrUpdateInfo(QualityCollection qualityCollection) {
-        if (StringUtils.isBlank(qualityCollection.getCollectId())) {
-            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
-        }
         if (qualityCollection.getId() == null) {
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
-
             SpCollect spCollect = spCollectMapper.getSpCollectInfo(qualityCollection.getUserId(), qualityCollection.getOrgId());
             if (Objects.nonNull(spCollect)) {
                 qualityCollection.setUserCode(spCollect.getUserCode());
@@ -125,34 +126,85 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse  searchProIdList(Integer status, Integer workerId, String workerCode, Integer orgId) {
-// TODO: 2017/6/30 查出产品代号，而且是成型工的.
+    /**
+     * 产品列表根据工人工号filter
+     *
+     * @param status
+     * @param workerCode
+     * @param orgId
+     * @return
+     */
+    public ServerResponse getCollectHomePageInfo(Integer status, String workerCode, Integer orgId) {
         List<SpCollect> productList = null;
-        if (workerCode.equals("empty")) {
+        List<ProductCollectVo> ProductCollectVoList = null;
+//       进行filter
+        if (workerCode.equals("empty") || workerCode.equals("")) {
             productList = spCollectMapper.getSpCollectList(status, null, orgId, null);
-            List<ProductCollectVo> ProductCollectVoSet = Lists.newArrayList();
+            ProductCollectVoList = Lists.newArrayList();
             if (productList.size() > 0) {
                 for (SpCollect spCollect : productList) {
                     ProductCollectVo productCollectVo = new ProductCollectVo();
                     productCollectVo.setWorkerName(spCollect.getUserName());
                     productCollectVo.setWorkerId(spCollect.getUserId());
                     productCollectVo.setWorkerCode(spCollect.getUserCode());
-                    List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(spCollect.getUserCode(), spCollect.getUserId(), orgId);
-                    if (qualityCollectionList == null) {
+                    String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + spCollect.getUserId());
+                    QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(spCollect.getUserCode(), spCollect.getUserId(), collectId, orgId);
+                    if (qualityCollection == null) {
                         productCollectVo.setCount(0);//默认次数为0
                     } else {
-                        for (QualityCollection collection : qualityCollectionList)
-                        productCollectVo.setCount(collection.getCount());
+                        productCollectVo.setCount(qualityCollection.getCount());
+                        productCollectVo.setCollectId(qualityCollection.getCollectId());
                     }
-                    ProductCollectVoSet.add(productCollectVo);
+                    ProductCollectVoList.add(productCollectVo);
                 }
-                return ServerResponse.createBySuccess(ProductCollectVoSet);
+                return ServerResponse.createBySuccess(ProductCollectVoList);
             }
-            return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
+            return ServerResponse.createByErrorMsg("查询列表失败");
+//            根据workerCode过滤
+        } else {
+            productList = spCollectMapper.getSpCollectList(status, null, orgId, workerCode);
+            ProductCollectVoList = Lists.newArrayList();
+            if (productList.size() > 0) {
+                for (SpCollect spCollect : productList) {
+                    ProductCollectVo productCollectVo = new ProductCollectVo();
+                    productCollectVo.setWorkerName(spCollect.getUserName());
+                    productCollectVo.setWorkerId(spCollect.getUserId());
+                    productCollectVo.setWorkerCode(spCollect.getUserCode());
+//                    productCollectVo.setProductDetail(spCollect.getProCode());
+                    String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + spCollect.getUserId());
+                    QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(spCollect.getUserCode(), spCollect.getUserId(), collectId, orgId);
+                    if (qualityCollection == null) {
+                        productCollectVo.setCount(0);//默认次数为0
+                    } else {
+                        productCollectVo.setCount(qualityCollection.getCount());
+                        productCollectVo.setCollectId(qualityCollection.getCollectId());
+                    }
+                    ProductCollectVoList.add(productCollectVo);
+                }
+                return ServerResponse.createBySuccess(ProductCollectVoList);
+            }
+            return ServerResponse.createByErrorMsg("查询列表失败");
         }
-        productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
-        List<ProductCollectVo> ProductCollectVoSet = Lists.newArrayList();
+    }
+
+    /**
+     * 获取用户产品信息
+     *
+     * @param status     状态值
+     * @param workerId   工人id
+     * @param workerCode 工人编码
+     * @param orgId      组织结构id
+     * @return
+     */
+    public ServerResponse getWorkerProductCode(Integer status, Integer workerId, String workerCode, Integer orgId) {
+        if (workerId == null && StringUtils.isBlank(workerCode)) {
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+        }
+
+        List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
+        List<ProductCollectVo> ProductCollectVoList = Lists.newArrayList();
         if (productList.size() > 0) {
+
             for (SpCollect spCollect : productList) {
                 ProductCollectVo productCollectVo = new ProductCollectVo();
                 productCollectVo.setProductDetail(spCollect.getProCode());
@@ -160,19 +212,15 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
-                List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
-                if (qualityCollectionList == null) {
-                    productCollectVo.setCount(0);//默认次数为0
-                } else {
-                    for (QualityCollection collection : qualityCollectionList)
-                        productCollectVo.setCount(collection.getCount());
-                }
-                ProductCollectVoSet.add(productCollectVo);
+                productCollectVo.setCollectId(IdGen.uuid());
+                ProductCollectVoList.add(productCollectVo);
             }
-            return ServerResponse.createBySuccess(ProductCollectVoSet);
+            return ServerResponse.createBySuccess(ProductCollectVoList);
         }
-        return ServerResponse.createByErrorMsg("查询成型工对应产品列表失败");
+        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ERROR.getCode(), "不存在该工人的产品列表");
     }
+
+
 
 
     public ServerResponse getQualityCategoryList(Integer status, Integer questionCollectType, Integer orgId) {
@@ -196,7 +244,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
     @Override
     public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
         if (workerCode.equals("empty")) {
-           List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
+            List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
             List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
             if (qualityCollectionList.size() > 0) {
                 for (QualityCollection collection : qualityCollectionList) {
@@ -207,18 +255,13 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             }
             return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
         }
-        List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollection(workerCode, workerId, orgId);
-        List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
-        QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        if (qualityCollectionList.size() > 0) {
-            for (QualityCollection qualityCollection : qualityCollectionList) {
-                qualityCollectVo = assembleQualityInfo(qualityCollection);
-                qualityCollectVoList.add(qualityCollectVo);
-            }
-            return ServerResponse.createBySuccess(qualityCollectionList);
+        String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + workerId);
+        QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(workerCode, workerId, collectId, orgId);
+        if (qualityCollection != null) {
+            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection, collectId);
+            return ServerResponse.createBySuccess(qualityCollectVo);
         }
-        qualityCollectVo.setCollectId(UUID.randomUUID().toString().replace("-", ""));
-        return ServerResponse.createBySuccess("列表为空生成collectId", qualityCollectVo);
+        return ServerResponse.createByErrorMsg("获取列表信息失败");
     }
 
 
@@ -228,11 +271,19 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
      * @param qualityCollection
      * @return
      */
+    private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection, String collectId) {
+        QualityCollectVo qualityCollectVo = new QualityCollectVo();
+        if (StringUtils.isNotBlank(collectId)) {
+            qualityCollectVo.setCollectId(collectId);
+        }
+        qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
+        qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
+        qualityCollectVo.setCount(qualityCollection.getCount());
+        return qualityCollectVo;
+    }
+
     private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
         QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        if (StringUtils.isNotBlank(qualityCollection.getCollectId())) {
-            qualityCollectVo.setCollectId(qualityCollection.getCollectId());
-        }
         qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
         qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
         qualityCollectVo.setCount(qualityCollection.getCount());
@@ -241,7 +292,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
 
 
     public ServerResponse<String> updateCount(String collectId, Integer workerId, Integer count, Integer orgId) {
-        if (collectId != null) {
+        if (StringUtils.isNotBlank(collectId)) {
             int rowCount = collectionMapper.updateCollectCount(collectId, workerId, count, orgId);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("更新采集次数成功");
@@ -250,14 +301,6 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
         }
         return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
     }
-
-//    public ServerResponse searchAllCollectList(Integer orgId){
-//        List<QualityCollection>  qualityCollectionList = collectionMapper.getAllCollectionList(orgId);
-//        if (CollectionUtils.isEmpty(qualityCollectionList)){
-//            return ServerResponse.createByErrorMsg("质量采集列表为空");
-//        }
-//        return ServerResponse.createBySuccess(qualityCollectionList);
-//    }
 
 
     @Override
@@ -290,7 +333,7 @@ public class IQualityCollectServiceImpl implements IQualityCollectService {
             throw new GeneralServiceException("窑炉信息不存在");
         }
         collectDetail.setKilnName(kiln.getTitle());
-        SpCollect spCollect = spCollectMapper.selectSpCollectByProductId(collection.getOrgId(),collection.getProductId(),collection.getUserId());
+        SpCollect spCollect = spCollectMapper.selectSpCollectByProductId(collection.getOrgId(), collection.getProductId(), collection.getUserId());
         if (Objects.isNull(spCollect)) {
             throw new GeneralServiceException("收坯采集的产品不存在");
         }

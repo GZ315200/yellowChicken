@@ -18,7 +18,9 @@ public interface IQualityCollectService {
 
     public ServerResponse getQualityCategoryList(Integer status, Integer questionType, Integer orgId);
 
-    public ServerResponse searchProIdList(Integer status, Integer workerId, String workerCode,Integer orgId);
+    public ServerResponse getCollectHomePageInfo(Integer status, String workerCode, Integer orgId);
+
+    public ServerResponse getWorkerProductCode(Integer status, Integer workerId, String workerCode,Integer orgId);
 
     public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId);
 
