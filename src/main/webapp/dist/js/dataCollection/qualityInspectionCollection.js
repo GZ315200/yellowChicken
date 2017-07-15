@@ -13,6 +13,13 @@ function updateQualityInspectionCollectionAdditionPage(workerId,workerCode,count
     })
 }
 
+function loadUpdatePageRecord() {
+    $("#container").load("pages/dataCollection/qualityInspectionCollection/update.html", null, function() {
+
+    })
+
+}
+
 function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
     var submenu = document.getElementById("submenu").children;
     $('#saveBtn').click(function(){
@@ -94,7 +101,8 @@ function getQualityCollectInfo(workerCode,workerId) {
                     +"<td>"+optiondata.workerName+"</td>"
                     +"<td><span class='btn btn-default ldelBtn'>"+count+"次</span></td>"
                     +"<td><a class='btn btn-default ldelBtn' onclick='loadqualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>添加数据</a>"
-                    +"<a class='btn btn-default btn-default2' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>查看修改</a></td></tr>";
+                    // +"<a class='btn btn-default btn-default2' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>查看修改</a></td></tr>";
+                    +"<a class='btn btn-default btn-default2' onclick='loadUpdatePageRecord()'>查看修改</a></td></tr>";
                 $("#qualityCollectTableRow").append(tableHtml);
             });
         }
