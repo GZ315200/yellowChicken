@@ -28,7 +28,6 @@ function getNowFormatDate() {
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
     return currentdate;
 }
-
 function get7DayFormatDate() {
     var date = new Date();
     var seperator1 = "-";
@@ -80,20 +79,54 @@ function getUpatePageData(workerId) {
             $.each(data.data , function (index, optiondata) {
                 var xtime = optiondata.createTime > optiondata.updateTime ? optiondata.createTime : optiondata.updateTime;
                 // console.log(xtime);
+                var  quantity= optiondata.quantity===null ? "":optiondata.quantity;
                 var realtime = getxTime(xtime);
                 var xhtml ='<tr class="dataLog"><td rowspan="2"></td><td colspan="2">'
                     +'<span class="time">采集时间'+realtime+'</span>'
                     +"<a class='pull-right btn btn-default2 doeditBtn' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>编辑修改</a>"
-                    +'<a class="pull-right btn btn-default dodelBtn" d_id="3" href="javascript:void(0)">删除</a></td></tr><tr class="dataLog">'
+                    +"<a class='pull-right btn btn-default dodelBtn'  onclick='deleteQualityInfo(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>删除</a></td></tr><tr class='dataLog'>"
                     +'<td colspan="3"><table class="table itable" ><tr><td width="90px">窑炉</td><td style="text-align: left">产品</td>'
                     +'<td width="90px">等级</td><td width="90px">数量</td></tr><tr class="dataLog">'
                     +'<td>'+optiondata.yaoluName+'</td><td style="text-align: left">'+optiondata.productName+'</td><td>'+optiondata.rankName+'</td>'
-                    +'<td>'+optiondata.quantity+'</td></tr></table></td></tr>';
+                    +'<td>'+quantity+'</td></tr></table></td></tr>';
                 $("#updateTabeLog").append(xhtml);
             });
         }
     })
 }
+
+function deleteQualityInfo(workerId,workerCode,collectId,id) {
+    jConfirm('你确认要删除数据吗?', '系统提示', function(r) {
+        if(r){
+            $.ajax({
+                type:"DELETE",
+                url: "/quality/collect/delete_collect_single_info/"+workerId+"/"+collectId,
+                dataType:"json",
+                success: function () {
+                    $("#container").load("pages/dataCollection/qualityInspectionCollection/update.html", null, function() {
+                        $('#workName').html(workName);
+                        var stime =get7DayFormatDate();
+                        var etime =getNowFormatDate();
+                        $('#stime').val(stime);
+                        $('#etime').val(etime);
+                        $('#selectAbtn').click(function () {
+                            getUpatePageData(workerId)
+
+                        })
+                        $('#resetBtn').click(function () {
+                            $('#stime').val(stime);
+                            $('#etime').val(etime);
+                            getUpatePageData(workerId)
+                        })
+                        getUpatePageData(workerId)
+                    })
+                }
+            })
+        }
+    });
+
+}
+
 function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
     var submenu = document.getElementById("submenu").children;
     $('#saveBtn').click(function(){
