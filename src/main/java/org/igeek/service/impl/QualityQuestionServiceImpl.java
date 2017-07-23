@@ -42,18 +42,23 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
     }
 
 
-
-
+    /**
+     * 删除单个采集信息。
+     * @param workerId
+     * @param collectId
+     * @param orgId
+     * @return
+     */
     public ServerResponse<String> deleteCollectSingleInfo(Integer workerId, String collectId, Integer orgId) {
         if (workerId == null || StringUtils.isBlank(collectId)) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        int resultCount = qualityQuestionMapper.updateQualityQuestionStatus(workerId, collectId, orgId);
+        int resultCount = qualityQuestionMapper.updateQualityQuestionStatus(collectId, orgId);
         int rowCount = qualityCollectionMapper.updateCollectStatus(workerId, collectId, orgId);
         if (resultCount > 0 && rowCount > 0) {
-            return ServerResponse.createBySuccess("更新信息成功");
+            return ServerResponse.createBySuccess("删除信息成功");
         }
-        return ServerResponse.createByErrorMsg("更新信息失败");
+        return ServerResponse.createByErrorMsg("删除信息失败");
     }
 
 }

@@ -168,7 +168,7 @@ public class QualityCollectController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "delete_collect_single_info/{workerId}/{collectId}", method = RequestMethod.POST)
+    @RequestMapping(value = "delete_collect_single_info/{workerId}/{collectId}", method = RequestMethod.DELETE)
     @ResponseBody
     public ServerResponse<String> deleteCollectSingleInfo(@PathVariable Integer workerId,
                                                           @PathVariable String collectId,HttpSession session){

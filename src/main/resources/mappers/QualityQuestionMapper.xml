@@ -231,12 +231,12 @@
         and question_id = #{questionId}
     </select>
 
-    <select id="updateQualityQuestionStatus" parameterType="map" resultType="int">
+    <update id="updateQualityQuestionStatus" parameterType="map" >
        update mj_quality_question
        set status = 0,
        modified = now()
-        where org_id = #{orgId,jdbcType=INTEGER} and user_id = #{workerId}
+        where org_id = #{orgId}
         and collect_id = #{collectId}
-    </select>
+    </update>
 
 </mapper>
