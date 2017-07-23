@@ -12,7 +12,7 @@ public interface RankMapper {
 
     int insertSelective(Rank record);
 
-    Rank selectByPrimaryKey(Integer id);
+    Rank selectByPrimaryKey(@Param("id") Integer id,@Param("orgId") Integer orgId);
 
     int updateByPrimaryKeySelective(Rank record);
 

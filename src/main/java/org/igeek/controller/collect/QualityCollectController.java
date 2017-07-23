@@ -130,7 +130,7 @@ public class QualityCollectController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "get_collect_edit_infoList/{workerId}/{collectId}", method = RequestMethod.GET)
+    @RequestMapping(value = "get_collect_single_infoList/{workerId}/{collectId}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getSingleCollectInfoDetail(@PathVariable Integer workerId,
                                                      @PathVariable String collectId, HttpSession session) {
@@ -186,6 +186,7 @@ public class QualityCollectController {
     @RequestMapping(value = "delete_collect_single_info", method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> deleteCollectSingleInfo(Integer workerId,String collectId,HttpSession session){
+
         return null;
     }
 

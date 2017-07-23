@@ -22,11 +22,11 @@ public interface IQualityCollectService {
 
     public ServerResponse getWorkerProductCode(Integer status, Integer workerId,Integer orgId);
 
-//    public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId);
-
     public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId,String collectId) throws GeneralSecurityException;
 
     public ServerResponse getCollectInfoDetail(Integer workerId,Integer orgId,String startTime,String endTime);
 
     public ServerResponse getSingleCollectInfoDetail(Integer workerId,String collectId,Integer orgId);
+
+
 }

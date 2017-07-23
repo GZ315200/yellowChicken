@@ -85,7 +85,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
             for (QualityCollection collection : collectionList){
-                collectEditVoList.add(assembleCollectEditInfo(collection));
+                collectEditVoList.add(assembleCollectEditInfo(collection,orgId));
             }
             return ServerResponse.createBySuccess(collectionList);
         }
@@ -93,22 +93,37 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    private CollectEditVo assembleCollectEditInfo(QualityCollection qualityCollection){
+    private CollectEditVo assembleCollectEditInfo(QualityCollection qualityCollection,Integer orgId){
         CollectEditVo collectEditVo = new CollectEditVo();
         collectEditVo.setId(qualityCollection.getId());
         collectEditVo.setWorkerId(qualityCollection.getUserId());
         collectEditVo.setWorkerName(qualityCollection.getUserName());
         collectEditVo.setCollectId(qualityCollection.getCollectId());
         collectEditVo.setWorkerCode(qualityCollection.getUserCode());
-        Kiln kiln = kilnMapper.selectByPrimaryKey(qualityCollection.getYaoluId());
-        collectEditVo.setYaoluId(qualityCollection.getYaoluId());
-        collectEditVo.setYaoluName(kiln.getTitle());
-        Rank rank = rankMapper.selectByPrimaryKey(qualityCollection.getRankId());
-        collectEditVo.setRankId(qualityCollection.getRankId());
-        collectEditVo.setRankName(rank.getTitle());
-        SpCollect spCollect = spCollectMapper.selectByPrimaryKey(qualityCollection.getProductId());
-        collectEditVo.setProductId(qualityCollection.getProductId());
-        collectEditVo.setProductName(spCollect.getProCode());
+        Kiln kiln = kilnMapper.selectByPrimaryKey(qualityCollection.getYaoluId(),orgId);
+        if (kiln == null){
+            collectEditVo.setYaoluName(StringUtils.EMPTY);
+            collectEditVo.setYaoluId(qualityCollection.getYaoluId());
+        }else {
+            collectEditVo.setYaoluId(qualityCollection.getYaoluId());
+            collectEditVo.setYaoluName(kiln.getTitle());
+        }
+        Rank rank = rankMapper.selectByPrimaryKey(qualityCollection.getRankId(),orgId);
+        if (rank == null){
+            collectEditVo.setRankName(StringUtils.EMPTY);
+            collectEditVo.setRankId(qualityCollection.getRankId());
+        }else{
+            collectEditVo.setRankId(qualityCollection.getRankId());
+            collectEditVo.setRankName(rank.getTitle());
+        }
+        SpCollect spCollect = spCollectMapper.selectByPrimaryKey(qualityCollection.getProductId(),orgId);
+        if (spCollect == null){
+            collectEditVo.setProductId(qualityCollection.getProductId());
+            collectEditVo.setProductName(StringUtils.EMPTY);
+        }else {
+            collectEditVo.setProductId(qualityCollection.getProductId());
+            collectEditVo.setProductName(spCollect.getProCode());
+        }
         collectEditVo.setCreateTime(qualityCollection.getCreated());
         collectEditVo.setUpdateTime(qualityCollection.getModified());
         collectEditVo.setQuantity(qualityCollection.getQuantity());
@@ -129,7 +144,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
         QualityCollection qualityCollection = collectionMapper.getSingleCollectInfoDetail(orgId, workerId, collectId);
         if (qualityCollection != null) {
-            CollectEditVo collectEditVo = assembleCollectEditInfo(qualityCollection);
+            CollectEditVo collectEditVo = assembleCollectEditInfo(qualityCollection,orgId);
             return ServerResponse.createBySuccess(collectEditVo);
         }
         return ServerResponse.createByErrorMsg("无该用户的采集信息");
@@ -299,7 +314,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     private CollectDetail assembleCollectDetail(QualityCollection collection) throws GeneralSecurityException {
         CollectDetail collectDetail = new CollectDetail();
         collectDetail.setId(collection.getId());//用于修改数据
-        Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId());
+        Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId(),collection.getOrgId());
         if (Objects.isNull(kiln)) {
             throw new GeneralServiceException("窑炉信息不存在");
         }
@@ -310,7 +325,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
         collectDetail.setProductCode(spCollect.getProCode());
         collectDetail.setQuantity(collection.getQuantity());
-        Rank rank = rankMapper.selectByPrimaryKey(collection.getRankId());
+        Rank rank = rankMapper.selectByPrimaryKey(collection.getRankId(),collection.getOrgId());
         if (Objects.isNull(rank)) {
             throw new GeneralServiceException("等级信息不存在");
         }

@@ -12,7 +12,7 @@ public interface KilnMapper {
 
     int insertSelective(Kiln record);
 
-    Kiln selectByPrimaryKey(Integer id);
+    Kiln selectByPrimaryKey(@Param("id") Integer id,@Param("orgId") Integer orgId);
 
     int updateByPrimaryKeySelective(Kiln record);
 

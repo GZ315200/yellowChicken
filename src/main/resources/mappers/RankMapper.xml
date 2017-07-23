@@ -20,6 +20,7 @@
         <include refid="Base_Column_List"/>
         from mj_rank_category
         where id = #{id,jdbcType=INTEGER}
+        and org_id = #{orgId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mj_rank_category
