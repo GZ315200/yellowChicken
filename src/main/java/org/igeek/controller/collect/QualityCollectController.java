@@ -192,30 +192,30 @@ public class QualityCollectController {
         return null;
     }
 
-    /**
-     * 获取质量采集问题的数量和系数列表
-     *
-     * @param collectType 采集问题类型（1： 成型问题， 2 修坯问题， 3，喷釉，4，）
-     * @param workerId    工人id
-     * @return 员工id 一直不变，以不变应万变。
-     * @<code> 当输入collectType时，只查出所有的问题类型的信息，没有员工的限制
-     * 当输入collectType 、workId  查出该员工所对应的指定的问题信息。
-     * 当输入workId 时 查出该员工下所有的问题信息。
-     * </code>
-     * 调通
-     */
-
-    @RequestMapping("get_quality_question_list")
-    @ResponseBody
-    public ServerResponse getQualityQuestionList(@RequestParam(required = false) Integer collectType,
-                                                 @RequestParam(required = false) Integer workerId,
-                                                 HttpSession session) {
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-        return iQualityQuestionService.getQualityQuestionList(collectType, workerId, organization.getOrgId());
-    }
+//    /**
+//     * 获取质量采集问题的数量和系数列表
+//     *
+//     * @param collectType 采集问题类型（1： 成型问题， 2 修坯问题， 3，喷釉，4，）
+//     * @param workerId    工人id
+//     * @return 员工id 一直不变，以不变应万变。
+//     * @<code> 当输入collectType时，只查出所有的问题类型的信息，没有员工的限制
+//     * 当输入collectType 、workId  查出该员工所对应的指定的问题信息。
+//     * 当输入workId 时 查出该员工下所有的问题信息。
+//     * </code>
+//     * 调通
+//     */
+//
+//    @RequestMapping("get_quality_question_list")
+//    @ResponseBody
+//    public ServerResponse getQualityQuestionList(@RequestParam(required = false) Integer collectType,
+//                                                 @RequestParam(required = false) Integer workerId,
+//                                                 HttpSession session) {
+//        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+//        if (organization == null) {
+//            return ServerResponse.createByErrorMsg("当前用户不存在");
+//        }
+//        return iQualityQuestionService.getQualityQuestionList(collectType, workerId, organization.getOrgId());
+//    }
 
 
     @RequestMapping(value = "get_collect_userList/{category}", method = RequestMethod.GET)

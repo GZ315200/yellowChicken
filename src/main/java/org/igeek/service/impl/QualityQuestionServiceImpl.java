@@ -40,17 +40,17 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
         }
     }
 
-
-    public ServerResponse getQualityQuestionList(Integer collectType, Integer workerId, Integer orgId) {
-        if (Objects.nonNull(collectType)) {
-            List<QualityQuestion> qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId, orgId);
-            if (Objects.nonNull(qualityQuestion)) {
-                return ServerResponse.createBySuccess(qualityQuestion);
-            }
-            return ServerResponse.createByErrorMsg("获取质量问题信息失败");
-        }
-        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
-    }
+//
+//    public ServerResponse getQualityQuestionList(Integer collectType, Integer workerId, Integer orgId) {
+//        if (Objects.nonNull(collectType)) {
+//            List<QualityQuestion> qualityQuestion = qualityQuestionMapper.getQualityQuestionList(collectType, workerId, orgId);
+//            if (Objects.nonNull(qualityQuestion)) {
+//                return ServerResponse.createBySuccess(qualityQuestion);
+//            }
+//            return ServerResponse.createByErrorMsg("获取质量问题信息失败");
+//        }
+//        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+//    }
 
 
 }

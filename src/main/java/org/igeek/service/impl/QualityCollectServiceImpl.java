@@ -299,7 +299,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         CollectDetail collectDetail = null;
         QualityCollection qualityCollection = collectionMapper.getAllCollectionList(orgId, workerId, collectId);
         if (qualityCollection != null) {
-            collectDetail = assembleCollectDetail(qualityCollection);
+            collectDetail = assembleCollectDetail(qualityCollection,collectId);
             return ServerResponse.createBySuccess(collectDetail);
         }
         return ServerResponse.createByErrorMsg("获取质量采集信息详情失败");
@@ -311,7 +311,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      * @param collection
      * @return
      */
-    private CollectDetail assembleCollectDetail(QualityCollection collection) throws GeneralSecurityException {
+    private CollectDetail assembleCollectDetail(QualityCollection collection,String collectId) throws GeneralSecurityException {
         CollectDetail collectDetail = new CollectDetail();
         collectDetail.setId(collection.getId());//用于修改数据
         Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId(),collection.getOrgId());
@@ -333,7 +333,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         collectDetail.setWorkerName(collection.getUserName());
         collectDetail.setWorkerId(collection.getUserId());
         List<QualityTypeVo> qualityTypeVoList = Lists.newArrayList();
-        List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getQualityQuestionList(null, collection.getUserId(), collection.getOrgId());
+        List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getQualityQuestionList(null, collection.getUserId(), collection.getOrgId(),collectId);
         if (CollectionUtils.isEmpty(qualityQuestionList)) {
             throw new GeneralServiceException("质量问题信息不存在");
         }
