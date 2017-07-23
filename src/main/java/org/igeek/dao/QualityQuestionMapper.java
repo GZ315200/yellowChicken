@@ -27,7 +27,7 @@ public interface QualityQuestionMapper {
                                                @Param("questionId") Integer questionId,
                                                @Param("orgId") Integer orgId);
 
-    int updateQualityQuestionStatus(@Param("workerId")Integer workerId,@Param("collectId") String collectId,
+    int updateQualityQuestionStatus(@Param("collectId") String collectId,
                                    @Param("orgId") Integer orgId);
 
 }
