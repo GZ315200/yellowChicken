@@ -26,7 +26,7 @@ public interface IQualityCollectService {
 
     public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId,String collectId) throws GeneralSecurityException;
 
-    public ServerResponse getCollectInfoDetail(Integer workerId,Integer orgId);
+    public ServerResponse getCollectInfoDetail(Integer workerId,Integer orgId,String startTime,String endTime);
 
     public ServerResponse getSingleCollectInfoDetail(Integer workerId,String collectId,Integer orgId);
 }

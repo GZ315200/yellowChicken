@@ -106,27 +106,18 @@ public class QualityCollectController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "get_collect_edit_infoList/{workerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "get_collect_edit_infoList/{workerId}/{startTime}/{endTime}", method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse getCollectInfoDetail(@PathVariable Integer workerId,HttpSession session) {
+    public ServerResponse getCollectInfoDetail(@PathVariable Integer workerId,
+                                               @PathVariable String startTime,@PathVariable String endTime,
+                                               HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getCollectInfoDetail(workerId,organization.getOrgId());
+        return iQualityCollectService.getCollectInfoDetail(workerId,organization.getOrgId(),startTime,endTime);
     }
 
-
-    @RequestMapping(value = "get_collect_filter")
-    public ServerResponse collectionFilterWithTime(@PathVariable Integer workerId,
-                                                   @PathVariable String startTime,@PathVariable String endTime,
-                                                   HttpSession session){
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-        return null;
-    }
 
 
 

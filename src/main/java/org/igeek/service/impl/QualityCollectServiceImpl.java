@@ -77,11 +77,11 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      * @param orgId
      * @return
      */
-    public ServerResponse getCollectInfoDetail(Integer workerId, Integer orgId) {
+    public ServerResponse getCollectInfoDetail(Integer workerId, Integer orgId,String startTime,String endTime) {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId);
+        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId,startTime,endTime);
         List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
             for (QualityCollection collection : collectionList){

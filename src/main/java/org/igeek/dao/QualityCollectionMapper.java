@@ -29,7 +29,9 @@ public interface QualityCollectionMapper {
                                            @Param("orgId") Integer orgId);
 
     List<QualityCollection> getCollectInfoDetail(@Param("orgId") Integer orgId,
-                                                 @Param("workerId") Integer workerId);
+                                                 @Param("workerId") Integer workerId,
+                                                 @Param("startTime") String startTime,
+                                                 @Param("endTime") String endTime);
 
     QualityCollection getSingleCollectInfoDetail(@Param("orgId") Integer orgId,
                                                  @Param("workerId") Integer workerId,

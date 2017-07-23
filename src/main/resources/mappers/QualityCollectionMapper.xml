@@ -240,6 +240,8 @@
         <include refid="Base_Column_List"/>
         from mj_quality_collection where status != 0 and org_id = #{orgId,jdbcType=INTEGER}
         and user_id = #{workerId}
+        <if test="firstTime != null and firstTime != ''">and modified <![CDATA[>=]]> #{startTime}</if>
+        <if test="lastTime != null and lastTime != ''">and modified <![CDATA[<=]]> #{endTime}</if>
     </select>
 
     <select id="getSingleCollectInfoDetail" parameterType="map" resultMap="BaseResultMap">
