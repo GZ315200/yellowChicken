@@ -48,6 +48,16 @@ function loadUpdatePageRecord(workerId) {
         var etime =getNowFormatDate();
         $('#stime').val(stime);
         $('#etime').val(etime);
+        $('#selectAbtn').click(function () {
+            getUpatePageData(workerId)
+
+        })
+        $('#resetBtn').click(function () {
+            $('#stime').val(stime);
+            $('#etime').val(etime);
+            getUpatePageData(workerId)
+
+        })
         getUpatePageData(workerId)
     })
 }
@@ -58,6 +68,7 @@ function getxTime(nS) {
 function getUpatePageData(workerId) {
     var startTime =$('#stime').val();
     var endTime = $('#etime').val();
+    $(".dataLog").remove();
     $.ajax({
         type:"GET",
         url: "/quality/collect/get_collect_edit_infoList/"+workerId+"/"+startTime+"/"+endTime,
@@ -68,12 +79,12 @@ function getUpatePageData(workerId) {
                 var xtime = optiondata.createTime > optiondata.updateTime ? optiondata.createTime : optiondata.updateTime;
                 console.log(xtime);
                 var realtime = getxTime(xtime);
-                var xhtml ='<tr><td rowspan="2"></td><td colspan="2">'
+                var xhtml ='<tr class="dataLog"><td rowspan="2"></td><td colspan="2">'
                     +'<span class="time">采集时间'+realtime+'</span>'
                     +"<a class='pull-right btn btn-default2 doeditBtn' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>编辑修改</a>"
-                    +'<a class="pull-right btn btn-default dodelBtn" d_id="3" href="javascript:void(0)">删除</a></td></tr><tr>'
+                    +'<a class="pull-right btn btn-default dodelBtn" d_id="3" href="javascript:void(0)">删除</a></td></tr><tr class="dataLog">'
                     +'<td colspan="3"><table class="table itable" ><tr><td width="90px">窑炉</td><td style="text-align: left">产品</td>'
-                    +'<td width="90px">等级</td><td width="90px">数量</td></tr><tr>'
+                    +'<td width="90px">等级</td><td width="90px">数量</td></tr><tr class="dataLog">'
                     +'<td>'+optiondata.yaoluName+'</td><td style="text-align: left">'+optiondata.productName+'</td><td>'+optiondata.rankName+'</td>'
                     +'<td>'+optiondata.quantity+'</td></tr></table></td></tr>';
                 $("#updateTabeLog").append(xhtml);
