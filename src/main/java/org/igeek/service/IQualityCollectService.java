@@ -16,15 +16,19 @@ public interface IQualityCollectService {
 
     public ServerResponse searchUserCategoryList(Integer category, Integer orgId);
 
+    public ServerResponse getCollectUserList(Integer category, Integer orgId);
+
+    public ServerResponse getCollectUserListWithFilter(String workerCode,Integer orgId);
+
     public ServerResponse getQualityCategoryList(Integer status, Integer questionType, Integer orgId);
 
-    public ServerResponse getCollectHomePageInfo(Integer status, String workerCode, Integer orgId);
+//    public ServerResponse getCollectHomePageInfo(Integer status, String workerCode, Integer orgId);
 
-    public ServerResponse getWorkerProductCode(Integer status, Integer workerId, String workerCode,Integer orgId);
+    public ServerResponse getWorkerProductCode(Integer status, Integer workerId,Integer orgId);
 
     public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId);
 
-    public ServerResponse<String> updateCount(String collectId, Integer workerId, Integer count, Integer orgId);
+//    public ServerResponse<String> updateCount(String collectId, Integer workerId, Integer count, Integer orgId);
 
     public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId) throws GeneralSecurityException;
 }

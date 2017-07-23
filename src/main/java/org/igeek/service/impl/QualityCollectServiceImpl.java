@@ -1,7 +1,6 @@
 package org.igeek.service.impl;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
@@ -11,6 +10,7 @@ import org.igeek.dao.*;
 import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
 import org.igeek.service.IQualityCollectService;
+import org.igeek.util.CalenderUtil;
 import org.igeek.util.IdGen;
 import org.igeek.vo.*;
 import org.slf4j.Logger;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/29.
@@ -87,39 +86,112 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      * @return
      */
 
+//    public ServerResponse<Set<UserVo>> searchUserList(String name, Integer orgId) {
+//        Set<UserVo> userVoList = Sets.newHashSet();
+//        if (name != null) {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("%").append(name).append("%");
+//            name = sb.toString();
+//        }
+//        List<User> userList = userMapper.getUserList(name, orgId);
+//        if (userList.size() > 0) {
+//            for (User user : userList) {
+//                UserVo userVo = new UserVo();
+//                userVo.setUserNameCode(user.getNumstr() + "-" + user.getName());
+//                userVoList.add(userVo);
+//            }
+//            return ServerResponse.createBySuccess(userVoList);
+//        }
+//        return ServerResponse.createByErrorMsg("无法获得该姓名列表");
+//    }
 
-    public ServerResponse<Set<UserVo>> searchUserList(String name, Integer orgId) {
-        Set<UserVo> userVoList = Sets.newHashSet();
-        if (name != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("%").append(name).append("%");
-            name = sb.toString();
-        }
-        List<User> userList = userMapper.getUserList(name, orgId);
-        if (userList.size() > 0) {
-            for (User user : userList) {
-                UserVo userVo = new UserVo();
-                userVo.setUserNameCode(user.getNumstr() + "-" + user.getName());
-                userVoList.add(userVo);
-            }
-            return ServerResponse.createBySuccess(userVoList);
-        }
-        return ServerResponse.createByErrorMsg("无法获得该姓名列表");
-    }
-
-
+    /**
+     * 获取工人列表
+     * @param category
+     * @param orgId
+     * @return
+     */
     @Override
     public ServerResponse searchUserCategoryList(Integer category, Integer orgId) {
-        List<UserVo> userVoList = Lists.newArrayList();
         if (category != null) {
             List<User> userList = userMapper.getUserCategoryList(category, orgId);
             if (userList.size() > 0) {
-                for (User user : userList) {
+                return ServerResponse.createBySuccess("获取工人列表成功", userList);
+            }
+        }
+        return ServerResponse.createByErrorMsg("获取工人列表失败");
+    }
+
+
+
+
+    private Integer getCollectCount(Integer orgId,Integer workerId){
+//        获取当月1号的时间，获取当月最后一天的时间。
+        String firstDay = CalenderUtil.getFirstDayOfCurrentMonth();
+        String lastDay = CalenderUtil.getLastDayOfCurrentMonth();
+        int resultCount = collectionMapper.getCollectCount(orgId,workerId,firstDay,lastDay);
+        if(resultCount > 0){
+            return resultCount;
+        }
+        return 0;
+    }
+
+
+    /**
+     * 获取需要采集的成型工列表
+     * @param categoryType 用户类别，成型工：1
+     * @param orgId
+     * @return
+     */
+    public ServerResponse getCollectUserList(Integer categoryType, Integer orgId){
+        List<UserVo> list = Lists.newArrayList();
+        if (categoryType != null) {
+            List<User> userList = userMapper.getUserCategoryList(categoryType, orgId);
+            if (userList.size() > 0) {
+                for(User user : userList){
                     UserVo userVo = new UserVo();
-                    userVo.setUserNameCode(user.getNumstr() + "-" + user.getName());
-                    userVoList.add(userVo);
+                    userVo.setWorkerId(user.getId());
+                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setWorkerName(user.getName());
+                    userVo.setWorkerCode(user.getNumstr());
+                    list.add(userVo);
                 }
-                return ServerResponse.createBySuccess("获取工人列表成功", userVoList);
+                return ServerResponse.createBySuccess("获取工人列表成功", list);
+            }
+        }
+        return ServerResponse.createByErrorMsg("获取工人列表失败");
+    }
+
+
+
+
+    public ServerResponse getCollectUserListWithFilter(String workerCode,Integer orgId){
+        List<UserVo> list = Lists.newArrayList();
+        if (workerCode.equals("empty") || workerCode.equals("")){
+            List<User> userList = userMapper.getUserList(null, orgId);
+            if (userList.size() > 0){
+                for(User user : userList){
+                    UserVo userVo = new UserVo();
+                    userVo.setWorkerId(user.getId());
+                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setWorkerName(user.getName());
+                    userVo.setWorkerCode(user.getNumstr());
+                    list.add(userVo);
+                }
+                return ServerResponse.createBySuccess("获取工人列表成功", list);
+            }
+        }else{
+            List<User> userList = userMapper.getUserList(workerCode, orgId);
+            if (userList.size() > 0){
+                for(User user : userList){
+                    UserVo userVo = new UserVo();
+                    userVo.setWorkerId(user.getId());
+                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setWorkerName(user.getName());
+                    userVo.setWorkerCode(user.getNumstr());
+                    list.add(userVo);
+                }
+                return ServerResponse.createBySuccess("获取工人列表成功", list);
             }
         }
         return ServerResponse.createByErrorMsg("获取工人列表失败");
@@ -127,81 +199,19 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
 
     /**
-     * 产品列表根据工人工号filter
-     *
-     * @param status
-     * @param workerCode
-     * @param orgId
-     * @return
-     */
-    public ServerResponse getCollectHomePageInfo(Integer status, String workerCode, Integer orgId) {
-        List<SpCollect> productList = null;
-        List<ProductCollectVo> ProductCollectVoList = null;
-//       进行filter
-        if (workerCode.equals("empty") || workerCode.equals("")) {
-            productList = spCollectMapper.getSpCollectList(status, null, orgId, null);
-            ProductCollectVoList = Lists.newArrayList();
-            if (productList.size() > 0) {
-                for (SpCollect spCollect : productList) {
-                    ProductCollectVo productCollectVo = new ProductCollectVo();
-                    productCollectVo.setWorkerName(spCollect.getUserName());
-                    productCollectVo.setWorkerId(spCollect.getUserId());
-                    productCollectVo.setWorkerCode(spCollect.getUserCode());
-                    String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + spCollect.getUserId());
-                    QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(spCollect.getUserCode(), spCollect.getUserId(), collectId, orgId);
-                    if (qualityCollection == null) {
-                        productCollectVo.setCount(0);//默认次数为0
-                    } else {
-                        productCollectVo.setCount(qualityCollection.getCount());
-                        productCollectVo.setCollectId(qualityCollection.getCollectId());
-                    }
-                    ProductCollectVoList.add(productCollectVo);
-                }
-                return ServerResponse.createBySuccess(ProductCollectVoList);
-            }
-            return ServerResponse.createByErrorMsg("查询列表失败");
-//            根据workerCode过滤
-        } else {
-            productList = spCollectMapper.getSpCollectList(status, null, orgId, workerCode);
-            ProductCollectVoList = Lists.newArrayList();
-            if (productList.size() > 0) {
-                for (SpCollect spCollect : productList) {
-                    ProductCollectVo productCollectVo = new ProductCollectVo();
-                    productCollectVo.setWorkerName(spCollect.getUserName());
-                    productCollectVo.setWorkerId(spCollect.getUserId());
-                    productCollectVo.setWorkerCode(spCollect.getUserCode());
-//                    productCollectVo.setProductDetail(spCollect.getProCode());
-                    String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + spCollect.getUserId());
-                    QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(spCollect.getUserCode(), spCollect.getUserId(), collectId, orgId);
-                    if (qualityCollection == null) {
-                        productCollectVo.setCount(0);//默认次数为0
-                    } else {
-                        productCollectVo.setCount(qualityCollection.getCount());
-                        productCollectVo.setCollectId(qualityCollection.getCollectId());
-                    }
-                    ProductCollectVoList.add(productCollectVo);
-                }
-                return ServerResponse.createBySuccess(ProductCollectVoList);
-            }
-            return ServerResponse.createByErrorMsg("查询列表失败");
-        }
-    }
-
-    /**
      * 获取用户产品信息
      *
      * @param status     状态值
      * @param workerId   工人id
-     * @param workerCode 工人编码
      * @param orgId      组织结构id
      * @return
      */
-    public ServerResponse getWorkerProductCode(Integer status, Integer workerId, String workerCode, Integer orgId) {
-        if (workerId == null && StringUtils.isBlank(workerCode)) {
+    public ServerResponse getWorkerProductCode(Integer status, Integer workerId, Integer orgId) {
+        if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
 
-        List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId, workerCode);
+        List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId);
         List<ProductCollectVo> ProductCollectVoList = Lists.newArrayList();
         if (productList.size() > 0) {
 
@@ -288,18 +298,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
         qualityCollectVo.setCount(qualityCollection.getCount());
         return qualityCollectVo;
-    }
-
-
-    public ServerResponse<String> updateCount(String collectId, Integer workerId, Integer count, Integer orgId) {
-        if (StringUtils.isNotBlank(collectId)) {
-            int rowCount = collectionMapper.updateCollectCount(collectId, workerId, count, orgId);
-            if (rowCount > 0) {
-                return ServerResponse.createBySuccess("更新采集次数成功");
-            }
-            return ServerResponse.createByErrorMsg("更新采集次数失败");
-        }
-        return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
     }
 
 

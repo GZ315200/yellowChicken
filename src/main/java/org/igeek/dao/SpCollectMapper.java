@@ -23,8 +23,7 @@ public interface SpCollectMapper {
 
     List<SpCollect> getSpCollectList(@Param("status") Integer status,
                                      @Param("workerId") Integer workerId,
-                                     @Param("orgId") Integer orgId,
-                                     @Param("workerCode") String workerCode);
+                                     @Param("orgId") Integer orgId);
 
     SpCollect getSpCollectInfo(@Param("workerId") Integer workerId,@Param("orgId") Integer orgId);
 }

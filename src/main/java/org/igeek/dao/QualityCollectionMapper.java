@@ -37,4 +37,6 @@ public interface QualityCollectionMapper {
 
     List<QualityCollection> getAllCollectionList(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId);
 
+    int getCollectCount(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId,
+                        @Param("firstTime") String firstTime,@Param("lastTime") String lastTime);
 }

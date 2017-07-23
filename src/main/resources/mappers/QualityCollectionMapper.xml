@@ -259,11 +259,19 @@
   </update>
 
 
-    <select id="getAllCollectionList" parameterType="int" resultMap="BaseResultMap">
+    <select id="getAllCollectionList" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
         and user_id = #{workerId}
     </select>
+
+  <select id="getCollectCount" parameterType="map" resultType="int">
+    select count(1) from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+            and user_id = #{workerId}
+    <if test="firstTime != null and firstTime != ''">and modified <![CDATA[>=]]> #{firstTime}</if>
+    <if test="lastTime != null and lastTime != ''"> and modified <![CDATA[<=]]> #{lastTime}</if>
+
+  </select>
 
 </mapper>

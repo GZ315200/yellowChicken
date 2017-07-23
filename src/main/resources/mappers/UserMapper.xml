@@ -190,7 +190,12 @@
 
   <select id="getUserList" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
-    from mj_user where name like #{name} and status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    from mj_user where category = 1
+    and status = 1
+    <if test="workerCode != null and workerCode != ''">
+      and numstr = #{workerCode}
+    </if>
+    and org_id = #{orgId,jdbcType=INTEGER}
   </select>
 
   <select id="getUserCategoryList" parameterType="int" resultMap="BaseResultMap">

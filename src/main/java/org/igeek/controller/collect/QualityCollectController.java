@@ -2,7 +2,6 @@ package org.igeek.controller.collect;
 
 import org.igeek.common.Const;
 import org.igeek.common.ServerResponse;
-import org.igeek.pojo.CollectHomepage;
 import org.igeek.pojo.Organization;
 import org.igeek.pojo.QualityCollection;
 import org.igeek.pojo.QualityQuestion;
@@ -10,15 +9,11 @@ import org.igeek.service.*;
 import org.igeek.vo.KilnVo;
 import org.igeek.vo.QualityVo;
 import org.igeek.vo.RankVo;
-import org.igeek.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.GeneralSecurityException;
@@ -45,9 +40,6 @@ public class QualityCollectController {
 
     @Autowired
     private IQualityQuestionService iQualityQuestionService;
-    @Autowired
-    private ICollectHomepageService iCollectHomepageService;
-
 
     /**
      * 获取质量采集的页面显示信息
@@ -72,42 +64,26 @@ public class QualityCollectController {
 
     /**
      *主页面根据workerCode,进行过滤。
-     * @param status   已调通，
      * @return
      */
     @RequestMapping("get_collect_homepage_info")
     @ResponseBody
-    public ServerResponse getCollectHomePageInfo(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                         @RequestParam(defaultValue = "") String workerCode, HttpSession session) {
+    public ServerResponse getCollectHomePageInfo(@RequestParam(defaultValue = "") String workerCode, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
         if (workerCode.equals("empty") || workerCode.equals("")) {
-            return iQualityCollectService.getCollectHomePageInfo(status, workerCode, organization.getOrgId());
+            return iQualityCollectService.getCollectUserListWithFilter(workerCode, organization.getOrgId());
         } else {
-            return iQualityCollectService.getCollectHomePageInfo(status, workerCode, organization.getOrgId());
+            return iQualityCollectService.getCollectUserListWithFilter(workerCode, organization.getOrgId());
         }
-    }
-
-
-
-    @RequestMapping("add_worker_collect_info")
-    @ResponseBody
-    public ServerResponse addWorkerCollectInfo(CollectHomepage collectHomepage,HttpSession session){
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-        collectHomepage.setOrgId(organization.getOrgId());
-        return iCollectHomepageService.addCollectWorkerInfoAndCount(collectHomepage);
     }
 
 
     /**
      * 获取工人产品列表
      * @param status
-     * @param workerCode
      * @param workerId
      * @param session
      * @return
@@ -115,12 +91,12 @@ public class QualityCollectController {
     @RequestMapping("get_worker_productCode")
     @ResponseBody
     public ServerResponse getWorkerProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                         String workerCode,Integer workerId,HttpSession session){
+                                         Integer workerId,HttpSession session){
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getWorkerProductCode(status,workerId,workerCode,organization.getOrgId());
+        return iQualityCollectService.getWorkerProductCode(status,workerId,organization.getOrgId());
     }
 
 
@@ -168,22 +144,6 @@ public class QualityCollectController {
     }
 
 
-    /**
-     * 更新采集的次数
-     * @param workerId 工人id
-     * @param session
-     * @return
-     */
-    @RequestMapping(value = "update_collect_count", method = RequestMethod.POST)
-    @ResponseBody
-    public ServerResponse<String> updateCollectWorkerCount(Integer workerId, HttpSession session) {
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-        return iCollectHomepageService.updateCollectWorkerCount( workerId, organization.getOrgId());
-    }
-
 
     /**
      * 获取质量采集问题的数量和系数列表
@@ -209,19 +169,20 @@ public class QualityCollectController {
         }
         return iQualityQuestionService.getQualityQuestionList(collectType, workerId, organization.getOrgId());
     }
-//    /**
-//     * 获得用户id、姓名列表
-//     *
-//     * @param name
-//     * @return
-//     */
-//    @RequestMapping("get_user_list")
-//    @ResponseBody
-//    public ServerResponse<Set<UserVo>> getUserList(String name) {
-//        return iQualityCollectService.searchUserList(name);
 
 
-//    }
+
+
+    @RequestMapping(value = "get_collect_userList/{category}",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getCollectUserList(@PathVariable Integer category,
+                                             HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getCollectUserList(category,organization.getOrgId());
+    }
 
 
     /**
@@ -270,7 +231,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_user_category")
     @ResponseBody
-    public ServerResponse<Set<UserVo>> getUserCategoryList(Integer category, HttpSession session) {
+    public ServerResponse getUserCategoryList(Integer category, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");

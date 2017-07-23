@@ -150,8 +150,8 @@ public class QualityServiceImpl implements IQualityService {
         if (!Objects.equal(null, userList)) {
             for(UserCategory userCategory : userList){
                 userVo = new UserVo();
-                userVo.setUserId(userCategory.getId());
-                userVo.setName(userCategory.getTitle());
+                userVo.setWorkerId(userCategory.getId());
+                userVo.setWorkerName(userCategory.getTitle());
 //                userVo.setUserNameCode(userCategory.getId()+"-"+userCategory.getTitle());
                 userVoSet.add(userVo);
             }
