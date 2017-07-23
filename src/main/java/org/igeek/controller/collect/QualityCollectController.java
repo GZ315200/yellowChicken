@@ -5,9 +5,11 @@ import org.igeek.common.ServerResponse;
 import org.igeek.pojo.Organization;
 import org.igeek.pojo.QualityCollection;
 import org.igeek.pojo.QualityQuestion;
-import org.igeek.service.*;
+import org.igeek.service.IKilnService;
+import org.igeek.service.IQualityCollectService;
+import org.igeek.service.IQualityQuestionService;
+import org.igeek.service.IRankService;
 import org.igeek.vo.KilnVo;
-import org.igeek.vo.QualityVo;
 import org.igeek.vo.RankVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -292,7 +294,7 @@ public class QualityCollectController {
      */
     @RequestMapping("get_quality_category")
     @ResponseBody
-    public ServerResponse<Set<QualityVo>> getQualityCategoryList(@RequestParam(defaultValue = "1", required = false) Integer status,
+    public ServerResponse getQualityCategoryList(@RequestParam(defaultValue = "1", required = false) Integer status,
                                                                  Integer questionCollectType,
                                                                  HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);

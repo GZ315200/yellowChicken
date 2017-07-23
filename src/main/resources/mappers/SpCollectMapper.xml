@@ -33,7 +33,6 @@
     <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where id = #{id,jdbcType=INTEGER}
-    and org_id = #{orgId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mj_shpeicaiji
@@ -272,5 +271,14 @@
     where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
     and user_id = #{workerId}
   </select>
+
+  <select id="selectByProductId" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List"/>
+    from mj_shpeicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and user_id = #{workerId}
+    and  pro_id = #{productId}
+  </select>
+
 
 </mapper>

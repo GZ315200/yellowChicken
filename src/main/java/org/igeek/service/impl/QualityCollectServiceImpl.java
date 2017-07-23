@@ -87,7 +87,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             for (QualityCollection collection : collectionList){
                 collectEditVoList.add(assembleCollectEditInfo(collection,orgId));
             }
-            return ServerResponse.createBySuccess(collectionList);
+            return ServerResponse.createBySuccess(collectEditVoList);
         }
         return ServerResponse.createByErrorMsg("获取采集历史信息失败");
     }
@@ -116,7 +116,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             collectEditVo.setRankId(qualityCollection.getRankId());
             collectEditVo.setRankName(rank.getTitle());
         }
-        SpCollect spCollect = spCollectMapper.selectByPrimaryKey(qualityCollection.getProductId(),orgId);
+        SpCollect spCollect = spCollectMapper.selectByProductId(qualityCollection.getProductId(),qualityCollection.getUserId(),orgId);
         if (spCollect == null){
             collectEditVo.setProductId(qualityCollection.getProductId());
             collectEditVo.setProductName(StringUtils.EMPTY);

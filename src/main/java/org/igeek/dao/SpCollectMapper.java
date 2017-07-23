@@ -12,7 +12,10 @@ public interface SpCollectMapper {
 
     int insertSelective(SpCollect record);
 
-    SpCollect selectByPrimaryKey(@Param("id") Integer id,@Param("orgId") Integer orgId);
+    SpCollect selectByPrimaryKey(Integer id);
+
+    SpCollect selectByProductId(@Param("productId") Integer productId,
+                                @Param("workerId") Integer workerId,@Param("orgId") Integer orgId);
 
     int updateByPrimaryKeySelective(SpCollect record);
 
