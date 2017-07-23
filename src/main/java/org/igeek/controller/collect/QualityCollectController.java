@@ -41,25 +41,25 @@ public class QualityCollectController {
     @Autowired
     private IQualityQuestionService iQualityQuestionService;
 
-    /**
-     * 获取质量采集的页面显示信息
-     * 调通
-     *
-     * @param workerCode 成型工的工号 ,如果不输入查询所有的该成型工的采集信息.
-     * @param workerId   workerId 成型工的id 用于判定成型工采集的唯一性
-     * @return 采集的id，成型工姓名，成型工工号，采集的次数。
-     */
-    @RequestMapping("get_quality_collect_info")
-    @ResponseBody
-    public ServerResponse getQualityCollectInfo(@RequestParam(required = false) String workerCode,
-                                                @RequestParam(required = false) Integer workerId,
-                                                HttpSession session) {
-        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-        if (organization == null) {
-            return ServerResponse.createByErrorMsg("当前用户不存在");
-        }
-        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId, organization.getOrgId());
-    }
+//    /**
+//     * 获取质量采集的页面显示信息
+//     * 调通
+//     *
+//     * @param workerCode 成型工的工号 ,如果不输入查询所有的该成型工的采集信息.
+//     * @param workerId   workerId 成型工的id 用于判定成型工采集的唯一性
+//     * @return 采集的id，成型工姓名，成型工工号，采集的次数。
+//     */
+//    @RequestMapping("get_quality_collect_info")
+//    @ResponseBody
+//    public ServerResponse getQualityCollectInfo(@RequestParam(required = false) String workerCode,
+//                                                @RequestParam(required = false) Integer workerId,
+//                                                HttpSession session) {
+//        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+//        if (organization == null) {
+//            return ServerResponse.createByErrorMsg("当前用户不存在");
+//        }
+//        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId, organization.getOrgId());
+//    }
 
 
     /**
@@ -117,6 +117,19 @@ public class QualityCollectController {
     }
 
 
+    @RequestMapping(value = "get_collect_filter")
+    public ServerResponse collectionFilterWithTime(@PathVariable Integer workerId,
+                                                   @PathVariable String startTime,@PathVariable String endTime,
+                                                   HttpSession session){
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return null;
+    }
+
+
+
     /**
      * 获取单个修改信息
      * @param workerId
@@ -155,6 +168,8 @@ public class QualityCollectController {
         qualityCollection.setOrgId(organization.getOrgId());
         return iQualityCollectService.addOrUpdateInfo(qualityCollection);
     }
+
+
 
 
     /**

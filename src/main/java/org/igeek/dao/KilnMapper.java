@@ -20,6 +20,7 @@ public interface KilnMapper {
 
     int selectByKilnName(@Param("kilnName") String kilnName);
 
+
     List<Kiln> selectAllList(@Param("status") String status,@Param("orgId") Integer orgId);
 
     int updateStatusById(@Param(value = "status") String status,

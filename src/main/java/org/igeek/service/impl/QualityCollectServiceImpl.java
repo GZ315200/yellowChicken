@@ -5,7 +5,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
 import org.igeek.common.ServerResponse;
-import org.igeek.common.TokenCache;
 import org.igeek.dao.*;
 import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
@@ -83,10 +82,37 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
         List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId);
+        List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
+            for (QualityCollection collection : collectionList){
+                collectEditVoList.add(assembleCollectEditInfo(collection));
+            }
             return ServerResponse.createBySuccess(collectionList);
         }
         return ServerResponse.createByErrorMsg("获取采集历史信息失败");
+    }
+
+
+    private CollectEditVo assembleCollectEditInfo(QualityCollection qualityCollection){
+        CollectEditVo collectEditVo = new CollectEditVo();
+        collectEditVo.setId(qualityCollection.getId());
+        collectEditVo.setWorkerId(qualityCollection.getUserId());
+        collectEditVo.setWorkerName(qualityCollection.getUserName());
+        collectEditVo.setCollectId(qualityCollection.getCollectId());
+        collectEditVo.setWorkerCode(qualityCollection.getUserCode());
+        Kiln kiln = kilnMapper.selectByPrimaryKey(qualityCollection.getYaoluId());
+        collectEditVo.setYaoluId(qualityCollection.getYaoluId());
+        collectEditVo.setYaoluName(kiln.getTitle());
+        Rank rank = rankMapper.selectByPrimaryKey(qualityCollection.getRankId());
+        collectEditVo.setRankId(qualityCollection.getRankId());
+        collectEditVo.setRankName(rank.getTitle());
+        SpCollect spCollect = spCollectMapper.selectByPrimaryKey(qualityCollection.getProductId());
+        collectEditVo.setProductId(qualityCollection.getProductId());
+        collectEditVo.setProductName(spCollect.getProCode());
+        collectEditVo.setCreateTime(qualityCollection.getCreated());
+        collectEditVo.setUpdateTime(qualityCollection.getModified());
+        collectEditVo.setQuantity(qualityCollection.getQuantity());
+        return collectEditVo;
     }
 
 
@@ -102,15 +128,15 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
         QualityCollection qualityCollection = collectionMapper.getSingleCollectInfoDetail(orgId, workerId, collectId);
-        if (qualityCollection == null) {
-            return ServerResponse.createByErrorMsg("无该用户的采集信息");
+        if (qualityCollection != null) {
+            CollectEditVo collectEditVo = assembleCollectEditInfo(qualityCollection);
+            return ServerResponse.createBySuccess(collectEditVo);
         }
-        return ServerResponse.createBySuccess(qualityCollection);
+        return ServerResponse.createByErrorMsg("无该用户的采集信息");
     }
 
     /**
      * 获取工人列表
-     *
      * @param category
      * @param orgId
      * @return
@@ -136,6 +162,11 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             return resultCount;
         }
         return 0;
+    }
+
+
+    public ServerResponse collectionFilterWithTime(Integer workerId,String startTime,String endTime){
+        return null;
     }
 
 
@@ -248,28 +279,28 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    @Override
-    public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
-        if (workerCode.equals("empty")) {
-            List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
-            List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
-            if (qualityCollectionList.size() > 0) {
-                for (QualityCollection collection : qualityCollectionList) {
-                    QualityCollectVo qualityCollectVo = assembleQualityInfo(collection);
-                    qualityCollectVoList.add(qualityCollectVo);
-                }
-                return ServerResponse.createBySuccess(qualityCollectVoList);
-            }
-            return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
-        }
-        String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + workerId);
-        QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(workerCode, workerId, collectId, orgId);
-        if (qualityCollection != null) {
-            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection, collectId);
-            return ServerResponse.createBySuccess(qualityCollectVo);
-        }
-        return ServerResponse.createByErrorMsg("获取列表信息失败");
-    }
+//    @Override
+//    public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
+//        if (workerCode.equals("empty")) {
+//            List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
+//            List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
+//            if (qualityCollectionList.size() > 0) {
+//                for (QualityCollection collection : qualityCollectionList) {
+//                    QualityCollectVo qualityCollectVo = assembleQualityInfo(collection);
+//                    qualityCollectVoList.add(qualityCollectVo);
+//                }
+//                return ServerResponse.createBySuccess(qualityCollectVoList);
+//            }
+//            return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
+//        }
+//        String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + workerId);
+//        QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(workerCode, workerId, collectId, orgId);
+//        if (qualityCollection != null) {
+//            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection, collectId);
+//            return ServerResponse.createBySuccess(qualityCollectVo);
+//        }
+//        return ServerResponse.createByErrorMsg("获取列表信息失败");
+//    }
 
 
     /*
