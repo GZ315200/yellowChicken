@@ -231,7 +231,7 @@
         and question_id = #{questionId}
     </select>
 
-    <select id="updateQualityQuestionStatus" parameterType="map" resultMap="int">
+    <select id="updateQualityQuestionStatus" parameterType="map" resultType="int">
        update mj_quality_question
        set status = 0,
        modified = now()
