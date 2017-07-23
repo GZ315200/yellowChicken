@@ -279,7 +279,7 @@
     <select id="getAllCollectionList" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from mj_quality_collection where status !=1 and org_id = #{orgId,jdbcType=INTEGER}
+        from mj_quality_collection where status !=0 and org_id = #{orgId,jdbcType=INTEGER}
         and user_id = #{workerId}
         and collect_id = #{collectId}
     </select>
