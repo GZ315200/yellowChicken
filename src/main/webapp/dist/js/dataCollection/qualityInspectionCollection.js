@@ -1,5 +1,6 @@
-function loadqualityInspectionCollectionAdditionPage(workerId,workerCode,count) {
+function loadqualityInspectionCollectionAdditionPage(workerId,workerCode,count,workerName) {
     $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
+        $("#collectWorkerName").val(workerName);
         qualityInspectionCollectionAddMenu(workerId,workerCode,count);
         initQualityCollectForm(workerId,workerCode)
     })
@@ -42,8 +43,9 @@ function get7DayFormatDate() {
     var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
     return currentdate;
 }
-function loadUpdatePageRecord(workerId) {
+function loadUpdatePageRecord(workerId,workName) {
     $("#container").load("pages/dataCollection/qualityInspectionCollection/update.html", null, function() {
+        $('#workName').html(workName);
         var stime =get7DayFormatDate();
         var etime =getNowFormatDate();
         $('#stime').val(stime);
@@ -169,9 +171,9 @@ function getQualityCollectInfo() {
                     +"<td>"+optiondata.workerCode+"</td>"
                     +"<td>"+optiondata.workerName+"</td>"
                     +"<td><span class='btn btn-default ldelBtn'>"+count+"次</span></td>"
-                    +"<td><a class='btn btn-default ldelBtn' onclick='loadqualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>添加数据</a>"
+                    +"<td><a class='btn btn-default ldelBtn' onclick='loadqualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot,&quot;"+optiondata.workerName +"&quot;)'>添加数据</a>"
                     // +"<a class='btn btn-default btn-default2' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>查看修改</a></td></tr>";
-                    +"<a class='btn btn-default btn-default2' onclick='loadUpdatePageRecord(&quot;"+optiondata.workerId+"&quot;)'>查看修改</a></td></tr>";
+                    +"<a class='btn btn-default btn-default2' onclick='loadUpdatePageRecord(&quot;"+optiondata.workerId+"&quot,&quot;"+optiondata.workerName+"&quot;)'>查看修改</a></td></tr>";
                 $("#qualityCollectTableRow").append(tableHtml);
             });
         }
@@ -199,9 +201,9 @@ function getQualityCollectSelectInfo() {
                     +"<td>"+optiondata.workerCode+"</td>"
                     +"<td>"+optiondata.workerName+"</td>"
                     +"<td><span class='btn btn-default ldelBtn'>"+count+"次</span></td>"
-                    +"<td><a class='btn btn-default ldelBtn' onclick='loadqualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>添加数据</a>"
-                    +"<a class='btn btn-default btn-default2' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>查看修改</a></td></tr>";
-                    // +"<a class='btn btn-default btn-default2' onclick='loadUpdatePageRecord()'>查看修改</a></td></tr>";
+                    +"<td><a class='btn btn-default ldelBtn' onclick='loadqualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot,&quot;"+optiondata.workerName +"&quot;)'>添加数据</a>"
+                    // +"<a class='btn btn-default btn-default2' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.workerCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+count +"&quot;)'>查看修改</a></td></tr>";
+                    +"<a class='btn btn-default btn-default2' onclick='loadUpdatePageRecord(&quot;"+optiondata.workerId+"&quot,&quot;"+optiondata.workerName+"&quot;)'>查看修改</a></td></tr>";
                 $("#qualityCollectTableRow").append(tableHtml);
             });
         }
@@ -220,9 +222,8 @@ function initQualityCollectForm(workerId,workerCode) {
         success: function (data) {
             returnData = data.data;
             // console.log("initQualityCollectForm");
-            // console.log(data);
+            console.log(data);
             $.each(data.data, function(index, optiondata) {
-                $("#collectWorkerName").val(optiondata.workerName);
                 $("#productNameSel").append('<option value="'+optiondata.productId+'">' + optiondata.productDetail + '</option>')
             });
         }
@@ -724,7 +725,8 @@ function updateCollection(workerId,collectId) {
     $("#userQuantityInp").val(rData.quantity);
     var questionData = rData.qualityTypeVoList;
     for(var i=0; i < questionData.length; i++) {
-        var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+rData.workerId;
+        var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+questionData[i].workerId;
+        console.log(questionData[i].workerId);
         console.log(questionID);
         // console.log($("#"+questionID+"").next().next().children());
         $("#"+questionID+"").next().children().val(questionData[i].questionQuantity);
