@@ -219,7 +219,6 @@
         <if test="collectType != null">
             and collect_type = #{collectType}
         </if>
-        and user_id = #{workerId}
         and collect_id = #{collectId}
     </select>
 

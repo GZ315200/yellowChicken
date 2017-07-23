@@ -16,6 +16,7 @@ public class QualityTypeVo {
     private Double coefficient;
     private String questionWorkerName;
     private String collectId;
+    private Integer workerId;
     private Integer collectType;
     private String questionType;
 
@@ -25,6 +26,14 @@ public class QualityTypeVo {
     public QualityTypeVo() {
     }
 
+
+    public Integer getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
+    }
 
     public String getQuestionType() {
         return questionType;
