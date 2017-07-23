@@ -63,7 +63,8 @@ public class QualityCollectController {
 
 
     /**
-     *主页面根据workerCode,进行过滤。
+     * 主页面根据workerCode,进行过滤。
+     *
      * @return
      */
     @RequestMapping("get_collect_homepage_info")
@@ -83,6 +84,7 @@ public class QualityCollectController {
 
     /**
      * 获取工人产品列表
+     *
      * @param status
      * @param workerId
      * @param session
@@ -91,17 +93,18 @@ public class QualityCollectController {
     @RequestMapping("get_worker_productCode")
     @ResponseBody
     public ServerResponse getWorkerProductCode(@RequestParam(defaultValue = "1", required = false) Integer status,
-                                         Integer workerId,HttpSession session){
+                                               Integer workerId, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getWorkerProductCode(status,workerId,organization.getOrgId());
+        return iQualityCollectService.getWorkerProductCode(status, workerId, organization.getOrgId());
     }
 
 
     /**
      * 获取修改列表信息
+     *
      * @param workerId
      * @param session
      * @return
@@ -109,20 +112,19 @@ public class QualityCollectController {
     @RequestMapping(value = "get_collect_edit_infoList/{workerId}/{startTime}/{endTime}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCollectInfoDetail(@PathVariable Integer workerId,
-                                               @PathVariable String startTime,@PathVariable String endTime,
+                                               @PathVariable String startTime, @PathVariable String endTime,
                                                HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getCollectInfoDetail(workerId,organization.getOrgId(),startTime,endTime);
+        return iQualityCollectService.getCollectInfoDetail(workerId, organization.getOrgId(), startTime, endTime);
     }
-
-
 
 
     /**
      * 获取单个修改信息
+     *
      * @param workerId
      * @param collectId
      * @param session
@@ -131,15 +133,13 @@ public class QualityCollectController {
     @RequestMapping(value = "get_collect_edit_infoList/{workerId}/{collectId}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getSingleCollectInfoDetail(@PathVariable Integer workerId,
-                                               @PathVariable String collectId, HttpSession session) {
+                                                     @PathVariable String collectId, HttpSession session) {
         Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getSingleCollectInfoDetail(workerId,collectId,organization.getOrgId());
+        return iQualityCollectService.getSingleCollectInfoDetail(workerId, collectId, organization.getOrgId());
     }
-
-
 
 
     /**
@@ -159,8 +159,6 @@ public class QualityCollectController {
         qualityCollection.setOrgId(organization.getOrgId());
         return iQualityCollectService.addOrUpdateInfo(qualityCollection);
     }
-
-
 
 
     /**
@@ -185,6 +183,11 @@ public class QualityCollectController {
     }
 
 
+    @RequestMapping(value = "delete_collect_single_info", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<String> deleteCollectSingleInfo(Integer workerId,String collectId,HttpSession session){
+        return null;
+    }
 
     /**
      * 获取质量采集问题的数量和系数列表
@@ -212,9 +215,7 @@ public class QualityCollectController {
     }
 
 
-
-
-    @RequestMapping(value = "get_collect_userList/{category}",method = RequestMethod.GET)
+    @RequestMapping(value = "get_collect_userList/{category}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCollectUserList(@PathVariable Integer category,
                                              HttpSession session) {
@@ -222,7 +223,7 @@ public class QualityCollectController {
         if (organization == null) {
             return ServerResponse.createByErrorMsg("当前用户不存在");
         }
-        return iQualityCollectService.getCollectUserList(category,organization.getOrgId());
+        return iQualityCollectService.getCollectUserList(category, organization.getOrgId());
     }
 
 
@@ -307,7 +308,7 @@ public class QualityCollectController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "get_quality_collect_detail/{workerId}/{collectId}",method = RequestMethod.GET)
+    @RequestMapping(value = "get_quality_collect_detail/{workerId}/{collectId}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getQualityCollectDetail(@PathVariable Integer workerId,
                                                   @PathVariable String collectId, HttpSession session) {
@@ -316,15 +317,12 @@ public class QualityCollectController {
             if (organization == null) {
                 return ServerResponse.createByErrorMsg("当前用户不存在");
             }
-            return iQualityCollectService.getQualityCollectDetail(organization.getOrgId(), workerId,collectId);
+            return iQualityCollectService.getQualityCollectDetail(organization.getOrgId(), workerId, collectId);
         } catch (GeneralSecurityException e) {
             logger.error("获取信息异常", e);
         }
         return ServerResponse.createByErrorMsg("获取质量采集详情信息异常");
     }
-
-
-
 
 
 }

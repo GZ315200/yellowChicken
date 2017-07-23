@@ -165,10 +165,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    public ServerResponse collectionFilterWithTime(Integer workerId,String startTime,String endTime){
-        return null;
-    }
-
 
     /**
      * 获取需要采集的成型工列表
@@ -278,55 +274,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         return ServerResponse.createByErrorMsg("获取质量问题列表失败");
     }
 
-
-//    @Override
-//    public ServerResponse getQualityCollectInfo(String workerCode, Integer workerId, Integer orgId) {
-//        if (workerCode.equals("empty")) {
-//            List<QualityCollection> qualityCollectionList = collectionMapper.getQualityCollectionWithEmpty(orgId);
-//            List<QualityCollectVo> qualityCollectVoList = Lists.newArrayList();
-//            if (qualityCollectionList.size() > 0) {
-//                for (QualityCollection collection : qualityCollectionList) {
-//                    QualityCollectVo qualityCollectVo = assembleQualityInfo(collection);
-//                    qualityCollectVoList.add(qualityCollectVo);
-//                }
-//                return ServerResponse.createBySuccess(qualityCollectVoList);
-//            }
-//            return ServerResponse.createByErrorMsg("获取质量采集列表信息失败");
-//        }
-//        String collectId = TokenCache.getValue(TokenCache.TOKEN_PROFIX + workerId);
-//        QualityCollection qualityCollection = collectionMapper.getSingleQualityCollect(workerCode, workerId, collectId, orgId);
-//        if (qualityCollection != null) {
-//            QualityCollectVo qualityCollectVo = assembleQualityInfo(qualityCollection, collectId);
-//            return ServerResponse.createBySuccess(qualityCollectVo);
-//        }
-//        return ServerResponse.createByErrorMsg("获取列表信息失败");
-//    }
-
-
-    /*
-     * 组装数据
-     *
-     * @param qualityCollection
-     * @return
-     */
-    private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection, String collectId) {
-        QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        if (StringUtils.isNotBlank(collectId)) {
-            qualityCollectVo.setCollectId(collectId);
-        }
-        qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
-        qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
-        qualityCollectVo.setCount(qualityCollection.getCount());
-        return qualityCollectVo;
-    }
-
-    private QualityCollectVo assembleQualityInfo(QualityCollection qualityCollection) {
-        QualityCollectVo qualityCollectVo = new QualityCollectVo();
-        qualityCollectVo.setFormWorkerName(qualityCollection.getUserName());
-        qualityCollectVo.setFormWorkerNum(qualityCollection.getUserCode());
-        qualityCollectVo.setCount(qualityCollection.getCount());
-        return qualityCollectVo;
-    }
 
 
     @Override
