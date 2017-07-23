@@ -31,6 +31,7 @@ public class QualityQuestionServiceImpl implements IQualityQuestionService {
             }
             return ServerResponse.createByErrorMsg("插入质量问题信息失败");
         } else {
+            qualityQuestion.setStatus(2);
             int resultCount = qualityQuestionMapper.updateByPrimaryKey(qualityQuestion);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("更新质量问题信息成功");

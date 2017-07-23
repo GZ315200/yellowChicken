@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.igeek.dao.QualityCollectionMapper">
-  <resultMap id="BaseResultMap" type="org.igeek.pojo.QualityCollection">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="collect_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_code" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="product_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="type_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="rank_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="yaolu_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="count" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="org.igeek.pojo.QualityCollection">
+        <constructor>
+            <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="collect_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="user_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="product_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="type_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="rank_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="yaolu_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="count" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, collect_id, org_id, user_id, user_code, user_name, product_id, type_id, rank_id, 
     quantity, yaolu_id, status, count, remark, created, modified
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from mj_quality_collection
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mj_quality_collection
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mj_quality_collection
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.igeek.pojo.QualityCollection">
+    <insert id="insert" parameterType="org.igeek.pojo.QualityCollection">
     insert into mj_quality_collection (id, collect_id, org_id, 
       user_id, user_code, user_name, 
       product_id, type_id, rank_id, 
@@ -49,161 +49,161 @@
       #{count,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, now(),
       now())
   </insert>
-  <insert id="insertSelective" parameterType="org.igeek.pojo.QualityCollection">
-    insert into mj_quality_collection
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="collectId != null">
-        collect_id,
-      </if>
-      <if test="orgId != null">
-        org_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="userCode != null">
-        user_code,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="productId != null">
-        product_id,
-      </if>
-      <if test="typeId != null">
-        type_id,
-      </if>
-      <if test="rankId != null">
-        rank_id,
-      </if>
-      <if test="quantity != null">
-        quantity,
-      </if>
-      <if test="yaoluId != null">
-        yaolu_id,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="count != null">
-        count,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="created != null">
-        created,
-      </if>
-      <if test="modified != null">
-        modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="collectId != null">
-        #{collectId,jdbcType=VARCHAR},
-      </if>
-      <if test="orgId != null">
-        #{orgId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userCode != null">
-        #{userCode,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=VARCHAR},
-      </if>
-      <if test="rankId != null">
-        #{rankId,jdbcType=INTEGER},
-      </if>
-      <if test="quantity != null">
-        #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="yaoluId != null">
-        #{yaoluId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="count != null">
-        #{count,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null">
-       now(),
-      </if>
-      <if test="modified != null">
-       now(),
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.QualityCollection">
-    update mj_quality_collection
-    <set>
-      <if test="collectId != null">
-        collect_id = #{collectId,jdbcType=VARCHAR},
-      </if>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userCode != null">
-        user_code = #{userCode,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="typeId != null">
-        type_id = #{typeId,jdbcType=VARCHAR},
-      </if>
-      <if test="rankId != null">
-        rank_id = #{rankId,jdbcType=INTEGER},
-      </if>
-      <if test="quantity != null">
-        quantity = #{quantity,jdbcType=INTEGER},
-      </if>
-      <if test="yaoluId != null">
-        yaolu_id = #{yaoluId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="count != null">
-        count = #{count,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="created != null">
-        created = #{created,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modified != null">
-        modified = now(),
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.QualityCollection">
+    <insert id="insertSelective" parameterType="org.igeek.pojo.QualityCollection">
+        insert into mj_quality_collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="collectId != null">
+                collect_id,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userCode != null">
+                user_code,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="productId != null">
+                product_id,
+            </if>
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="rankId != null">
+                rank_id,
+            </if>
+            <if test="quantity != null">
+                quantity,
+            </if>
+            <if test="yaoluId != null">
+                yaolu_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="created != null">
+                created,
+            </if>
+            <if test="modified != null">
+                modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="collectId != null">
+                #{collectId,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userCode != null">
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="productId != null">
+                #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="rankId != null">
+                #{rankId,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="yaoluId != null">
+                #{yaoluId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                now(),
+            </if>
+            <if test="modified != null">
+                now(),
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.QualityCollection">
+        update mj_quality_collection
+        <set>
+            <if test="collectId != null">
+                collect_id = #{collectId,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userCode != null">
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=INTEGER},
+            </if>
+            <if test="typeId != null">
+                type_id = #{typeId,jdbcType=VARCHAR},
+            </if>
+            <if test="rankId != null">
+                rank_id = #{rankId,jdbcType=INTEGER},
+            </if>
+            <if test="quantity != null">
+                quantity = #{quantity,jdbcType=INTEGER},
+            </if>
+            <if test="yaoluId != null">
+                yaolu_id = #{yaoluId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="count != null">
+                count = #{count,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="created != null">
+                created = #{created,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modified != null">
+                modified = now(),
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.QualityCollection">
     update mj_quality_collection
     set collect_id = #{collectId,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=INTEGER},
@@ -225,7 +225,7 @@
 
     <select id="getQualityCollection" parameterType="map" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
         <if test="workerCode != null">
             and user_code = #{workerCode}
@@ -235,43 +235,59 @@
         </if>
     </select>
 
-  <select id="getSingleQualityCollect" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
-      and user_code = #{workerCode}
-      and user_id = #{workerId}
-      and collect_id = #{collectId}
-  </select>
+    <select id="getCollectInfoDetail" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mj_quality_collection where status != 0 and org_id = #{orgId,jdbcType=INTEGER}
+        and user_id = #{workerId}
+    </select>
+
+    <select id="getSingleCollectInfoDetail" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mj_quality_collection where status != 0 and org_id = #{orgId,jdbcType=INTEGER}
+        and user_id = #{workerId}
+        and collect_id = #{collectId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getSingleQualityCollect" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+        and user_code = #{workerCode}
+        and user_id = #{workerId}
+        and collect_id = #{collectId}
+    </select>
 
 
     <select id="getQualityCollectionWithEmpty" parameterType="int" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
     </select>
 
-    <update id="updateCollectCount" parameterType="map">
-    update mj_quality_collection
-    set  count = #{count,jdbcType=INTEGER} + 1
-    where collect_id = #{collectId} and org_id = #{orgId,jdbcType=INTEGER}
-    and user_id = #{workerId}
-  </update>
+    <!--<update id="updateCollectCount" parameterType="map">-->
+    <!--update mj_quality_collection-->
+    <!--set  count = #{count,jdbcType=INTEGER} + 1-->
+    <!--where collect_id = #{collectId} and org_id = #{orgId,jdbcType=INTEGER}-->
+    <!--and user_id = #{workerId}-->
+    <!--</update>-->
 
 
     <select id="getAllCollectionList" parameterType="map" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+        <include refid="Base_Column_List"/>
+        from mj_quality_collection where status !=1 and org_id = #{orgId,jdbcType=INTEGER}
         and user_id = #{workerId}
+        and collect_id = #{collectId}
     </select>
 
-  <select id="getCollectCount" parameterType="map" resultType="int">
-    select count(1) from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
-            and user_id = #{workerId}
-    <if test="firstTime != null and firstTime != ''">and modified <![CDATA[>=]]> #{firstTime}</if>
-    <if test="lastTime != null and lastTime != ''"> and modified <![CDATA[<=]]> #{lastTime}</if>
+    <select id="getCollectCount" parameterType="map" resultType="int">
+        select count(1) from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+        and user_id = #{workerId}
+        <if test="firstTime != null and firstTime != ''">and modified <![CDATA[>=]]> #{firstTime}</if>
+        <if test="lastTime != null and lastTime != ''">and modified <![CDATA[<=]]> #{lastTime}</if>
 
-  </select>
+    </select>
 
 </mapper>

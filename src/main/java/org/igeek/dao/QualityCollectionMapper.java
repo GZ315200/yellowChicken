@@ -28,6 +28,14 @@ public interface QualityCollectionMapper {
                                            @Param("workerId") Integer workerId,
                                            @Param("orgId") Integer orgId);
 
+    List<QualityCollection> getCollectInfoDetail(@Param("orgId") Integer orgId,
+                                                 @Param("workerId") Integer workerId);
+
+    QualityCollection getSingleCollectInfoDetail(@Param("orgId") Integer orgId,
+                                                 @Param("workerId") Integer workerId,
+                                                 @Param("collectId") String collectId);
+
+
     QualityCollection getSingleQualityCollect(@Param("workerCode") String workerCode,
                                              @Param("workerId") Integer workerId,
                                               @Param("collectId") String collectId,
@@ -35,7 +43,8 @@ public interface QualityCollectionMapper {
 
     List<QualityCollection> getQualityCollectionWithEmpty(Integer orgId);
 
-    List<QualityCollection> getAllCollectionList(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId);
+    QualityCollection getAllCollectionList(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId,
+                                                 @Param("collectId") String collectId);
 
     int getCollectCount(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId,
                         @Param("firstTime") String firstTime,@Param("lastTime") String lastTime);

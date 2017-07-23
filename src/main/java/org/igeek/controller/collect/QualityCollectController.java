@@ -100,6 +100,41 @@ public class QualityCollectController {
     }
 
 
+    /**
+     * 获取修改列表信息
+     * @param workerId
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "get_collect_edit_infoList/{workerId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getCollectInfoDetail(@PathVariable Integer workerId,HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getCollectInfoDetail(workerId,organization.getOrgId());
+    }
+
+
+    /**
+     * 获取单个修改信息
+     * @param workerId
+     * @param collectId
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "get_collect_edit_infoList/{workerId}/{collectId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getSingleCollectInfoDetail(@PathVariable Integer workerId,
+                                               @PathVariable String collectId, HttpSession session) {
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityCollectService.getSingleCollectInfoDetail(workerId,collectId,organization.getOrgId());
+    }
+
 
 
 
@@ -266,15 +301,16 @@ public class QualityCollectController {
      * @param session
      * @return
      */
-    @RequestMapping("get_quality_collect_detail")
+    @RequestMapping(value = "get_quality_collect_detail/{workerId}/{collectId}",method = RequestMethod.GET)
     @ResponseBody
-    public ServerResponse getQualityCollectDetail(Integer workerId, HttpSession session) {
+    public ServerResponse getQualityCollectDetail(@PathVariable Integer workerId,
+                                                  @PathVariable String collectId, HttpSession session) {
         try {
             Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
             if (organization == null) {
                 return ServerResponse.createByErrorMsg("当前用户不存在");
             }
-            return iQualityCollectService.getQualityCollectDetail(organization.getOrgId(), workerId);
+            return iQualityCollectService.getQualityCollectDetail(organization.getOrgId(), workerId,collectId);
         } catch (GeneralSecurityException e) {
             logger.error("获取信息异常", e);
         }

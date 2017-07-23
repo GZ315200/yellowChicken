@@ -57,17 +57,13 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         if (qualityCollection.getId() == null) {
             qualityCollection.setCount(0);//次数默认为0
             qualityCollection.setStatus(1);
-            SpCollect spCollect = spCollectMapper.getSpCollectInfo(qualityCollection.getUserId(), qualityCollection.getOrgId());
-            if (Objects.nonNull(spCollect)) {
-                qualityCollection.setUserCode(spCollect.getUserCode());
-                qualityCollection.setUserName(spCollect.getUserName());
-            }
             int resultCount = collectionMapper.insert(qualityCollection);
             if (resultCount > 0) {
                 return ServerResponse.createBySuccess("插入质量采集问题信息成功");
             }
             return ServerResponse.createBySuccess("插入质量采集问题信息失败");
         } else {
+            qualityCollection.setStatus(2);
             int rowCount = collectionMapper.updateByPrimaryKeySelective(qualityCollection);
             if (rowCount > 0) {
                 return ServerResponse.createBySuccess("更新质量采集问题成功");
@@ -78,35 +74,44 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
 
     /**
-     * 1 扣系数 还是扣钱(1:扣款问题 2.扣系数问题)
-     * 2.更新问题列表
-     * 3.选择工种类型
-     *
-     * @param
+     * 修改页面显示采集信息。
+     * @param workerId
+     * @param orgId
      * @return
      */
+    public ServerResponse getCollectInfoDetail(Integer workerId, Integer orgId) {
+        if (workerId == null) {
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+        }
+        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId);
+        if (collectionList.size() > 0) {
+            return ServerResponse.createBySuccess(collectionList);
+        }
+        return ServerResponse.createByErrorMsg("获取采集历史信息失败");
+    }
 
-//    public ServerResponse<Set<UserVo>> searchUserList(String name, Integer orgId) {
-//        Set<UserVo> userVoList = Sets.newHashSet();
-//        if (name != null) {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("%").append(name).append("%");
-//            name = sb.toString();
-//        }
-//        List<User> userList = userMapper.getUserList(name, orgId);
-//        if (userList.size() > 0) {
-//            for (User user : userList) {
-//                UserVo userVo = new UserVo();
-//                userVo.setUserNameCode(user.getNumstr() + "-" + user.getName());
-//                userVoList.add(userVo);
-//            }
-//            return ServerResponse.createBySuccess(userVoList);
-//        }
-//        return ServerResponse.createByErrorMsg("无法获得该姓名列表");
-//    }
+
+    /**
+     * 获取单个用户的采集信息。
+     * @param workerId
+     * @param collectId
+     * @param orgId
+     * @return
+     */
+    public ServerResponse getSingleCollectInfoDetail(Integer workerId, String collectId, Integer orgId) {
+        if (workerId == null || StringUtils.isBlank(collectId)) {
+            return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
+        }
+        QualityCollection qualityCollection = collectionMapper.getSingleCollectInfoDetail(orgId, workerId, collectId);
+        if (qualityCollection == null) {
+            return ServerResponse.createByErrorMsg("无该用户的采集信息");
+        }
+        return ServerResponse.createBySuccess(qualityCollection);
+    }
 
     /**
      * 获取工人列表
+     *
      * @param category
      * @param orgId
      * @return
@@ -123,14 +128,12 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-
-
-    private Integer getCollectCount(Integer orgId,Integer workerId){
+    private Integer getCollectCount(Integer orgId, Integer workerId) {
 //        获取当月1号的时间，获取当月最后一天的时间。
         String firstDay = CalenderUtil.getFirstDayOfCurrentMonth();
         String lastDay = CalenderUtil.getLastDayOfCurrentMonth();
-        int resultCount = collectionMapper.getCollectCount(orgId,workerId,firstDay,lastDay);
-        if(resultCount > 0){
+        int resultCount = collectionMapper.getCollectCount(orgId, workerId, firstDay, lastDay);
+        if (resultCount > 0) {
             return resultCount;
         }
         return 0;
@@ -139,19 +142,20 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
     /**
      * 获取需要采集的成型工列表
+     *
      * @param categoryType 用户类别，成型工：1
      * @param orgId
      * @return
      */
-    public ServerResponse getCollectUserList(Integer categoryType, Integer orgId){
+    public ServerResponse getCollectUserList(Integer categoryType, Integer orgId) {
         List<UserVo> list = Lists.newArrayList();
         if (categoryType != null) {
             List<User> userList = userMapper.getUserCategoryList(categoryType, orgId);
             if (userList.size() > 0) {
-                for(User user : userList){
+                for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
-                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setCollectCount(getCollectCount(orgId, user.getId()));
                     userVo.setWorkerName(user.getName());
                     userVo.setWorkerCode(user.getNumstr());
                     list.add(userVo);
@@ -163,30 +167,28 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-
-
-    public ServerResponse getCollectUserListWithFilter(String workerCode,Integer orgId){
+    public ServerResponse getCollectUserListWithFilter(String workerCode, Integer orgId) {
         List<UserVo> list = Lists.newArrayList();
-        if (workerCode.equals("empty") || workerCode.equals("")){
+        if (workerCode.equals("empty") || workerCode.equals("")) {
             List<User> userList = userMapper.getUserList(null, orgId);
-            if (userList.size() > 0){
-                for(User user : userList){
+            if (userList.size() > 0) {
+                for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
-                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setCollectCount(getCollectCount(orgId, user.getId()));
                     userVo.setWorkerName(user.getName());
                     userVo.setWorkerCode(user.getNumstr());
                     list.add(userVo);
                 }
                 return ServerResponse.createBySuccess("获取工人列表成功", list);
             }
-        }else{
+        } else {
             List<User> userList = userMapper.getUserList(workerCode, orgId);
-            if (userList.size() > 0){
-                for(User user : userList){
+            if (userList.size() > 0) {
+                for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
-                    userVo.setCollectCount(getCollectCount(orgId,user.getId()));
+                    userVo.setCollectCount(getCollectCount(orgId, user.getId()));
                     userVo.setWorkerName(user.getName());
                     userVo.setWorkerCode(user.getNumstr());
                     list.add(userVo);
@@ -201,9 +203,9 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     /**
      * 获取用户产品信息
      *
-     * @param status     状态值
-     * @param workerId   工人id
-     * @param orgId      组织结构id
+     * @param status   状态值
+     * @param workerId 工人id
+     * @param orgId    组织结构id
      * @return
      */
     public ServerResponse getWorkerProductCode(Integer status, Integer workerId, Integer orgId) {
@@ -229,8 +231,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
         return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ERROR.getCode(), "不存在该工人的产品列表");
     }
-
-
 
 
     public ServerResponse getQualityCategoryList(Integer status, Integer questionCollectType, Integer orgId) {
@@ -302,16 +302,14 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
 
     @Override
-    public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId) throws GeneralSecurityException {
+    public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId, String collectId) throws GeneralSecurityException {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
         CollectDetail collectDetail = null;
-        List<QualityCollection> qualityCollectionList = collectionMapper.getAllCollectionList(orgId, workerId);
-        if (CollectionUtils.isNotEmpty(qualityCollectionList)) {
-            for (QualityCollection qualityCollection : qualityCollectionList) {
-                collectDetail = assembleCollectDetail(qualityCollection);
-            }
+        QualityCollection qualityCollection = collectionMapper.getAllCollectionList(orgId, workerId, collectId);
+        if (qualityCollection != null) {
+            collectDetail = assembleCollectDetail(qualityCollection);
             return ServerResponse.createBySuccess(collectDetail);
         }
         return ServerResponse.createByErrorMsg("获取质量采集信息详情失败");
