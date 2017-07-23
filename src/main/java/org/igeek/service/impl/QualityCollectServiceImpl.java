@@ -11,7 +11,6 @@ import org.igeek.exception.GeneralServiceException;
 import org.igeek.pojo.*;
 import org.igeek.service.IQualityCollectService;
 import org.igeek.util.CalenderUtil;
-import org.igeek.util.IdGen;
 import org.igeek.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -216,7 +215,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId);
         List<ProductCollectVo> ProductCollectVoList = Lists.newArrayList();
         if (productList.size() > 0) {
-
             for (SpCollect spCollect : productList) {
                 ProductCollectVo productCollectVo = new ProductCollectVo();
                 productCollectVo.setProductDetail(spCollect.getProCode());
@@ -224,7 +222,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                 productCollectVo.setWorkerName(spCollect.getUserName());
                 productCollectVo.setWorkerId(spCollect.getUserId());
                 productCollectVo.setWorkerCode(spCollect.getUserCode());
-                productCollectVo.setCollectId(IdGen.uuid());
                 ProductCollectVoList.add(productCollectVo);
             }
             return ServerResponse.createBySuccess(ProductCollectVoList);
