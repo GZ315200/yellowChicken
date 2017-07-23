@@ -50,4 +50,7 @@ public interface QualityCollectionMapper {
 
     int getCollectCount(@Param("orgId") Integer orgId, @Param("workerId") Integer workerId,
                         @Param("firstTime") String firstTime,@Param("lastTime") String lastTime);
+
+    int updateCollectStatus(@Param("workerId")Integer workerId,@Param("collectId") String collectId,
+                            @Param("orgId") Integer orgId);
 }

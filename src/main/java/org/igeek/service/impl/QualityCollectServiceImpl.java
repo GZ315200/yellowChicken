@@ -196,6 +196,12 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                 for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
+                    SpCollect spCollect = spCollectMapper.getSpCollectInfo(user.getId(),orgId);
+                    if (spCollect == null){
+                        userVo.setProductCode(StringUtils.EMPTY);
+                    }else{
+                        userVo.setProductCode(spCollect.getProCode());
+                    }
                     userVo.setCollectCount(getCollectCount(orgId, user.getId()));
                     userVo.setWorkerName(user.getName());
                     userVo.setWorkerCode(user.getNumstr());

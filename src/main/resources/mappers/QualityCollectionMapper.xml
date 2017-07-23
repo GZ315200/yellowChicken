@@ -285,11 +285,19 @@
     </select>
 
     <select id="getCollectCount" parameterType="map" resultType="int">
-        select count(1) from mj_quality_collection where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+        select count(1) from mj_quality_collection where status !=0 and org_id = #{orgId,jdbcType=INTEGER}
         and user_id = #{workerId}
         <if test="firstTime != null and firstTime != ''">and modified <![CDATA[>=]]> #{firstTime}</if>
         <if test="lastTime != null and lastTime != ''">and modified <![CDATA[<=]]> #{lastTime}</if>
 
+    </select>
+
+    <select id="updateCollectStatus" parameterType="map" resultType="int">
+        update mj_quality_collection
+        set status = 0,
+        modified = now()
+         where org_id = #{orgId,jdbcType=INTEGER} and user_id = #{workerId}
+        and collect_id = #{collectId}
     </select>
 
 </mapper>

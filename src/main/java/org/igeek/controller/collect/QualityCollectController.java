@@ -43,27 +43,6 @@ public class QualityCollectController {
     @Autowired
     private IQualityQuestionService iQualityQuestionService;
 
-//    /**
-//     * 获取质量采集的页面显示信息
-//     * 调通
-//     *
-//     * @param workerCode 成型工的工号 ,如果不输入查询所有的该成型工的采集信息.
-//     * @param workerId   workerId 成型工的id 用于判定成型工采集的唯一性
-//     * @return 采集的id，成型工姓名，成型工工号，采集的次数。
-//     */
-//    @RequestMapping("get_quality_collect_info")
-//    @ResponseBody
-//    public ServerResponse getQualityCollectInfo(@RequestParam(required = false) String workerCode,
-//                                                @RequestParam(required = false) Integer workerId,
-//                                                HttpSession session) {
-//        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-//        if (organization == null) {
-//            return ServerResponse.createByErrorMsg("当前用户不存在");
-//        }
-//        return iQualityCollectService.getQualityCollectInfo(workerCode, workerId, organization.getOrgId());
-//    }
-
-
     /**
      * 主页面根据workerCode,进行过滤。
      *
@@ -106,7 +85,6 @@ public class QualityCollectController {
 
     /**
      * 获取修改列表信息
-     *
      * @param workerId
      * @param session
      * @return
@@ -147,7 +125,6 @@ public class QualityCollectController {
     /**
      * 更新和增加质量采集问题的员工信息、质量信息，等级、数量、
      * typeId 传参时将问题类型id,用, 逗号连接。也可以不输入
-     *
      * @param qualityCollection
      * @return
      */
@@ -184,40 +161,31 @@ public class QualityCollectController {
         return iQualityQuestionService.addOrUpdateQuestion(qualityQuestion);
     }
 
-
-    @RequestMapping(value = "delete_collect_single_info", method = RequestMethod.POST)
+    /**
+     * 删除信息。
+     * @param workerId
+     * @param collectId
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "delete_collect_single_info/{workerId}/{collectId}", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> deleteCollectSingleInfo(Integer workerId,String collectId,HttpSession session){
-
-        return null;
+    public ServerResponse<String> deleteCollectSingleInfo(@PathVariable Integer workerId,
+                                                          @PathVariable String collectId,HttpSession session){
+        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
+        if (organization == null) {
+            return ServerResponse.createByErrorMsg("当前用户不存在");
+        }
+        return iQualityQuestionService.deleteCollectSingleInfo(workerId,collectId,organization.getOrgId());
     }
 
-//    /**
-//     * 获取质量采集问题的数量和系数列表
-//     *
-//     * @param collectType 采集问题类型（1： 成型问题， 2 修坯问题， 3，喷釉，4，）
-//     * @param workerId    工人id
-//     * @return 员工id 一直不变，以不变应万变。
-//     * @<code> 当输入collectType时，只查出所有的问题类型的信息，没有员工的限制
-//     * 当输入collectType 、workId  查出该员工所对应的指定的问题信息。
-//     * 当输入workId 时 查出该员工下所有的问题信息。
-//     * </code>
-//     * 调通
-//     */
-//
-//    @RequestMapping("get_quality_question_list")
-//    @ResponseBody
-//    public ServerResponse getQualityQuestionList(@RequestParam(required = false) Integer collectType,
-//                                                 @RequestParam(required = false) Integer workerId,
-//                                                 HttpSession session) {
-//        Organization organization = (Organization) session.getAttribute(Const.CURRENT_USER);
-//        if (organization == null) {
-//            return ServerResponse.createByErrorMsg("当前用户不存在");
-//        }
-//        return iQualityQuestionService.getQualityQuestionList(collectType, workerId, organization.getOrgId());
-//    }
 
-
+    /**
+     * 采集的用户列表
+     * @param category
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "get_collect_userList/{category}", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse getCollectUserList(@PathVariable Integer category,

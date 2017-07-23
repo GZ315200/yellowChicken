@@ -231,4 +231,12 @@
         and question_id = #{questionId}
     </select>
 
+    <select id="updateQualityQuestionStatus" parameterType="map" resultMap="int">
+       update mj_quality_question
+       set status = 0,
+       modified = now()
+        where org_id = #{orgId,jdbcType=INTEGER} and user_id = #{workerId}
+        and collect_id = #{collectId}
+    </select>
+
 </mapper>

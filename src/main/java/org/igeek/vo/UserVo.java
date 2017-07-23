@@ -8,10 +8,19 @@ public class UserVo {
     private Integer workerId;
     private String workerName;
     private String workerCode;
+    private String productCode;
     private Integer collectCount;
 
 
     public UserVo() {
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public Integer getWorkerId() {

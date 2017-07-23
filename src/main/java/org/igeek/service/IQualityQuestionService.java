@@ -10,6 +10,5 @@ public interface IQualityQuestionService {
 
     public ServerResponse<String> addOrUpdateQuestion(QualityQuestion qualityQuestion);
 
-//    public ServerResponse getQualityQuestionList(Integer collectType,Integer workerId,Integer orgId);
-
+    public ServerResponse<String> deleteCollectSingleInfo(Integer workerId,String collectId,Integer orgId);
 }
