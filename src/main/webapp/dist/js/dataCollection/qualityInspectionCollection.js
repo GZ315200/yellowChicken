@@ -350,47 +350,6 @@ function get_quality_category_questionType1() {
 }
 
 function get_quality_category_questionType2() {
-    var questionCollectType = 2;
-    $.ajax({
-        type:"POST",
-        url: "/quality/collect/get_quality_category",
-        dataType:"json",
-        async: false,
-        data:{questionCollectType:questionCollectType},
-        success: function (data) {
-            console.log(data);
-            $("#questionType2").html("");
-            $.each(data.data, function(index, optiondata) {
-                var coefxHtml = '';
-                if(optiondata.collectType===1) {
-                    coefxHtml = '<td class="coefficient-1">'
-                        +'</td>';
-                } else if(optiondata.collectType===2) {
-                    coefxHtml = '<td class="coefficient-2">'
-                        +'<input type="text" class="form-control">'
-                        +'</td>';
-                } else {
-                    coefxHtml = '<td class="coefficient-1">'
-                        +'</td>';
-                }
-                var questionHtml ='<tr>'
-                    +'<td id="questionType2-'+optiondata.qualityId+'-'+optiondata.workerId+'">'+optiondata.qualityIdName+'</td>'
-                    +'<td>'
-                    +'<input type="text" class="form-control">'
-                    +'</td>'
-                    +coefxHtml
-                    +'</tr>';
-                $("#questionType2").append(questionHtml);
-            });
-        }
-    })
-    var workerSel = get_user_category(2);
-    $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel2").append('<option>' + optiondata.userNameCode + '</option>')
-    });
-}
-
-function get_quality_category_questionType3() {
     var questionCollectType = 3;
     $.ajax({
         type:"POST",
@@ -399,8 +358,7 @@ function get_quality_category_questionType3() {
         async: false,
         data:{questionCollectType:questionCollectType},
         success: function (data) {
-            // console.log("get_quality_category_questionType3");
-            // console.log(data);
+            console.log(data);
             $("#questionType3").html("");
             $.each(data.data, function(index, optiondata) {
                 var coefxHtml = '';
@@ -411,7 +369,7 @@ function get_quality_category_questionType3() {
                     coefxHtml = '<td class="coefficient-2">'
                         +'<input type="text" class="form-control">'
                         +'</td>';
-                }else{
+                } else {
                     coefxHtml = '<td class="coefficient-1">'
                         +'</td>';
                 }
@@ -428,11 +386,11 @@ function get_quality_category_questionType3() {
     })
     var workerSel = get_user_category(3);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel3").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel2").append('<option>' + optiondata.userNameCode + '</option>')
     });
 }
 
-function get_quality_category_questionType4() {
+function get_quality_category_questionType3() {
     var questionCollectType = 4;
     $.ajax({
         type:"POST",
@@ -441,6 +399,8 @@ function get_quality_category_questionType4() {
         async: false,
         data:{questionCollectType:questionCollectType},
         success: function (data) {
+            // console.log("get_quality_category_questionType3");
+            // console.log(data);
             $("#questionType4").html("");
             $.each(data.data, function(index, optiondata) {
                 var coefxHtml = '';
@@ -451,7 +411,7 @@ function get_quality_category_questionType4() {
                     coefxHtml = '<td class="coefficient-2">'
                         +'<input type="text" class="form-control">'
                         +'</td>';
-                } else {
+                }else{
                     coefxHtml = '<td class="coefficient-1">'
                         +'</td>';
                 }
@@ -468,11 +428,11 @@ function get_quality_category_questionType4() {
     })
     var workerSel = get_user_category(4);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel3").append('<option>' + optiondata.userNameCode + '</option>')
     });
 }
 
-function get_quality_category_questionType5() {
+function get_quality_category_questionType4() {
     var questionCollectType = 5;
     $.ajax({
         type:"POST",
@@ -491,7 +451,7 @@ function get_quality_category_questionType5() {
                     coefxHtml = '<td class="coefficient-2">'
                         +'<input type="text" class="form-control">'
                         +'</td>';
-                }else {
+                } else {
                     coefxHtml = '<td class="coefficient-1">'
                         +'</td>';
                 }
@@ -506,7 +466,47 @@ function get_quality_category_questionType5() {
             });
         }
     })
-    var workerSel = get_user_category(4);
+    var workerSel = get_user_category(5);
+    $.each(workerSel, function(index, optiondata) {
+        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.userNameCode + '</option>')
+    });
+}
+
+function get_quality_category_questionType5() {
+    var questionCollectType = 6;
+    $.ajax({
+        type:"POST",
+        url: "/quality/collect/get_quality_category",
+        dataType:"json",
+        async: false,
+        data:{questionCollectType:questionCollectType},
+        success: function (data) {
+            $("#questionType6").html("");
+            $.each(data.data, function(index, optiondata) {
+                var coefxHtml = '';
+                if(optiondata.collectType===1) {
+                    coefxHtml = '<td class="coefficient-1">'
+                        +'</td>';
+                } else if(optiondata.collectType===2) {
+                    coefxHtml = '<td class="coefficient-2">'
+                        +'<input type="text" class="form-control">'
+                        +'</td>';
+                }else {
+                    coefxHtml = '<td class="coefficient-1">'
+                        +'</td>';
+                }
+                var questionHtml ='<tr>'
+                    +'<td id="questionType6-'+optiondata.qualityId+'-'+optiondata.workerId+'">'+optiondata.qualityIdName+'</td>'
+                    +'<td>'
+                    +'<input type="text" class="form-control">'
+                    +'</td>'
+                    +coefxHtml
+                    +'</tr>';
+                $("#questionType6").append(questionHtml);
+            });
+        }
+    })
+    var workerSel = get_user_category(6);
     $.each(workerSel, function(index, optiondata) {
         $("#collectQuestionWorkerSel4").append('<option>' + optiondata.userNameCode + '</option>')
     });
@@ -540,12 +540,12 @@ function submitQualityCollectionQuestion1(collectId) {
 }
 
 function submitQualityCollectionQuestion2(collectId) {
-    var qeustionType = $("#questionType2 > tr");
+    var qeustionType = $("#questionType3 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 2;
+        var questionType = 3;
         var userId =  infoTh[2];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
@@ -567,12 +567,12 @@ function submitQualityCollectionQuestion2(collectId) {
 }
 
 function submitQualityCollectionQuestion3(collectId) {
-    var qeustionType = $("#questionType3 > tr");
+    var qeustionType = $("#questionType4 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 3;
+        var questionType = 4;
         var userId =  infoTh[2];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
@@ -594,12 +594,12 @@ function submitQualityCollectionQuestion3(collectId) {
 }
 
 function submitQualityCollectionQuestion4(collectId) {
-    var qeustionType = $("#questionType4 > tr");
+    var qeustionType = $("#questionType5 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 4;
+        var questionType = 5;
         var userId =  infoTh[2];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
@@ -621,12 +621,12 @@ function submitQualityCollectionQuestion4(collectId) {
 }
 
 function submitQualityCollectionQuestion5(collectId) {
-    var qeustionType = $("#questionType5 > tr");
+    var qeustionType = $("#questionType6 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 5;
+        var questionType = 6;
         var userId =  infoTh[2];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
@@ -807,12 +807,12 @@ function updatesubmitQualityCollectionQuestion1(collectId) {
 }
 
 function updatesubmitQualityCollectionQuestion2(collectId) {
-    var qeustionType = $("#questionType2 > tr");
+    var qeustionType = $("#questionType3 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 2;
+        var questionType = 3;
         var userId =  infoTh[2];
         var id = infoTh[3];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
@@ -835,12 +835,12 @@ function updatesubmitQualityCollectionQuestion2(collectId) {
 }
 
 function updatesubmitQualityCollectionQuestion3(collectId) {
-    var qeustionType = $("#questionType3 > tr");
+    var qeustionType = $("#questionType4 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 3;
+        var questionType = 4;
         var userId =  infoTh[2];
         var id = infoTh[3];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
@@ -863,12 +863,12 @@ function updatesubmitQualityCollectionQuestion3(collectId) {
 }
 
 function updatesubmitQualityCollectionQuestion4(collectId) {
-    var qeustionType = $("#questionType4 > tr");
+    var qeustionType = $("#questionType5 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 4;
+        var questionType = 5;
         var userId =  infoTh[2];
         var id = infoTh[3];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
@@ -891,12 +891,12 @@ function updatesubmitQualityCollectionQuestion4(collectId) {
 }
 
 function updatesubmitQualityCollectionQuestion5(collectId) {
-    var qeustionType = $("#questionType5 > tr");
+    var qeustionType = $("#questionType6 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var questionType = 5;
+        var questionType = 6;
         var userId =  infoTh[2];
         var id = infoTh[3];
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];

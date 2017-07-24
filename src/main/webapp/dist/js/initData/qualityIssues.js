@@ -265,7 +265,12 @@ function updateOrAddQuality() {
         dataType:"json",
         data:{title:title,userId:userId,questionType:questionType,money:money,remark:remark,status:status},
         success: function (data) {
-            $("#form_box").mask("数据保存完成.");
+            console.log(data);
+            if(data.status===0) {
+                $("#form_box").mask("数据保存完成.");
+            } else if(data.status===1) {
+                $("#form_box").mask("该信息已存在.");
+            }
         }
     })
 }
