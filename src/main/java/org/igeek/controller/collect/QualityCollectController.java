@@ -257,7 +257,7 @@ public class QualityCollectController {
      * 获取质量问题类别列表
      *
      * @param status              状态
-     * @param questionCollectType 所属问题类型 1：成型问题，2：修坯 3：喷窑 4，登窑，5 烧窑。
+     * @param questionCollectType 所属问题类型 1：成型问题，3：修坯 4：喷釉 5，登窑，6 烧窑。
      * @return 已调通
      */
     @RequestMapping("get_quality_category")

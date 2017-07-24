@@ -65,7 +65,6 @@ public class KilnController {
         return iKilnService.listAllKiln(pageNum, pageSize,status,orgId);
     }
 
-
     /**
      * 更新状态值
      *
@@ -83,12 +82,5 @@ public class KilnController {
         Integer orgId = organization.getOrgId();
         return iKilnService.updateStatus(kilnId, status,orgId);
     }
-
-
-
-
-
-
-
 
 }
