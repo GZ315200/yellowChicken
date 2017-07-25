@@ -196,11 +196,16 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                 for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
-                    SpCollect spCollect = spCollectMapper.getSpCollectInfo(user.getId(),orgId);
-                    if (spCollect == null){
-                        userVo.setProductCode(StringUtils.EMPTY);
-                    }else{
-                        userVo.setProductCode(spCollect.getProCode());
+                    List<SpCollect> spCollectList = spCollectMapper.getSpCollectInfo(user.getId(),orgId);
+                    List<String> productCodeList = Lists.newArrayList();
+                    for (SpCollect spCollectItem : spCollectList){
+                        if (CollectionUtils.isEmpty(productCodeList)){
+                            productCodeList.add("null");
+                            userVo.setProductCode(productCodeList);
+                        }else{
+                            productCodeList.add(spCollectItem.getProCode());
+                            userVo.setProductCode(productCodeList);
+                        }
                     }
                     userVo.setCollectCount(getCollectCount(orgId, user.getId()));
                     userVo.setWorkerName(user.getName());
