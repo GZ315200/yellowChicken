@@ -119,6 +119,7 @@
   </update>
     <select id="selectByRankTitle" parameterType="map" resultType="java.lang.Integer">
     select count(1) from mj_rank_category where title=#{rankName} and org_id = #{orgId,jdbcType=INTEGER}
+    and  status = 1
   </select>
 
     <select id="selectAllRankList" resultMap="BaseResultMap" parameterType="map">

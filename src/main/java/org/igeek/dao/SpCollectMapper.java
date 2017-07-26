@@ -14,7 +14,7 @@ public interface SpCollectMapper {
 
     SpCollect selectByPrimaryKey(Integer id);
 
-    SpCollect selectByProductId(@Param("productId") Integer productId,
+    List<SpCollect> selectByProductId(@Param("productId") Integer productId,
                                 @Param("workerId") Integer workerId,@Param("orgId") Integer orgId);
 
     int updateByPrimaryKeySelective(SpCollect record);

@@ -18,7 +18,7 @@ public interface KilnMapper {
 
     int updateByPrimaryKey(Kiln record);
 
-    int selectByKilnName(@Param("kilnName") String kilnName);
+    int selectByKilnName(@Param("kilnName") String kilnName,@Param("orgId") Integer orgId);
 
 
     List<Kiln> selectAllList(@Param("status") String status,@Param("orgId") Integer orgId);

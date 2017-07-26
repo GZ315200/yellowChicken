@@ -1,6 +1,6 @@
 package org.igeek.vo;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/7/1.
@@ -10,18 +10,18 @@ public class UserVo {
     private Integer workerId;
     private String workerName;
     private String workerCode;
-    private List<String> productCode;
+    private Set<String> productCode;
     private Integer collectCount;
 
 
     public UserVo() {
     }
 
-    public List<String> getProductCode() {
+    public Set<String> getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(List<String> productCode) {
+    public void setProductCode(Set<String> productCode) {
         this.productCode = productCode;
     }
 

@@ -1,6 +1,7 @@
 package org.igeek.service.impl;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.igeek.common.ResponseCode;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/6/29.
@@ -116,13 +118,24 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             collectEditVo.setRankId(qualityCollection.getRankId());
             collectEditVo.setRankName(rank.getTitle());
         }
-        SpCollect spCollect = spCollectMapper.selectByProductId(qualityCollection.getProductId(),qualityCollection.getUserId(),orgId);
-        if (spCollect == null){
-            collectEditVo.setProductId(qualityCollection.getProductId());
-            collectEditVo.setProductName(StringUtils.EMPTY);
+        List<SpCollect> spCollectList = spCollectMapper.selectByProductId(qualityCollection.getProductId(),qualityCollection.getUserId(),orgId);
+        Set<Integer> productIdSet = Sets.newHashSet();
+        Set<String> productCodeSet = Sets.newHashSet();
+        if (CollectionUtils.isEmpty(spCollectList)){
+            for (SpCollect spCollect : spCollectList){
+                spCollect.setProCode(StringUtils.EMPTY);
+                productCodeSet.add(spCollect.getProCode());
+                productIdSet.add(qualityCollection.getProductId());
+                collectEditVo.setProductId(productIdSet);
+                collectEditVo.setProductName(productCodeSet);
+            }
         }else {
-            collectEditVo.setProductId(qualityCollection.getProductId());
-            collectEditVo.setProductName(spCollect.getProCode());
+            for (SpCollect spCollect : spCollectList){
+                productCodeSet.add(spCollect.getProCode());
+                productIdSet.add(qualityCollection.getProductId());
+                collectEditVo.setProductId(productIdSet);
+                collectEditVo.setProductName(productCodeSet);
+            }
         }
         collectEditVo.setCreateTime(qualityCollection.getCreated());
         collectEditVo.setUpdateTime(qualityCollection.getModified());
@@ -197,12 +210,16 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
                     List<SpCollect> spCollectList = spCollectMapper.getSpCollectInfo(user.getId(),orgId);
-                    List<String> productCodeList = Lists.newArrayList();
-                    for (SpCollect spCollectItem : spCollectList){
-                        if (CollectionUtils.isEmpty(productCodeList)){
-                            productCodeList.add("null");
+                    Set<String> productCodeList = Sets.newHashSet();
+//                    判断收坯是否为空
+                    if (CollectionUtils.isEmpty(spCollectList)){
+                        for (SpCollect spCollect:spCollectList){
+                            spCollect.setProCode(StringUtils.EMPTY);
+                            productCodeList.add(spCollect.getProCode());
                             userVo.setProductCode(productCodeList);
-                        }else{
+                        }
+                    }else {
+                        for (SpCollect spCollectItem:spCollectList){
                             productCodeList.add(spCollectItem.getProCode());
                             userVo.setProductCode(productCodeList);
                         }
@@ -266,7 +283,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
 
         List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId);
-        List<ProductCollectVo> ProductCollectVoList = Lists.newArrayList();
+        Set<ProductCollectVo> ProductCollectVoList = Sets.newHashSet();
         if (productList.size() > 0) {
             for (SpCollect spCollect : productList) {
                 ProductCollectVo productCollectVo = new ProductCollectVo();

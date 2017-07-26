@@ -43,7 +43,7 @@ public class KilnServiceImpl implements IKilnService {
             return ServerResponse.createByErrorMsg("窑炉信息更新失败");
         } else {
 //            插入时先判断该窑炉信息是否存在
-            int resultCount = kilnMapper.selectByKilnName(kiln.getTitle());
+            int resultCount = kilnMapper.selectByKilnName(kiln.getTitle(),kiln.getOrgId());
             if (resultCount > 0) {
                 return ServerResponse.createByErrorMsg("该窑炉名称已经存在");
             }

@@ -119,7 +119,8 @@
   </update>
 
     <select id="selectByKilnName" parameterType="java.lang.String" resultType="java.lang.Integer">
-    SELECT count(1) from mj_yaolu_category where title = #{kilnName}
+    SELECT count(1) from mj_yaolu_category where title = #{kilnName} and status = 1
+    and org_id = #{orgId}
   </select>
 
     <select id="selectAllList" resultMap="BaseResultMap" parameterType="map">

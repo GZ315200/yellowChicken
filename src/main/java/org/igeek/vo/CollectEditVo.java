@@ -1,6 +1,7 @@
 package org.igeek.vo;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Gyges on 2017/7/23.
@@ -9,8 +10,8 @@ public class CollectEditVo {
 
     private Integer id;
     private String collectId;
-    private Integer productId;
-    private String productName;
+    private Set<Integer> productId;
+    private Set<String> productName;
     private Integer rankId;
     private String rankName;
     private Integer yaoluId;
@@ -38,19 +39,19 @@ public class CollectEditVo {
         this.collectId = collectId;
     }
 
-    public Integer getProductId() {
+    public Set<Integer> getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Set<Integer> productId) {
         this.productId = productId;
     }
 
-    public String getProductName() {
+    public Set<String> getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public void setProductName(Set<String> productName) {
         this.productName = productName;
     }
 
