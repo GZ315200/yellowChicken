@@ -216,7 +216,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                     Set<String> productCodeList = Sets.newHashSet();
 //                    判断收坯是否为空
                     if (CollectionUtils.isEmpty(spCollectList)) {
-                        spCollect.setProCode(StringUtils.EMPTY);
+                        spCollect.setProCode("null");
                         productCodeList.add(spCollect.getProCode());
                         userVo.setProductCode(productCodeList);
                     } else {
