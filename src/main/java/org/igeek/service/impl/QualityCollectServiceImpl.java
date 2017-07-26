@@ -75,19 +75,20 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
     /**
      * 修改页面显示采集信息。
+     *
      * @param workerId
      * @param orgId
      * @return
      */
-    public ServerResponse getCollectInfoDetail(Integer workerId, Integer orgId,String startTime,String endTime) {
+    public ServerResponse getCollectInfoDetail(Integer workerId, Integer orgId, String startTime, String endTime) {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId,startTime,endTime);
+        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId, startTime, endTime);
         List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
-            for (QualityCollection collection : collectionList){
-                collectEditVoList.add(assembleCollectEditInfo(collection,orgId));
+            for (QualityCollection collection : collectionList) {
+                collectEditVoList.add(assembleCollectEditInfo(collection, orgId));
             }
             return ServerResponse.createBySuccess(collectEditVoList);
         }
@@ -95,42 +96,42 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-    private CollectEditVo assembleCollectEditInfo(QualityCollection qualityCollection,Integer orgId){
+    private CollectEditVo assembleCollectEditInfo(QualityCollection qualityCollection, Integer orgId) {
         CollectEditVo collectEditVo = new CollectEditVo();
         collectEditVo.setId(qualityCollection.getId());
         collectEditVo.setWorkerId(qualityCollection.getUserId());
         collectEditVo.setWorkerName(qualityCollection.getUserName());
         collectEditVo.setCollectId(qualityCollection.getCollectId());
         collectEditVo.setWorkerCode(qualityCollection.getUserCode());
-        Kiln kiln = kilnMapper.selectByPrimaryKey(qualityCollection.getYaoluId(),orgId);
-        if (kiln == null){
+        Kiln kiln = kilnMapper.selectByPrimaryKey(qualityCollection.getYaoluId(), orgId);
+        if (kiln == null) {
             collectEditVo.setYaoluName(StringUtils.EMPTY);
             collectEditVo.setYaoluId(qualityCollection.getYaoluId());
-        }else {
+        } else {
             collectEditVo.setYaoluId(qualityCollection.getYaoluId());
             collectEditVo.setYaoluName(kiln.getTitle());
         }
-        Rank rank = rankMapper.selectByPrimaryKey(qualityCollection.getRankId(),orgId);
-        if (rank == null){
+        Rank rank = rankMapper.selectByPrimaryKey(qualityCollection.getRankId(), orgId);
+        if (rank == null) {
             collectEditVo.setRankName(StringUtils.EMPTY);
             collectEditVo.setRankId(qualityCollection.getRankId());
-        }else{
+        } else {
             collectEditVo.setRankId(qualityCollection.getRankId());
             collectEditVo.setRankName(rank.getTitle());
         }
-        List<SpCollect> spCollectList = spCollectMapper.selectByProductId(qualityCollection.getProductId(),qualityCollection.getUserId(),orgId);
+        List<SpCollect> spCollectList = spCollectMapper.selectByProductId(qualityCollection.getProductId(), qualityCollection.getUserId(), orgId);
         Set<Integer> productIdSet = Sets.newHashSet();
         Set<String> productCodeSet = Sets.newHashSet();
-        if (CollectionUtils.isEmpty(spCollectList)){
-            for (SpCollect spCollect : spCollectList){
+        if (CollectionUtils.isEmpty(spCollectList)) {
+            for (SpCollect spCollect : spCollectList) {
                 spCollect.setProCode(StringUtils.EMPTY);
                 productCodeSet.add(spCollect.getProCode());
                 productIdSet.add(qualityCollection.getProductId());
                 collectEditVo.setProductId(productIdSet);
                 collectEditVo.setProductName(productCodeSet);
             }
-        }else {
-            for (SpCollect spCollect : spCollectList){
+        } else {
+            for (SpCollect spCollect : spCollectList) {
                 productCodeSet.add(spCollect.getProCode());
                 productIdSet.add(qualityCollection.getProductId());
                 collectEditVo.setProductId(productIdSet);
@@ -146,6 +147,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
     /**
      * 获取单个用户的采集信息。
+     *
      * @param workerId
      * @param collectId
      * @param orgId
@@ -157,7 +159,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
         QualityCollection qualityCollection = collectionMapper.getSingleCollectInfoDetail(orgId, workerId, collectId);
         if (qualityCollection != null) {
-            CollectEditVo collectEditVo = assembleCollectEditInfo(qualityCollection,orgId);
+            CollectEditVo collectEditVo = assembleCollectEditInfo(qualityCollection, orgId);
             return ServerResponse.createBySuccess(collectEditVo);
         }
         return ServerResponse.createByErrorMsg("无该用户的采集信息");
@@ -165,6 +167,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
     /**
      * 获取工人列表
+     *
      * @param category
      * @param orgId
      * @return
@@ -193,7 +196,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-
     /**
      * 获取需要采集的成型工列表
      *
@@ -203,23 +205,22 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      */
     public ServerResponse getCollectUserList(Integer categoryType, Integer orgId) {
         List<UserVo> list = Lists.newArrayList();
+        SpCollect spCollect = new SpCollect();
         if (categoryType != null) {
             List<User> userList = userMapper.getUserCategoryList(categoryType, orgId);
             if (userList.size() > 0) {
                 for (User user : userList) {
                     UserVo userVo = new UserVo();
                     userVo.setWorkerId(user.getId());
-                    List<SpCollect> spCollectList = spCollectMapper.getSpCollectInfo(user.getId(),orgId);
+                    List<SpCollect> spCollectList = spCollectMapper.getSpCollectInfo(user.getId(), orgId);
                     Set<String> productCodeList = Sets.newHashSet();
 //                    判断收坯是否为空
-                    if (CollectionUtils.isEmpty(spCollectList)){
-                        for (SpCollect spCollect:spCollectList){
-                            spCollect.setProCode(StringUtils.EMPTY);
-                            productCodeList.add(spCollect.getProCode());
-                            userVo.setProductCode(productCodeList);
-                        }
-                    }else {
-                        for (SpCollect spCollectItem:spCollectList){
+                    if (CollectionUtils.isEmpty(spCollectList)) {
+                        spCollect.setProCode(StringUtils.EMPTY);
+                        productCodeList.add(spCollect.getProCode());
+                        userVo.setProductCode(productCodeList);
+                    } else {
+                        for (SpCollect spCollectItem : spCollectList) {
                             productCodeList.add(spCollectItem.getProCode());
                             userVo.setProductCode(productCodeList);
                         }
@@ -318,7 +319,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
-
     @Override
     public ServerResponse getQualityCollectDetail(Integer orgId, Integer workerId, String collectId) throws GeneralSecurityException {
         if (workerId == null) {
@@ -327,7 +327,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         CollectDetail collectDetail = null;
         QualityCollection qualityCollection = collectionMapper.getAllCollectionList(orgId, workerId, collectId);
         if (qualityCollection != null) {
-            collectDetail = assembleCollectDetail(qualityCollection,collectId,orgId);
+            collectDetail = assembleCollectDetail(qualityCollection, collectId, orgId);
             return ServerResponse.createBySuccess(collectDetail);
         }
         return ServerResponse.createByErrorMsg("获取质量采集信息详情失败");
@@ -339,10 +339,10 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      * @param collection
      * @return
      */
-    private CollectDetail assembleCollectDetail(QualityCollection collection,String collectId,Integer orgId) throws GeneralSecurityException {
+    private CollectDetail assembleCollectDetail(QualityCollection collection, String collectId, Integer orgId) throws GeneralSecurityException {
         CollectDetail collectDetail = new CollectDetail();
         collectDetail.setId(collection.getId());//用于修改数据
-        Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId(),collection.getOrgId());
+        Kiln kiln = kilnMapper.selectByPrimaryKey(collection.getYaoluId(), collection.getOrgId());
         if (Objects.isNull(kiln)) {
             throw new GeneralServiceException("窑炉信息不存在");
         }
@@ -353,7 +353,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         }
         collectDetail.setProductCode(spCollect.getProCode());
         collectDetail.setQuantity(collection.getQuantity());
-        Rank rank = rankMapper.selectByPrimaryKey(collection.getRankId(),collection.getOrgId());
+        Rank rank = rankMapper.selectByPrimaryKey(collection.getRankId(), collection.getOrgId());
         if (Objects.isNull(rank)) {
             throw new GeneralServiceException("等级信息不存在");
         }
@@ -361,7 +361,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         collectDetail.setWorkerName(collection.getUserName());
         collectDetail.setWorkerId(collection.getUserId());
         List<QualityTypeVo> qualityTypeVoList = Lists.newArrayList();
-        List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getQualityQuestionList(null, collection.getOrgId(),collectId);
+        List<QualityQuestion> qualityQuestionList = qualityQuestionMapper.getQualityQuestionList(null, collection.getOrgId(), collectId);
         if (CollectionUtils.isEmpty(qualityQuestionList)) {
             throw new GeneralServiceException("质量问题信息不存在");
         }
@@ -374,11 +374,11 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             qualityTypeVo.setCollectId(qualityQuestion.getCollectId());
             qualityTypeVo.setQuestionId(qualityQuestion.getQuestionId());
             qualityTypeVo.setQuestionName(qualityQuestion.getQuestionName());
-            User user = userMapper.selectByPrimaryKey(qualityQuestion.getUserId(),orgId);
-            if(user == null){
+            User user = userMapper.selectByPrimaryKey(qualityQuestion.getUserId(), orgId);
+            if (user == null) {
                 qualityTypeVo.setWorkerId(qualityQuestion.getUserId());
                 qualityTypeVo.setQuestionWorkerName(StringUtils.EMPTY);
-            }else{
+            } else {
                 qualityTypeVo.setWorkerId(qualityQuestion.getUserId());
                 qualityTypeVo.setQuestionWorkerName(user.getName());
             }
