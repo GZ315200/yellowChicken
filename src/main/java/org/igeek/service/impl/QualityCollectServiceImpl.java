@@ -282,7 +282,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-
         List<SpCollect> productList = spCollectMapper.getSpCollectList(status, workerId, orgId);
         Set<ProductCollectVo> ProductCollectVoList = Sets.newHashSet();
         if (productList.size() > 0) {

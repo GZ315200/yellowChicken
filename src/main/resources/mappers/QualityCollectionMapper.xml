@@ -235,7 +235,7 @@
         </if>
     </select>
 
-    <select id="getCollectInfoDetail" parameterType="map" resultMap="BaseResultMap">
+      <select id="getCollectInfoDetail" parameterType="map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from mj_quality_collection where status != 0 and org_id = #{orgId,jdbcType=INTEGER}
