@@ -1,4 +1,4 @@
-function loadqualityInspectionCollectionAdditionPage(workerId,workerCode,count,workerName) {
+function loadqualityInspectionCollectionAdditionPage(workerCode, workerId, count, workerName) {
     $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
         $("#collectWorkerName").val(workerName);
         qualityInspectionCollectionAddMenu(workerId,workerCode,count);
@@ -6,7 +6,7 @@ function loadqualityInspectionCollectionAdditionPage(workerId,workerCode,count,w
     })
 }
 
-function updateQualityInspectionCollectionAdditionPage(workerId,workerCode,collectId,id) {
+function updateQualityInspectionCollectionAdditionPage(workerCode, workerId,collectId,id) {
     $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
         updateQualityInspectionCollectionAddMenu(workerId,workerCode,collectId,id);
         initQualityCollectForm(workerId,workerCode);
@@ -94,7 +94,6 @@ function getUpatePageData(workerId) {
         }
     })
 }
-
 function deleteQualityInfo(workerId,workerCode,collectId,id) {
     jConfirm('你确认要删除数据吗?', '系统提示', function(r) {
         if(r){
@@ -126,7 +125,6 @@ function deleteQualityInfo(workerId,workerCode,collectId,id) {
     });
 
 }
-
 function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
     var submenu = document.getElementById("submenu").children;
     $('#saveBtn').click(function(){
@@ -154,7 +152,6 @@ function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
         })
     });
 };
-
 function updateQualityInspectionCollectionAddMenu(workerId,workerCode,collectId,id){
     var submenu = document.getElementById("submenu").children;
     $('#saveBtn').click(function(){
@@ -176,7 +173,6 @@ function updateQualityInspectionCollectionAddMenu(workerId,workerCode,collectId,
     });
     $('#saveAddNew').remove();
 };
-
 function getQualityCollectInfo() {
     $.ajax({
         type:"GET",
@@ -212,7 +208,6 @@ function getQualityCollectInfo() {
         }
     })
 }
-
 function getQualityCollectSelectInfo() {
     var workerCode = $("#qualityWorkerCode").val();
     if(workerCode==="") {
@@ -253,9 +248,6 @@ function getQualityCollectSelectInfo() {
         }
     })
 }
-
-
-
 function initQualityCollectForm(workerId,workerCode) {
     var returnData=[];
     $.ajax({
@@ -266,7 +258,7 @@ function initQualityCollectForm(workerId,workerCode) {
         success: function (data) {
             returnData = data.data;
             $.each(data.data, function(index, optiondata) {
-                $("#collectWorkerName").val(optiondata.workerName);
+                // $("#collectWorkerName").val(optiondata.workerName);
                 $("#productNameSel").append('<option value="'+optiondata.productId+'">' + optiondata.productDetail + '</option>')
             });
         }
@@ -281,7 +273,6 @@ function initQualityCollectForm(workerId,workerCode) {
 
     // submitQualityCollectionQuestion1();
 }
-
 function collectKilnNameSel() {
     $.ajax({
         type:"POST",
@@ -296,7 +287,6 @@ function collectKilnNameSel() {
         }
     })
 }
-
 function collectLevelNameSel() {
     $.ajax({
         type:"POST",
@@ -386,7 +376,7 @@ function get_quality_category_questionType2() {
     })
     var workerSel = get_user_category(3);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel2").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel2").append('<option>' + optiondata.name + '</option>')
     });
 }
 
@@ -428,7 +418,7 @@ function get_quality_category_questionType3() {
     })
     var workerSel = get_user_category(4);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel3").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel3").append('<option>' + optiondata.name + '</option>')
     });
 }
 
@@ -468,7 +458,7 @@ function get_quality_category_questionType4() {
     })
     var workerSel = get_user_category(5);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.name + '</option>')
     });
 }
 
@@ -508,7 +498,7 @@ function get_quality_category_questionType5() {
     })
     var workerSel = get_user_category(6);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.userNameCode + '</option>')
+        $("#collectQuestionWorkerSel4").append('<option>' + optiondata.name + '</option>')
     });
 }
 
@@ -687,7 +677,6 @@ function updateAddOrUpdateUserInfo(id,userId,collectId) {
     })
 
 }
-
 // function updateCollectCount(workerId,count,collectId) {
 //     // console.log("count:"+count);
 //     $.ajax({
@@ -725,12 +714,12 @@ function get_user_category(category) {
         async: false,
         data:{category:category},
         success: function (data) {
+            console.log(data);
             rData = data.data;
         }
     })
     return rData;
 }
-
 // function updateGetId(workerId) {
 //     var rData = [];
 //     $.ajax({
@@ -746,10 +735,7 @@ function get_user_category(category) {
 //     })
 //     return rData.id;
 // }
-
 function updateCollection(workerId,collectId) {
-    // console.log("updateCollection");
-    // console.log(typeof (workerId));
     var rData = [];
     $.ajax({
         type:"GET",

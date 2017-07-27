@@ -22,8 +22,6 @@
         </property>
         <property name="fileEncoding" value="utf-8"/>
     </bean>
-
-
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <property name="driverClassName" value="${db.driverClassName}"/>
         <property name="jdbcUrl" value="${db.url}"/>

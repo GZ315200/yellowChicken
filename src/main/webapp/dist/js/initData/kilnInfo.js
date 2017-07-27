@@ -83,10 +83,11 @@ function getKilnList() {
             var tableRow = tableData.data.list;
             // console.log(tableRow);
             $.each(tableRow , function (index, optiondata) {
+                var num = index + 1;
                 var description = (optiondata.description===undefined) ? "" :  optiondata.description;
                 var tableHtml =
                     '<tr>'
-                    + '<td>'+optiondata.id+'</td>'
+                    + '<td>'+num+'</td>'
                     + '<td>'+optiondata.kilnName+'</td>'
                     + '<td>'+description+'</td>'
                     + '<td>'

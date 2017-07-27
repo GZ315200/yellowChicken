@@ -84,10 +84,10 @@ function getRankList() {
 
             $.each(tableRow , function (index, optiondata) {
                 var remark = (optiondata.remark===undefined) ? "" : optiondata.remark;
-
+                var num = index + 1;
                 var tableHtml =
                     '<tr>'
-                    + '<td>'+optiondata.rankId+'</td>'
+                    + '<td>'+num+'</td>'
                     + '<td>'+optiondata.rankName+'</td>'
                     + '<td>'+remark+'</td>'
                     + '<td>'
