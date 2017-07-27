@@ -10,6 +10,7 @@ function updateQualityInspectionCollectionAdditionPage(workerCode, workerId,coll
     $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
         updateQualityInspectionCollectionAddMenu(workerId,workerCode,collectId,id);
         initQualityCollectForm(workerId,workerCode);
+        console.log(workerId);
         updateCollection(workerId,collectId);
     })
 }
@@ -83,7 +84,7 @@ function getUpatePageData(workerId) {
                 var realtime = getxTime(xtime);
                 var xhtml ='<tr class="dataLog"><td rowspan="2"></td><td colspan="2">'
                     +'<span class="time">采集时间'+realtime+'</span>'
-                    +"<a class='pull-right btn btn-default2 doeditBtn' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>编辑修改</a>"
+                    +"<a class='pull-right btn btn-default2 doeditBtn' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>编辑修改</a>"
                     +"<a class='pull-right btn btn-default dodelBtn'  onclick='deleteQualityInfo(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>删除</a></td></tr><tr class='dataLog'>"
                     +'<td colspan="3"><table class="table itable" ><tr><td width="90px">窑炉</td><td style="text-align: left">产品</td>'
                     +'<td width="90px">等级</td><td width="90px">数量</td></tr><tr class="dataLog">'
@@ -258,7 +259,7 @@ function initQualityCollectForm(workerId,workerCode) {
         success: function (data) {
             returnData = data.data;
             $.each(data.data, function(index, optiondata) {
-                // $("#collectWorkerName").val(optiondata.workerName);
+                $("#collectWorkerName").val(optiondata.workerName);
                 $("#productNameSel").append('<option value="'+optiondata.productId+'">' + optiondata.productDetail + '</option>')
             });
         }
@@ -714,7 +715,7 @@ function get_user_category(category) {
         async: false,
         data:{category:category},
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             rData = data.data;
         }
     })
@@ -743,7 +744,6 @@ function updateCollection(workerId,collectId) {
         dataType:"json",
         async: false,
         success: function (data) {
-            console.log(data);
             rData = data.data;
         }
     })
@@ -754,14 +754,13 @@ function updateCollection(workerId,collectId) {
     var questionData = rData.qualityTypeVoList;
     for(var i=0; i < questionData.length; i++) {
         var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+questionData[i].workerId;
-        console.log(questionData[i].workerId);
-        console.log(questionID);
         // console.log($("#"+questionID+"").next().next().children());
         $("#"+questionID+"").next().children().val(questionData[i].questionQuantity);
         $("#"+questionID+"").next().next().children().val(questionData[i].coefficient);
         var newQID = questionID+"-"+questionData[i].id;
         $("#"+questionID+"").attr('id',newQID);
-        $("#collectQuestionWorkerSel"+questionData[i].questionType+" option:contains("+rData.questionWorkerName+")").attr("selected", true);
+        var num = questionData[i].questionType - 1;
+        $("#collectQuestionWorkerSel"+num+" option:contains("+questionData[i].questionWorkerName+")").attr("selected", true);
     }
 }
 
