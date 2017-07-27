@@ -84,7 +84,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(orgId,workerId, startTime, endTime);
+        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(orgId, workerId, startTime, endTime);
         List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
             for (QualityCollection collection : collectionList) {
@@ -373,13 +373,12 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
             qualityTypeVo.setCollectId(qualityQuestion.getCollectId());
             qualityTypeVo.setQuestionId(qualityQuestion.getQuestionId());
             qualityTypeVo.setQuestionName(qualityQuestion.getQuestionName());
-            User user = userMapper.selectByPrimaryKey(qualityQuestion.getUserId(), orgId);
-            if (user == null) {
+            if (qualityQuestion.getUserId() == null) {
                 qualityTypeVo.setWorkerId(qualityQuestion.getUserId());
                 qualityTypeVo.setQuestionWorkerName(StringUtils.EMPTY);
-            } else {
+            }else {
                 qualityTypeVo.setWorkerId(qualityQuestion.getUserId());
-                qualityTypeVo.setQuestionWorkerName(user.getName());
+                qualityTypeVo.setQuestionWorkerName(qualityQuestion.getWorkName());
             }
             qualityTypeVo.setQuestionQuantity(qualityQuestion.getQuantity());
             qualityTypeVoList.add(qualityTypeVo);
