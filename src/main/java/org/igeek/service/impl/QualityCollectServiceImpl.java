@@ -84,7 +84,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
         if (workerId == null) {
             return ServerResponse.createByErrorCodeAndMsg(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getCodeDesc());
         }
-        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(workerId, orgId, startTime, endTime);
+        List<QualityCollection> collectionList = collectionMapper.getCollectInfoDetail(orgId,workerId, startTime, endTime);
         List<CollectEditVo> collectEditVoList = Lists.newArrayList();
         if (collectionList.size() > 0) {
             for (QualityCollection collection : collectionList) {

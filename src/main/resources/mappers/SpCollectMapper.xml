@@ -249,7 +249,7 @@
   </update>
 
   <select id="getSpCollectList" parameterType="map" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" />
+    select distinct <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
     <if test="workerId != null">
@@ -266,7 +266,7 @@
   </select>
 
   <select id="getSpCollectInfo" resultMap="BaseResultMap" parameterType="map">
-    select DISTINCT <include refid="Base_Column_List"/>
+    select <include refid="Base_Column_List"/>
     from mj_shpeicaiji
     where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
     and user_id = #{workerId}
