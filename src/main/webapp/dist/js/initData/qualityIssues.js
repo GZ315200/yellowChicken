@@ -220,9 +220,10 @@ function getQualityListByWorkerType() {
                         var workerTyp="管理人员";
                         break;
                 }
+                var num = index + 1;
                 var tableHtml =
                     '<tr>'
-                    + '<td>'+optiondata.qualityId+'</td>'
+                    + '<td>'+num+'</td>'
                     + '<td>'+optiondata.qualityName+'</td>'
                     + '<td>'+questionType+'</td>'
                     + '<td>'+amount+'</td>'

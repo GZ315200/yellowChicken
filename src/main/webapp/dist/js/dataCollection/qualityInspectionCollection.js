@@ -80,12 +80,13 @@ function getUpatePageData(workerId) {
             $.each(data.data , function (index, optiondata) {
                 var xtime = optiondata.createTime > optiondata.updateTime ? optiondata.createTime : optiondata.updateTime;
                 // console.log(xtime);
+                var workName = $("#workName").html();
                 var  quantity= optiondata.quantity===null ? "":optiondata.quantity;
                 var realtime = getxTime(xtime);
                 var xhtml ='<tr class="dataLog"><td rowspan="2"></td><td colspan="2">'
                     +'<span class="time">采集时间'+realtime+'</span>'
                     +"<a class='pull-right btn btn-default2 doeditBtn' onclick='updateQualityInspectionCollectionAdditionPage(&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.workerId+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>编辑修改</a>"
-                    +"<a class='pull-right btn btn-default dodelBtn'  onclick='deleteQualityInfo(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot;)'>删除</a></td></tr><tr class='dataLog'>"
+                    +"<a class='pull-right btn btn-default dodelBtn'  onclick='deleteQualityInfo(&quot;"+workerId+"&quot,&quot;"+optiondata.userCode+"&quot,&quot;"+optiondata.collectId+"&quot,&quot;"+optiondata.id +"&quot,&quot;"+workName +"&quot;)'>删除</a></td></tr><tr class='dataLog'>"
                     +'<td colspan="3"><table class="table itable" ><tr><td width="90px">窑炉</td><td style="text-align: left">产品</td>'
                     +'<td width="90px">等级</td><td width="90px">数量</td></tr><tr class="dataLog">'
                     +'<td>'+optiondata.yaoluName+'</td><td style="text-align: left">'+optiondata.productName+'</td><td>'+optiondata.rankName+'</td>'
@@ -95,7 +96,7 @@ function getUpatePageData(workerId) {
         }
     })
 }
-function deleteQualityInfo(workerId,workerCode,collectId,id) {
+function deleteQualityInfo(workerId,workerCode,collectId,id,workName) {
     jConfirm('你确认要删除数据吗?', '系统提示', function(r) {
         if(r){
             $.ajax({
@@ -104,6 +105,7 @@ function deleteQualityInfo(workerId,workerCode,collectId,id) {
                 dataType:"json",
                 success: function () {
                     $("#container").load("pages/dataCollection/qualityInspectionCollection/update.html", null, function() {
+                        console.log(workName);
                         $('#workName').html(workName);
                         var stime =get7DayFormatDate();
                         var etime =getNowFormatDate();
@@ -111,7 +113,6 @@ function deleteQualityInfo(workerId,workerCode,collectId,id) {
                         $('#etime').val(etime);
                         $('#selectAbtn').click(function () {
                             getUpatePageData(workerId)
-
                         })
                         $('#resetBtn').click(function () {
                             $('#stime').val(stime);
@@ -147,9 +148,19 @@ function qualityInspectionCollectionAddMenu(workerId,workerCode,count){
         $("#container").load("pages/dataCollection/qualityInspectionCollection/index.html", null, function() {getQualityCollectInfo()})
     });
     $('#saveAddNew').click(function(){
+        $("#form_box").mask("稍等，正在保存数据...");
+        var collectId = getCollectId(workerId,workerCode);
+        submitQualityCollectionQuestion1(collectId);
+        submitQualityCollectionQuestion2(collectId);
+        submitQualityCollectionQuestion3(collectId);
+        submitQualityCollectionQuestion4(collectId);
+        submitQualityCollectionQuestion5(collectId);
+        addOrUpdateUserInfo(workerId,collectId);
+        // setTimeout('$("#form_box").mask("数据保存完成.");',1000);
         $("#container").load("pages/dataCollection/qualityInspectionCollection/addition.html", null, function() {
             qualityInspectionCollectionAddMenu(workerId,workerCode,count);
             initQualityCollectForm(workerId,workerCode)
+            $("#form_box").unmask();
         })
     });
 };
