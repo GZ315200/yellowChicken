@@ -324,6 +324,7 @@ function get_quality_category_questionType1() {
         async: false,
         data:{questionCollectType:questionCollectType},
         success: function (data) {
+            console.log(data);
             $("#questionType1").html("");
             $.each(data.data, function(index, optiondata) {
                 var coefxHtml = '';
@@ -542,16 +543,22 @@ function submitQualityCollectionQuestion1(collectId) {
     }
 }
 
+function getSelValue() {
+    var value = $("#collectQuestionWorkerSel2").children('option:selected').val();
+    console.log(value);
+}
+
 function submitQualityCollectionQuestion2(collectId) {
     var qeustionType = $("#questionType3 > tr");
     // console.log(qeustionType);
     for(var i = 0; i < qeustionType.length; i++) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
-        var userId = $('#collectQuestionWorkerSel2').children('option:selected').val();
-        console.log(userId);
+        var userselid=""
         var questionType = 3;
         // var userId =  infoTh[2];
+        var userId = $("#collectQuestionWorkerSel2").children('option:selected').val();
+        // console.log(userId);
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -578,7 +585,9 @@ function submitQualityCollectionQuestion3(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 4;
-        var userId = $('#collectQuestionWorkerSel3').children('option:selected').val();
+        var userId =  infoTh[2];
+        userId = $("#collectQuestionWorkerSel3").children('option:selected').val();
+        // console.log(userId);
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -605,7 +614,9 @@ function submitQualityCollectionQuestion4(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 5;
-        var userId = $('#collectQuestionWorkerSel4').children('option:selected').val();
+        var userId =  infoTh[2];
+        userId = $("#collectQuestionWorkerSel4").children('option:selected').val();
+        // console.log(userId);
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -632,7 +643,9 @@ function submitQualityCollectionQuestion5(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 6;
-        var userId = $('#collectQuestionWorkerSel5').children('option:selected').val();
+        // var userId =  infoTh[2];
+        var userId = $("#collectQuestionWorkerSel5").children('option:selected').val();
+        // console.log(userId);
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -658,7 +671,7 @@ function addOrUpdateUserInfo(userId,collectId) {
     var productId=$('#productNameSel').children('option:selected').val();
     var rankId = $('#levelNameSel').children('option:selected').val();
     var quantity = $("#userQuantityInp").val();
-    console.log("collectId：==>"+collectId);
+    // console.log("collectId：==>"+collectId);
     $.ajax({
         type:"POST",
         url: "/quality/collect/addOrUpdate",
@@ -729,7 +742,7 @@ function get_user_category(category) {
         async: false,
         data:{category:category},
         success: function (data) {
-            // console.log(data);
+            console.log(data);
             rData = data.data;
         }
     })
@@ -767,11 +780,15 @@ function updateCollection(workerId,collectId) {
     $("#userQuantityInp").val(rData.quantity);
     var questionData = rData.qualityTypeVoList;
     for(var i=0; i < questionData.length; i++) {
-        var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+questionData[i].workerId;
+        console.log(questionData[i]);
+        var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+questionData[i].questionType;
+        console.log("questionID:"+questionID);
         // console.log($("#"+questionID+"").next().next().children());
+        console.log(questionData[i].questionQuantity);
         $("#"+questionID+"").next().children().val(questionData[i].questionQuantity);
         $("#"+questionID+"").next().next().children().val(questionData[i].coefficient);
         var newQID = questionID+"-"+questionData[i].id;
+        console.log("newQID:"+newQID);
         $("#"+questionID+"").attr('id',newQID);
         var num = questionData[i].questionType - 1;
         $("#collectQuestionWorkerSel"+num+" option:contains("+questionData[i].questionWorkerName+")").attr("selected", true);
@@ -812,8 +829,9 @@ function updatesubmitQualityCollectionQuestion2(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 3;
-        var userId = $('#collectQuestionWorkerSel2').children('option:selected').val();
+        var userId =  infoTh[2];
         var id = infoTh[3];
+        userId = $("#collectQuestionWorkerSel2").children('option:selected').val();
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -840,8 +858,9 @@ function updatesubmitQualityCollectionQuestion3(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 4;
-        var userId = $('#collectQuestionWorkerSel3').children('option:selected').val();
+        var userId =  infoTh[2];
         var id = infoTh[3];
+        userId = $("#collectQuestionWorkerSel3").children('option:selected').val();
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -869,7 +888,8 @@ function updatesubmitQualityCollectionQuestion4(collectId) {
         //需要输入的信息
         var questionType = 5;
         var userId =  infoTh[2];
-        var userId = $('#collectQuestionWorkerSel4').children('option:selected').val();
+        var id = infoTh[3];
+        userId = $("#collectQuestionWorkerSel4").children('option:selected').val();
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
@@ -896,8 +916,9 @@ function updatesubmitQualityCollectionQuestion5(collectId) {
         var infoTh = $(qeustionType[i].children[0]).attr("id").split("-");
         //需要输入的信息
         var questionType = 6;
-        var userId = $('#collectQuestionWorkerSel5').children('option:selected').val();
+        var userId =  infoTh[2];
         var id = infoTh[3];
+        userId = $("#collectQuestionWorkerSel5").children('option:selected').val();
         var collectType = $(qeustionType[i].children[2]).attr("class").split("-")[1];
         var questionId = infoTh[1];
         var questionName = $(qeustionType[i].children[0]).text();
