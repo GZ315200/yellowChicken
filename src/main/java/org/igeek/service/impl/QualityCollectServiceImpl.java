@@ -309,7 +309,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                 qualityVo.setQualityIdName(quality.getTitle());
                 qualityVo.setCollectType(quality.getQuestionType());
                 qualityVo.setQualityId(quality.getId());
-                qualityVo.setQuestionType(quality.getUserId());
+                qualityVo.setWorkerId(quality.getUserId());
                 qualityVoList.add(qualityVo);
             }
             return ServerResponse.createBySuccess("获取质量问题列表成功", qualityVoList);

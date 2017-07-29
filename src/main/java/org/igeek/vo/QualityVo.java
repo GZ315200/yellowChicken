@@ -15,7 +15,8 @@ public class QualityVo {
     private Integer collectType;//(1:扣款，2：扣系数)
     private BigDecimal amount;
     private Integer workerType;
-    private Integer questionType;
+    private Integer workerId;
+
     private String description;
     private String qualityIdName;
 
@@ -88,11 +89,11 @@ public class QualityVo {
         this.qualityIdName = qualityIdName;
     }
 
-    public Integer getQuestionType() {
-        return questionType;
+    public Integer getWorkerId() {
+        return workerId;
     }
 
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
     }
 }
