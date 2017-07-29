@@ -200,7 +200,6 @@ public class QualityCollectController {
 
     /**
      * 获得窑炉信息列表
-     *
      * @param status
      * @return 调通
      */
@@ -220,7 +219,6 @@ public class QualityCollectController {
 
     /**
      * 获得等级标题
-     *
      * @param status 已调通
      * @return
      */
@@ -238,7 +236,6 @@ public class QualityCollectController {
 
     /**
      * 获取工种信息列表
-     *
      * @param category 输入员工类别（如：成型工=1）
      * @return 已经调通
      */

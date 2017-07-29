@@ -272,7 +272,6 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
 
     /**
      * 获取用户产品信息
-     *
      * @param status   状态值
      * @param workerId 工人id
      * @param orgId    组织结构id
@@ -300,6 +299,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
     }
 
 
+
     public ServerResponse getQualityCategoryList(Integer status, Integer questionCollectType, Integer orgId) {
         List<Quality> qualityList = qualityMapper.selectAllQualityQuestion(status, questionCollectType, orgId);
         List<QualityVo> qualityVoList = Lists.newArrayList();
@@ -309,7 +309,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
                 qualityVo.setQualityIdName(quality.getTitle());
                 qualityVo.setCollectType(quality.getQuestionType());
                 qualityVo.setQualityId(quality.getId());
-                qualityVo.setWorkerId(quality.getUserId());
+                qualityVo.setQuestionType(quality.getQuestionType());
                 qualityVoList.add(qualityVo);
             }
             return ServerResponse.createBySuccess("获取质量问题列表成功", qualityVoList);

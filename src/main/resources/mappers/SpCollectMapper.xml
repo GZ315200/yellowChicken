@@ -28,6 +28,10 @@
     pro_code, pro_title, pro_cate_id, pro_cate_title, count, beizhu, status, created, 
     modified
   </sql>
+  <sql id="distinct_list">
+    org_id, user_id, user_code, user_name, pro_id,
+    pro_code
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -249,7 +253,7 @@
   </update>
 
   <select id="getSpCollectList" parameterType="map" resultMap="BaseResultMap">
-    select distinct <include refid="Base_Column_List" />
+    select <include refid="Base_Column_List" />
     from mj_shpeicaiji
     where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
     <if test="workerId != null">

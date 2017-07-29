@@ -118,7 +118,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="selectByKilnName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="selectByKilnName" parameterType="map" resultType="int">
     SELECT count(1) from mj_yaolu_category where title = #{kilnName} and status = 1
     and org_id = #{orgId}
   </select>
