@@ -205,7 +205,7 @@ public class QualityCollectServiceImpl implements IQualityCollectService {
      */
     public ServerResponse getCollectUserList(Integer categoryType, Integer orgId) {
         List<UserVo> list = Lists.newArrayList();
-        SpCollect spCollect = new SpCollect();
+        PCollect spCollect = new PCollect();
         if (categoryType != null) {
             List<User> userList = userMapper.getUserCategoryList(categoryType, orgId);
             if (userList.size() > 0) {
