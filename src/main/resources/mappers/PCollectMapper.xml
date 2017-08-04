@@ -218,8 +218,9 @@
     </if>
   </select>
 
-  <select id="selectSpCollectByProductId" parameterType="map" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" />
+  <select id="selectSpCollectByProductId" parameterType="map" resultMap="pcCollect">
+    select distinct
+    pro_code,pro_id,user_name,user_id
     from mj_peicaiji
     where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
     and pro_id = #{proId,jdbcType=INTEGER}

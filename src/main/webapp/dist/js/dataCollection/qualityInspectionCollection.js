@@ -683,7 +683,7 @@ function addOrUpdateUserInfo(userId,collectId) {
             // console.log(data);
         }
     })
-    
+
 }
 
 function updateAddOrUpdateUserInfo(id,userId,collectId) {
@@ -765,6 +765,7 @@ function get_user_category(category) {
 // }
 function updateCollection(workerId,collectId) {
     var rData = [];
+    var questionData = [];
     $.ajax({
         type:"GET",
         url: "/quality/collect/get_quality_collect_detail/"+workerId+"/"+collectId,
@@ -778,7 +779,7 @@ function updateCollection(workerId,collectId) {
     $("#productNameSel option:contains("+rData.productCode+")").attr("selected", true);
     $("#levelNameSel option:contains("+rData.rankName+")").attr("selected", true);
     $("#userQuantityInp").val(rData.quantity);
-    var questionData = rData.qualityTypeVoList;
+    questionData = rData.qualityTypeVoList;
     for(var i=0; i < questionData.length; i++) {
         console.log(questionData[i]);
         var questionID= "questionType"+questionData[i].questionType+"-"+questionData[i].questionId+"-"+questionData[i].questionType;
