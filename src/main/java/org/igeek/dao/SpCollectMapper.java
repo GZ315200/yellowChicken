@@ -14,15 +14,15 @@ public interface SpCollectMapper {
 
     SpCollect selectByPrimaryKey(Integer id);
 
-    List<SpCollect> selectByProductId(@Param("productId") Integer productId,
-                                @Param("workerId") Integer workerId,@Param("orgId") Integer orgId);
-
     int updateByPrimaryKeySelective(SpCollect record);
 
     int updateByPrimaryKey(SpCollect record);
 
     SpCollect selectSpCollectByProductId(@Param("orgId") Integer orgId,@Param("proId")Integer proId,
                                          @Param("workerId") Integer workerId);
+
+    List<SpCollect> selectByProductId(@Param("productId") Integer productId,
+                                      @Param("workerId") Integer workerId,@Param("orgId") Integer orgId);
 
     List<SpCollect> getSpCollectList(@Param("status") Integer status,
                                      @Param("workerId") Integer workerId,

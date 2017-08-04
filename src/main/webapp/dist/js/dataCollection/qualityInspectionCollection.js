@@ -33,7 +33,7 @@ function get7DayFormatDate() {
     var date = new Date();
     var seperator1 = "-";
     var month = date.getMonth() + 1;
-    var strDate = date.getDate()-7;
+    var strDate = date.getDate();
     if (month >= 1 && month <= 9) {
         month = "0" + month;
     }
@@ -271,7 +271,7 @@ function initQualityCollectForm(workerId,workerCode) {
             returnData = data.data;
             $.each(data.data, function(index, optiondata) {
                 $("#collectWorkerName").val(optiondata.workerName);
-                $("#productNameSel").append('<option value="'+optiondata.productId+'">' + optiondata.productDetail + '</option>')
+                $("#productNameSel").append('<option value="'+optiondata.productId+'">' + optiondata.productDetail+ '</option>')
             });
         }
     })
@@ -390,7 +390,7 @@ function get_quality_category_questionType2() {
     var workerSel = get_user_category(3);
     $.each(workerSel, function(index, optiondata) {
         console.log(optiondata);
-        $("#collectQuestionWorkerSel2").append('<option value="'+optiondata.id+'">' + optiondata.name + '</option>')
+        $("#collectQuestionWorkerSel2").append('<option value="'+optiondata.id+'">' + optiondata.numstr + '-' + optiondata.name + '</option>')
     });
 }
 
@@ -432,7 +432,7 @@ function get_quality_category_questionType3() {
     })
     var workerSel = get_user_category(4);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel3").append('<option value="'+optiondata.id+'">' + optiondata.name + '</option>')
+        $("#collectQuestionWorkerSel3").append('<option value="'+optiondata.id+'">'+ optiondata.numstr + '-' + optiondata.name + '</option>')
     });
 }
 
@@ -472,7 +472,7 @@ function get_quality_category_questionType4() {
     })
     var workerSel = get_user_category(5);
     $.each(workerSel, function(index, optiondata) {
-        $("#collectQuestionWorkerSel4").append('<option value="'+optiondata.id+'">' + optiondata.name + '</option>')
+        $("#collectQuestionWorkerSel4").append('<option value="'+optiondata.id+'">'+ optiondata.numstr + '-' + optiondata.name + '</option>')
     });
 }
 

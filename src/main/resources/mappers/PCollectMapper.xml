@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.igeek.dao.PCollectMapper">
+  <resultMap id="BaseResultMap" type="org.igeek.pojo.PCollect">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="org_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="count_ok" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="count_error" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="beizhu" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="created" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="modified" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  
+  <resultMap id="pcCollect" type="org.igeek.pojo.PCollect">
+    <result column="pro_id" property="proId" />
+    <result column="user_id" property="userId" />
+    <result column="user_name" property="userName" />
+    <result column="pro_code" property="proCode" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, org_id, user_id, user_code, user_name, pro_id, pro_code, pro_title, count_ok, 
+    count_error, beizhu, status, created, modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mj_peicaiji
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mj_peicaiji
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.igeek.pojo.PCollect">
+    insert into mj_peicaiji (id, org_id, user_id, 
+      user_code, user_name, pro_id, 
+      pro_code, pro_title, count_ok, 
+      count_error, beizhu, status, 
+      created, modified)
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{proId,jdbcType=INTEGER}, 
+      #{proCode,jdbcType=VARCHAR}, #{proTitle,jdbcType=VARCHAR}, #{countOk,jdbcType=REAL}, 
+      #{countError,jdbcType=REAL}, #{beizhu,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{modified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.igeek.pojo.PCollect">
+    insert into mj_peicaiji
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="proId != null">
+        pro_id,
+      </if>
+      <if test="proCode != null">
+        pro_code,
+      </if>
+      <if test="proTitle != null">
+        pro_title,
+      </if>
+      <if test="countOk != null">
+        count_ok,
+      </if>
+      <if test="countError != null">
+        count_error,
+      </if>
+      <if test="beizhu != null">
+        beizhu,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="modified != null">
+        modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="proCode != null">
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proTitle != null">
+        #{proTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="countOk != null">
+        #{countOk,jdbcType=REAL},
+      </if>
+      <if test="countError != null">
+        #{countError,jdbcType=REAL},
+      </if>
+      <if test="beizhu != null">
+        #{beizhu,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        #{modified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.igeek.pojo.PCollect">
+    update mj_peicaiji
+    <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="proCode != null">
+        pro_code = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proTitle != null">
+        pro_title = #{proTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="countOk != null">
+        count_ok = #{countOk,jdbcType=REAL},
+      </if>
+      <if test="countError != null">
+        count_error = #{countError,jdbcType=REAL},
+      </if>
+      <if test="beizhu != null">
+        beizhu = #{beizhu,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modified != null">
+        modified = #{modified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.igeek.pojo.PCollect">
+    update mj_peicaiji
+    set org_id = #{orgId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=INTEGER},
+      pro_code = #{proCode,jdbcType=VARCHAR},
+      pro_title = #{proTitle,jdbcType=VARCHAR},
+      count_ok = #{countOk,jdbcType=REAL},
+      count_error = #{countError,jdbcType=REAL},
+      beizhu = #{beizhu,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      modified = #{modified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getSpCollectList" parameterType="map" resultMap="pcCollect">
+    select distinct
+    pro_code,pro_id,user_name,user_id
+    from mj_peicaiji
+    where status = #{status} and org_id = #{orgId,jdbcType=INTEGER}
+    <if test="workerId != null">
+      and user_id = #{workerId}
+    </if>
+  </select>
+
+  <select id="selectSpCollectByProductId" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from mj_peicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and pro_id = #{proId,jdbcType=INTEGER}
+    and user_id = #{workerId}
+  </select>
+
+  <select id="getSpCollectInfo" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from mj_peicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and user_id = #{workerId}
+  </select>
+
+  <select id="selectByProductId" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from mj_peicaiji
+    where status = 1 and org_id = #{orgId,jdbcType=INTEGER}
+    and user_id = #{workerId}
+    and  pro_id = #{productId}
+  </select>
+
+</mapper>

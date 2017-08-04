@@ -14,7 +14,6 @@ function loadQualityIssuesInfoAdditionModifyPage(id,title,questionType,money,use
         $("#chargeAmount").val(money);
         $("#qualityDesc").val(remark);
         qualityIssuesUpdateMenu(id);
-
     })
 }
 
@@ -146,6 +145,8 @@ function getQualityList() {
                     case 10:
                         var workerTyp="管理人员";
                         break;
+                    default:
+                        break;
                 }
                 var num = index + 1;
                 var tableHtml =
@@ -248,7 +249,6 @@ function questionTypeSelControl() {
         chargeAmount.show();
     } else {
         chargeAmount.hide();
-
     }
 }
 
